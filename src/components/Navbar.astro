@@ -1,18 +1,17 @@
 ---
-const base = import.meta.env.BASE_URL;
 const currentPath = Astro.url.pathname;
 const links = [
-  { href: base, label: '首頁' },
-  { href: `${base}products/`, label: '產品' },
-  { href: `${base}institute/`, label: '研訓院' },
-  { href: `${base}consulting/`, label: '顧問服務' },
-  { href: `${base}about/`, label: '關於我們' },
+  { href: '/', label: '首頁' },
+  { href: '/products/', label: '產品' },
+  { href: '/institute/', label: '研訓院' },
+  { href: '/consulting/', label: '顧問服務' },
+  { href: '/about/', label: '關於我們' },
 ];
 ---
 
 <nav id="navbar">
   <div class="nav-inner container">
-    <a href={base} class="nav-logo">
+    <a href="/" class="nav-logo">
       <span class="logo-text">AI TalenTech Labs</span>
     </a>
     <button class="mobile-toggle" id="menuToggle" aria-label="Toggle menu">
@@ -24,7 +23,7 @@ const links = [
           {link.label}
         </a>
       ))}
-      <a href={`${base}contact/`} class="nav-cta">聯絡我們</a>
+      <a href="/contact/" class="nav-cta">聯絡我們</a>
     </div>
   </div>
 </nav>
