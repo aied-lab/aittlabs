@@ -1,0 +1,127 @@
+---
+const currentPath = Astro.url.pathname;
+const links = [
+  { href: '/', label: '首頁' },
+  { href: '/products/', label: '產品' },
+  { href: '/institute/', label: '研訓院' },
+  { href: '/consulting/', label: '顧問服務' },
+  { href: '/about/', label: '關於我們' },
+];
+---
+
+<nav id="navbar">
+  <div class="nav-inner container">
+    <a href="/" class="nav-logo">
+      <span class="logo-text">AI TalenTech Labs</span>
+    </a>
+    <button class="mobile-toggle" id="menuToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      {links.map(link => (
+        <a href={link.href} class:list={[{ active: currentPath === link.href }]}>
+          {link.label}
+        </a>
+      ))}
+      <a href="/contact/" class="nav-cta">聯絡我們</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1rem 0;
+    background: rgba(11, 17, 32, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .logo-text {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    background: linear-gradient(135deg, var(--accent-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+  .nav-links a {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+    letter-spacing: 0.01em;
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--accent-light);
+  }
+  .nav-cta {
+    background: var(--accent) !important;
+    color: #fff !important;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: var(--radius-sm) !important;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover {
+    background: var(--accent-light) !important;
+    transform: translateY(-1px);
+  }
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .mobile-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  @media (max-width: 768px) {
+    .mobile-toggle { display: flex; }
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(11, 17, 32, 0.97);
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+    }
+    .nav-links.open { display: flex; }
+  }
+</style>
+
+<script>
+  document.getElementById('menuToggle')?.addEventListener('click', () => {
+    document.getElementById('navLinks')?.classList.toggle('open');
+  });
+</script>

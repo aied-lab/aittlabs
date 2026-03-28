@@ -1,0 +1,223 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="關於我們">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">About</span>
+      <h1>關於 <span class="highlight">AI TalenTech Labs</span></h1>
+      <p>我們相信，AI 時代最關鍵的競爭力不是技術本身，而是懂得運用 AI 的人才。</p>
+    </div>
+  </section>
+
+  <section class="founder-section">
+    <div class="container">
+      <div class="founder-grid">
+        <div class="founder-visual">
+          <div class="founder-photo-placeholder">
+            <span>創辦人照片</span>
+          </div>
+          <div class="founder-tags">
+            <span class="f-tag">AI Strategy</span>
+            <span class="f-tag">Enterprise Transformation</span>
+            <span class="f-tag">Gov AI Talent</span>
+            <span class="f-tag">Systems Thinking</span>
+          </div>
+        </div>
+        <div class="founder-info">
+          <span class="section-label">Founder</span>
+          <h2>廖肇弘 博士</h2>
+          <h3>Dr. John Liao</h3>
+          <div class="founder-titles">
+            <p>AI TalenTech Labs 創辦人</p>
+            <p>AI 人才科技研訓院 院長</p>
+            <p>智園科技 首席 AI 科學家</p>
+            <p>TAIGTO 執行長</p>
+          </div>
+          <div class="founder-bio">
+            <p>擁有超過二十年的 AI 策略與人才發展經驗，曾任工業技術研究院（ITRI）資深研究員，長期投入政府 AI 人才培育政策規劃與執行，累計培訓數千名政府及企業 AI 人才。</p>
+            <p>專精於系統思考方法論、企業 AI 轉型策略、以及 AI 模擬教練系統的研發。致力於以「人才科技」（TalenTech）的創新理念，打造 AI 時代的人才發展新典範。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="card mission-card">
+          <h3>使命 Mission</h3>
+          <p>以 AI 科技賦能人才發展，讓每一個組織都能培養出駕馭 AI 的未來人才。</p>
+        </div>
+        <div class="card mission-card">
+          <h3>願景 Vision</h3>
+          <p>成為亞太地區最具影響力的 AI 人才科技研究與應用機構。</p>
+        </div>
+        <div class="card mission-card">
+          <h3>價值 Values</h3>
+          <p>創新驅動、以人為本、系統思維、知行合一。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline-section">
+    <div class="container">
+      <span class="section-label">Milestones</span>
+      <h2 class="section-title">發展歷程</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-year">2025</span>
+          <div class="timeline-content">
+            <h4>AI TalenTech Labs 正式成立</h4>
+            <p>整合多年研究與實務經驗，創立 AI 人才科技實驗室，同步推出 AI 模擬教練產品系列。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2024</span>
+          <div class="timeline-content">
+            <h4>iCoach AI 系統 POC 部署</h4>
+            <p>於行政院人事行政總處、環境部等政府機關完成概念驗證部署，獲得高度肯定。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2020-2024</span>
+          <div class="timeline-content">
+            <h4>TAIGTO 政府 AI 人才培育</h4>
+            <p>擔任台灣 AI 政府人才辦公室執行長，推動大規模公務人員 AI 素養培訓計畫。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2015-2020</span>
+          <div class="timeline-content">
+            <h4>ITRI 資深研究員</h4>
+            <p>於工業技術研究院從事 AI 應用研究，建立企業 AI 成熟度評估框架。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .founder-section {
+    background: var(--surface);
+  }
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .founder-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .founder-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  .f-tag {
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    background: var(--accent-glow);
+    color: var(--accent-light);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+  }
+  .founder-info h2 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-top: 0.5rem;
+  }
+  .founder-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--accent-light);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .founder-titles p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    padding: 0.2rem 0;
+  }
+  .founder-bio {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+  .founder-bio p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .mission-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .mission-card p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .timeline-section {
+    background: var(--surface);
+  }
+  .timeline {
+    margin-top: 1rem;
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-year {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-light);
+  }
+  .timeline-content h4 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-content p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  @media (max-width: 768px) {
+    .founder-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .mission-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 80px 1fr; gap: 1rem; }
+  }
+</style>

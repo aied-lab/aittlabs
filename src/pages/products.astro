@@ -1,0 +1,164 @@
+---
+import Base from '../layouts/Base.astro';
+
+const products = [
+  {
+    name: 'AI Interviewer',
+    nameZh: 'AI 面試官',
+    desc: '模擬真實面試場景的 AI 系統，支援多輪對話、即時評估與詳細回饋報告。適用於求職者面試準備、企業 HR 篩選流程優化、以及公務人員甄選模擬。',
+    features: ['多輪深度追問', '即時表情與語調分析', '客製化評分標準', '詳細評估報告輸出'],
+    tag: 'Recruitment',
+    color: 'tag-product',
+  },
+  {
+    name: 'iCoach360',
+    nameZh: '高擬真情境模擬教練',
+    desc: '360 度沉浸式情境模擬系統，將真實工作場景轉化為 AI 驅動的練習環境。主管可以在安全的模擬環境中反覆練習高難度對話、危機處理、跨部門協調等情境。',
+    features: ['多角色情境扮演', '即時教練回饋', '能力雷達圖分析', '客製化企業情境'],
+    tag: 'Leadership',
+    color: 'tag-product',
+  },
+  {
+    name: 'PPTutor',
+    nameZh: '簡報提案模擬教練',
+    desc: 'AI 模擬審查委員與評審團，針對你的簡報內容進行即時提問、挑戰與回饋。無論是政府標案提案、董事會報告、或是創業 Pitch，都能在上場前充分準備。',
+    features: ['AI 模擬多位評審', '針對內容邏輯追問', '簡報結構建議', '限時壓力模擬'],
+    tag: 'Presentation',
+    color: 'tag-product',
+  },
+];
+---
+
+<Base title="產品">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Products</span>
+      <h1>AI 模擬教練<span class="highlight">產品系列</span></h1>
+      <p>以生成式 AI 驅動的高擬真模擬教練，涵蓋面試、領導力訓練、簡報提案三大場景，讓每一次練習都像真實上場。</p>
+    </div>
+  </section>
+
+  <section class="products-detail">
+    <div class="container">
+      {products.map((product, i) => (
+        <div class:list={['product-row', { reverse: i % 2 === 1 }]}>
+          <div class="product-info">
+            <span class={`tag ${product.color}`}>{product.tag}</span>
+            <h2>{product.name}</h2>
+            <h3>{product.nameZh}</h3>
+            <p>{product.desc}</p>
+            <ul class="feature-list">
+              {product.features.map(f => (
+                <li>{f}</li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-primary">預約 Demo →</a>
+          </div>
+          <div class="product-visual">
+            <div class="visual-placeholder">
+              <span class="visual-icon">{product.name.charAt(0)}</span>
+              <span class="visual-label">{product.name}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .products-detail {
+    padding-bottom: 4rem;
+  }
+  .product-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .product-row:last-child { border-bottom: none; }
+  .product-row.reverse { direction: rtl; }
+  .product-row.reverse > * { direction: ltr; }
+  .product-info { display: flex; flex-direction: column; gap: 0.75rem; }
+  .product-info h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .product-info h3 {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+  .product-info p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .feature-list li {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .feature-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--accent-light);
+    font-size: 0.7rem;
+    top: 0.2rem;
+  }
+  .product-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .visual-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .visual-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius);
+    background: var(--accent-glow);
+    color: var(--accent-light);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .visual-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  @media (max-width: 768px) {
+    .product-row {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .product-row.reverse { direction: ltr; }
+  }
+</style>

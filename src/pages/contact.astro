@@ -1,0 +1,192 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="聯絡我們">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Contact</span>
+      <h1>與我們<span class="highlight">聯繫</span></h1>
+      <p>無論是產品諮詢、培訓合作、或是顧問服務需求，歡迎與我們聯繫，我們將盡速回覆。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>聯絡方式</h3>
+          <div class="contact-methods">
+            <a href="mailto:service@attlabs.org" class="contact-item">
+              <span class="ci-icon">✉</span>
+              <div>
+                <span class="ci-label">Email</span>
+                <span class="ci-value">service@attlabs.org</span>
+              </div>
+            </a>
+            <a href="https://aitti.online" target="_blank" class="contact-item">
+              <span class="ci-icon">🎓</span>
+              <div>
+                <span class="ci-label">課程平台</span>
+                <span class="ci-value">aitti.online</span>
+              </div>
+            </a>
+            <a href="https://substack.com/@johnliontw" target="_blank" class="contact-item">
+              <span class="ci-icon">📰</span>
+              <div>
+                <span class="ci-label">Substack</span>
+                <span class="ci-value">@johnliontw</span>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/@johnliontw" target="_blank" class="contact-item">
+              <span class="ci-icon">▶</span>
+              <div>
+                <span class="ci-label">YouTube</span>
+                <span class="ci-value">@johnliontw</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="office-info">
+            <h4>服務據點</h4>
+            <p>台灣 台北市</p>
+          </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">姓名</label>
+              <input type="text" id="name" name="name" placeholder="您的姓名" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="org">公司 / 機關</label>
+              <input type="text" id="org" name="org" placeholder="您的組織名稱" />
+            </div>
+            <div class="form-group">
+              <label for="interest">感興趣的服務</label>
+              <select id="interest" name="interest">
+                <option value="">請選擇</option>
+                <option value="products">AI 模擬教練產品</option>
+                <option value="institute">培訓課程合作</option>
+                <option value="consulting">顧問服務</option>
+                <option value="other">其他</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">訊息內容</label>
+              <textarea id="message" name="message" placeholder="請簡述您的需求..." rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">送出諮詢</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+  }
+  .contact-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .contact-item:hover {
+    border-color: var(--accent);
+  }
+  .ci-icon { font-size: 1.25rem; }
+  .ci-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.15rem;
+  }
+  .ci-value {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .office-info h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .office-info p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
+  .contact-form-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+  }
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  .form-group label {
+    display: block;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--primary);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--accent);
+  }
+  .form-group textarea { resize: vertical; }
+  .form-group select option { background: var(--surface); }
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

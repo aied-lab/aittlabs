@@ -1,0 +1,115 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo">AI TalenTech Labs</span>
+        <p>AI 人才科技實驗室<br>用 AI 重新定義人才發展與組織轉型</p>
+      </div>
+      <div class="footer-col">
+        <h4>產品</h4>
+        <a href="/products/">AI Interviewer</a>
+        <a href="/products/">iCoach360</a>
+        <a href="/products/">PPTutor</a>
+      </div>
+      <div class="footer-col">
+        <h4>服務</h4>
+        <a href="/institute/">AI 人才科技研訓院</a>
+        <a href="/consulting/">顧問服務</a>
+        <a href="/consulting/">Systemaster</a>
+        <a href="/consulting/">FlowMaster</a>
+      </div>
+      <div class="footer-col">
+        <h4>連結</h4>
+        <a href="/about/">關於我們</a>
+        <a href="/contact/">聯絡我們</a>
+        <a href="https://aitti.online" target="_blank">課程平台</a>
+        <a href="https://substack.com/@johnliontw" target="_blank">Substack</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {year} AI TalenTech Labs. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="https://www.youtube.com/@johnliontw" target="_blank" aria-label="YouTube">YT</a>
+        <a href="https://substack.com/@johnliontw" target="_blank" aria-label="Substack">SS</a>
+        <a href="mailto:service@attlabs.org" aria-label="Email">Email</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 4rem 0 2rem;
+    background: var(--primary);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, var(--accent-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .footer-brand p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .footer-col a {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--accent-light); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-bottom p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+  }
+  .footer-social a {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .footer-social a:hover { color: var(--accent-light); }
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>

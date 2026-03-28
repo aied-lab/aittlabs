@@ -1,0 +1,171 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="AI 人才科技研訓院">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">AI TalenTech Institute</span>
+      <h1>AI 人才科技<span class="highlight">研訓院</span></h1>
+      <p>系統化的 AI 人才培訓方案，從 AI 素養到 AI 實戰應用，為政府機關與企業組織培養具備 AI 思維的未來人才。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="institute-grid">
+        <div class="card program-card">
+          <span class="tag tag-institute">Foundation</span>
+          <h3>AI 素養培訓</h3>
+          <p>從零開始建立 AI 基礎認知，了解生成式 AI 的原理、應用場景與限制，培養全員 AI 基本素養。</p>
+          <ul>
+            <li>生成式 AI 原理與應用</li>
+            <li>Prompt Engineering 實戰</li>
+            <li>AI 倫理與治理框架</li>
+          </ul>
+        </div>
+        <div class="card program-card">
+          <span class="tag tag-institute">Advanced</span>
+          <h3>AI 應用實戰</h3>
+          <p>針對特定職能的 AI 工具應用培訓，讓學員能在日常工作中有效運用 AI 提升效率與決策品質。</p>
+          <ul>
+            <li>AI Agent 開發實戰</li>
+            <li>AI 驅動的數據分析</li>
+            <li>AI 輔助專案管理</li>
+          </ul>
+        </div>
+        <div class="card program-card">
+          <span class="tag tag-institute">Leadership</span>
+          <h3>AI 領導力</h3>
+          <p>為中高階主管設計的 AI 策略課程，學習如何帶領組織進行 AI 轉型，制定 AI 人才發展策略。</p>
+          <ul>
+            <li>AI 轉型策略規劃</li>
+            <li>AI 時代的領導力模型</li>
+            <li>組織 AI 成熟度評估</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="institute-cta">
+        <div class="cta-inner">
+          <div>
+            <h3>探索完整課程目錄</h3>
+            <p>前往 AI 人才科技研訓院線上學習平台，瀏覽所有課程與培訓方案。</p>
+          </div>
+          <a href="https://aitti.online" target="_blank" class="btn btn-primary">前往課程平台 →</a>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-num">5,000+</span>
+          <span class="stat-label">累計培訓學員</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">50+</span>
+          <span class="stat-label">政府及企業客戶</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100+</span>
+          <span class="stat-label">培訓場次</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">4.8</span>
+          <span class="stat-label">平均滿意度</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .institute-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .program-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .program-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .program-card p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  .program-card ul {
+    list-style: none;
+    margin-top: 0.5rem;
+  }
+  .program-card ul li {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    padding: 0.35rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .program-card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-size: 0.8rem;
+  }
+  .institute-cta {
+    margin-bottom: 4rem;
+  }
+  .cta-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .cta-inner h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .cta-inner p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-light), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+  }
+  .stat-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .institute-grid { grid-template-columns: 1fr; }
+    .cta-inner { flex-direction: column; text-align: center; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
