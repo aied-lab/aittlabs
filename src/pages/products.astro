@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+const base = import.meta.env.BASE_URL;
 
 const products = [
   {
@@ -52,7 +53,7 @@ const products = [
                 <li>{f}</li>
               ))}
             </ul>
-            <a href="/contact/" class="btn btn-primary">預約 Demo →</a>
+            <a href={`${base}contact/`} class="btn btn-primary">預約 Demo →</a>
           </div>
           <div class="product-visual">
             <div class="visual-placeholder">

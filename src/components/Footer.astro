@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 ---
 
@@ -11,21 +12,21 @@ const year = new Date().getFullYear();
       </div>
       <div class="footer-col">
         <h4>產品</h4>
-        <a href="/products/">AI Interviewer</a>
-        <a href="/products/">iCoach360</a>
-        <a href="/products/">PPTutor</a>
+        <a href={`${base}products/`}>AI Interviewer</a>
+        <a href={`${base}products/`}>iCoach360</a>
+        <a href={`${base}products/`}>PPTutor</a>
       </div>
       <div class="footer-col">
         <h4>服務</h4>
-        <a href="/institute/">AI 人才科技研訓院</a>
-        <a href="/consulting/">顧問服務</a>
-        <a href="/consulting/">Systemaster</a>
-        <a href="/consulting/">FlowMaster</a>
+        <a href={`${base}institute/`}>AI 人才科技研訓院</a>
+        <a href={`${base}consulting/`}>顧問服務</a>
+        <a href={`${base}consulting/`}>Systemaster</a>
+        <a href={`${base}consulting/`}>FlowMaster</a>
       </div>
       <div class="footer-col">
         <h4>連結</h4>
-        <a href="/about/">關於我們</a>
-        <a href="/contact/">聯絡我們</a>
+        <a href={`${base}about/`}>關於我們</a>
+        <a href={`${base}contact/`}>聯絡我們</a>
         <a href="https://aitti.online" target="_blank">課程平台</a>
         <a href="https://substack.com/@johnliontw" target="_blank">Substack</a>
       </div>
