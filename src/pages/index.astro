@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <Base title="首頁">
@@ -19,8 +20,8 @@ import Base from '../layouts/Base.astro';
           AI TalenTech Labs 致力於 AI 人才科技的研究與應用，透過自主研發的 AI 模擬教練系統與顧問方法論，協助政府機關與企業組織打造 AI 時代的核心競爭力。
         </p>
         <div class="hero-buttons">
-          <a href="/products/" class="btn btn-primary">探索產品 →</a>
-          <a href="/contact/" class="btn btn-outline">預約諮詢</a>
+          <a href={`${base}products/`} class="btn btn-primary">探索產品 →</a>
+          <a href={`${base}contact/`} class="btn btn-outline">預約諮詢</a>
         </div>
       </div>
     </div>
@@ -33,19 +34,19 @@ import Base from '../layouts/Base.astro';
       <h2 class="section-title">AI 模擬教練系列</h2>
       <p class="section-desc">以生成式 AI 驅動的高擬真模擬教練，讓每一次練習都像真實場景。</p>
       <div class="products-grid">
-        <a href="/products/" class="card product-card">
+        <a href={`${base}products/`} class="card product-card">
           <span class="tag tag-product">AI Product</span>
           <h3>AI Interviewer</h3>
           <p>AI 面試官 — 模擬真實面試場景，提供即時回饋與評估報告，幫助求職者與 HR 提升面試品質。</p>
           <span class="card-link">了解更多 →</span>
         </a>
-        <a href="/products/" class="card product-card">
+        <a href={`${base}products/`} class="card product-card">
           <span class="tag tag-product">AI Product</span>
           <h3>iCoach360</h3>
           <p>高擬真情境模擬教練 — 360度沉浸式情境模擬，培養主管的決策力、溝通力與領導力。</p>
           <span class="card-link">了解更多 →</span>
         </a>
-        <a href="/products/" class="card product-card">
+        <a href={`${base}products/`} class="card product-card">
           <span class="tag tag-product">AI Product</span>
           <h3>PPTutor</h3>
           <p>簡報提案模擬教練 — AI 模擬審查委員，針對你的簡報內容即時提問與反饋，練出完美提案。</p>
@@ -59,13 +60,13 @@ import Base from '../layouts/Base.astro';
   <section class="services-overview">
     <div class="container">
       <div class="services-row">
-        <a href="/institute/" class="card service-block">
+        <a href={`${base}institute/`} class="card service-block">
           <span class="tag tag-institute">Training</span>
           <h3>AI 人才科技研訓院</h3>
           <p>系統化的 AI 人才培訓方案，涵蓋 AI 素養、AI 應用實戰、AI 領導力等課程，已為數千名政府及企業學員提供培訓。</p>
           <span class="card-link">瀏覽課程 →</span>
         </a>
-        <a href="/consulting/" class="card service-block">
+        <a href={`${base}consulting/`} class="card service-block">
           <span class="tag tag-consulting">Consulting</span>
           <h3>AI 轉型顧問服務</h3>
           <p>運用 Systemaster 系統思考與 FlowMaster 流程優化方法論，為企業與政府機關量身打造 AI 轉型策略與落地方案。</p>
@@ -124,8 +125,8 @@ import Base from '../layouts/Base.astro';
         <h2>準備好開啟 AI 轉型之旅？</h2>
         <p>無論是導入 AI 模擬教練、規劃人才培訓方案、或是啟動組織 AI 轉型策略，我們都能協助你找到最佳路徑。</p>
         <div class="cta-buttons">
-          <a href="/contact/" class="btn btn-primary">預約免費諮詢 →</a>
-          <a href="/products/" class="btn btn-outline">瀏覽產品</a>
+          <a href={`${base}contact/`} class="btn btn-primary">預約免費諮詢 →</a>
+          <a href={`${base}products/`} class="btn btn-outline">瀏覽產品</a>
         </div>
       </div>
     </div>
