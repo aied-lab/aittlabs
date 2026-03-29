@@ -6,10 +6,8 @@ import Base from '../layouts/Base.astro';
   <!-- Hero -->
   <section class="hero">
     <div class="hero-bg">
-      <div class="grid-lines"></div>
-      <div class="glow glow-1"></div>
-      <div class="glow glow-2"></div>
-      <div class="glow glow-3"></div>
+      <img src="/images/aittlabs_banner.jpg" alt="" class="hero-banner" loading="eager" />
+      <div class="hero-overlay"></div>
     </div>
     <div class="container">
       <div class="hero-content">
@@ -210,48 +208,23 @@ import Base from '../layouts/Base.astro';
     inset: 0;
     overflow: hidden;
   }
-  .grid-lines {
+  .hero-banner {
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
-  .glow {
+  .hero-overlay {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-  }
-  .glow-1 {
-    top: -20%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    background: rgba(59, 130, 246, 0.08);
-    animation: float 8s ease-in-out infinite;
-  }
-  .glow-2 {
-    bottom: -20%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
-    background: rgba(245, 158, 11, 0.06);
-    animation: float 10s ease-in-out infinite reverse;
-  }
-  .glow-3 {
-    top: 30%;
-    left: 40%;
-    width: 300px;
-    height: 300px;
-    background: rgba(20, 184, 166, 0.04);
-    animation: float 12s ease-in-out infinite 2s;
-  }
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -20px) scale(1.05); }
-    66% { transform: translate(-20px, 15px) scale(0.95); }
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(11, 17, 32, 0.92) 0%,
+      rgba(11, 17, 32, 0.75) 50%,
+      rgba(11, 17, 32, 0.4) 100%
+    );
   }
   .hero-content {
     max-width: 800px;
