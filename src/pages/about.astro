@@ -107,42 +107,6 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="timeline-section">
-    <div class="container">
-      <span class="section-label">Milestones</span>
-      <h2 class="section-title">發展歷程</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <span class="timeline-year">2025</span>
-          <div class="timeline-content">
-            <h4>AI TalenTech Labs 正式成立</h4>
-            <p>整合多年研究與實務經驗，創立 AI 人才科技實驗室，同步推出 AI 模擬教練產品系列。</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-year">2024</span>
-          <div class="timeline-content">
-            <h4>iCoach AI 系統 POC 部署</h4>
-            <p>於行政院人事行政總處、環境部等政府機關完成概念驗證部署，獲得高度肯定。</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-year">2020-2024</span>
-          <div class="timeline-content">
-            <h4>TAIGTO 政府 AI 人才培育</h4>
-            <p>擔任台灣 AI 政府人才辦公室執行長，推動大規模公務人員 AI 素養培訓計畫。</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-year">2015-2020</span>
-          <div class="timeline-content">
-            <h4>ITRI 資深研究員</h4>
-            <p>於工業技術研究院從事 AI 應用研究，建立企業 AI 成熟度評估框架。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 </Base>
 
 <style>
@@ -297,40 +261,9 @@ import Base from '../layouts/Base.astro';
     line-height: 1.8;
   }
 
-  .timeline-section {
-    background: var(--surface);
-  }
-  .timeline {
-    margin-top: 1rem;
-  }
-  .timeline-item {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 2rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .timeline-item:last-child { border-bottom: none; }
-  .timeline-year {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--accent-light);
-  }
-  .timeline-content h4 {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  .timeline-content p {
-    color: var(--text-dim);
-    font-size: 0.9rem;
-  }
   @media (max-width: 768px) {
     .founder-grid { grid-template-columns: 1fr; gap: 2rem; }
     .founder-stats { grid-template-columns: repeat(2, 1fr); }
     .mission-grid { grid-template-columns: 1fr; }
-    .timeline-item { grid-template-columns: 80px 1fr; gap: 1rem; }
   }
 </style>
