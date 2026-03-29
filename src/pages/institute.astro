@@ -3,10 +3,11 @@ import Base from '../layouts/Base.astro';
 ---
 
 <Base title="AI 人才科技研訓院">
-  <section class="page-hero-banner">
+  <div class="page-banner-wrap">
     <img src="/images/aitti_banner.jpg" alt="AI 人才科技研訓院" class="page-banner" loading="eager" />
-    <div class="page-banner-overlay"></div>
-    <div class="page-banner-content container">
+  </div>
+  <section class="page-hero">
+    <div class="container">
       <span class="section-label">AI TalenTech Institute</span>
       <h1>AI 人才科技<span class="highlight">研訓院</span></h1>
       <p>系統化的 AI 人才培訓方案，從 AI 素養到 AI 實戰應用，為政府機關與企業組織培養具備 AI 思維的未來人才。</p>
@@ -81,52 +82,18 @@ import Base from '../layouts/Base.astro';
 </Base>
 
 <style>
-  .page-hero-banner {
-    position: relative;
+  .page-banner-wrap {
     margin-top: 64px;
-    overflow: hidden;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 2rem;
   }
   .page-banner {
     width: 100%;
     height: auto;
     display: block;
-  }
-  .page-banner-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(11, 17, 32, 1) 0%,
-      rgba(11, 17, 32, 0.8) 30%,
-      rgba(11, 17, 32, 0.2) 70%,
-      transparent 100%
-    );
-  }
-  .page-banner-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    padding-bottom: 3rem;
-    text-align: center;
-  }
-  .page-banner-content h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-  }
-  .page-banner-content p {
-    color: var(--text-dim);
-    font-size: 1.1rem;
-    max-width: 650px;
-    margin: 0 auto;
+    border-radius: var(--radius-lg);
   }
   .institute-grid {
     display: grid;
