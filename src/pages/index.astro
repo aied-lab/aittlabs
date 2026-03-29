@@ -129,6 +129,13 @@ import Base from '../layouts/Base.astro';
           <h4>線上課程</h4>
           <p>AI 人才科技研訓院線上學習平台，實戰課程持續上架中。</p>
         </a>
+        <a href="https://www.patreon.com/c/ai_talentech_labs" target="_blank" class="card channel-card animate-on-scroll">
+          <div class="channel-icon-box icon-patreon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/></svg>
+          </div>
+          <h4>Patreon 會員</h4>
+          <p>加入 AI TalenTech Labs 會員，取得獨家內容與深度分析。</p>
+        </a>
       </div>
     </div>
   </section>
@@ -375,12 +382,16 @@ import Base from '../layouts/Base.astro';
   }
   .channels-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.25rem;
   }
   .channel-icon-box.icon-fb {
     background: rgba(66, 103, 178, 0.12);
     color: #4267B2;
+  }
+  .channel-icon-box.icon-patreon {
+    background: rgba(255, 66, 77, 0.12);
+    color: #FF424D;
   }
   .channel-card {
     display: flex;
