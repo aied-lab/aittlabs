@@ -15,8 +15,8 @@ import Base from '../layouts/Base.astro';
     <div class="container">
       <div class="founder-grid">
         <div class="founder-visual">
-          <div class="founder-photo-placeholder">
-            <span>創辦人照片</span>
+          <div class="founder-photo-about">
+            <img src="/images/founder.jpg" alt="廖肇弘博士 Dr. John Liao" width="530" height="800" loading="lazy" />
           </div>
           <div class="founder-tags">
             <span class="f-tag">AI Strategy</span>
@@ -111,17 +111,17 @@ import Base from '../layouts/Base.astro';
     gap: 4rem;
     align-items: start;
   }
-  .founder-photo-placeholder {
+  .founder-photo-about {
     width: 100%;
-    aspect-ratio: 3/4;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  }
+  .founder-photo-about img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
   .founder-tags {
     display: flex;

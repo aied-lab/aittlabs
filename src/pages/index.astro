@@ -12,40 +12,50 @@ import Base from '../layouts/Base.astro';
       <div class="glow glow-3"></div>
     </div>
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge animate-on-scroll">
-          <span class="dot pulse"></span>
-          2025.04.01 正式啟動
-        </div>
-        <h1 class="animate-on-scroll">
-          用 AI 重新定義<br>
-          <span class="highlight">人才發展與組織轉型</span>
-        </h1>
-        <p class="animate-on-scroll">
-          AI TalenTech Labs 致力於 AI 人才科技的研究與應用，透過自主研發的 AI 模擬教練系統與顧問方法論，協助政府機關與企業組織打造 AI 時代的核心競爭力。
-        </p>
-        <div class="hero-buttons animate-on-scroll">
-          <a href="/products/" class="btn btn-primary">
-            <span>探索產品</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href="/contact/" class="btn btn-outline">預約諮詢</a>
-        </div>
-        <!-- Stats -->
-        <div class="hero-stats animate-on-scroll">
-          <div class="stat">
-            <span class="stat-number">3,000+</span>
-            <span class="stat-label">培訓學員</span>
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="hero-badge animate-on-scroll">
+            <span class="dot pulse"></span>
+            2025.04.01 正式啟動
           </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-number">50+</span>
-            <span class="stat-label">政府與企業客戶</span>
+          <h1 class="animate-on-scroll">
+            用 AI 重新定義<br>
+            <span class="highlight">人才發展與組織轉型</span>
+          </h1>
+          <p class="animate-on-scroll">
+            AI TalenTech Labs 致力於 AI 人才科技的研究與應用，透過自主研發的 AI 模擬教練系統與顧問方法論，協助政府機關與企業組織打造 AI 時代的核心競爭力。
+          </p>
+          <div class="hero-buttons animate-on-scroll">
+            <a href="/products/" class="btn btn-primary">
+              <span>探索產品</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="/contact/" class="btn btn-outline">預約諮詢</a>
           </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-number">3</span>
-            <span class="stat-label">AI 模擬教練產品</span>
+          <div class="hero-stats animate-on-scroll">
+            <div class="stat">
+              <span class="stat-number">3,000+</span>
+              <span class="stat-label">培訓學員</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">政府與企業客戶</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-number">3</span>
+              <span class="stat-label">AI 模擬教練產品</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-image animate-on-scroll">
+          <div class="founder-photo">
+            <img src="/images/founder.jpg" alt="廖肇弘博士 Dr. John Liao — AI TalenTech Labs 創辦人" width="530" height="800" loading="eager" />
+          </div>
+          <div class="founder-title">
+            <span class="founder-name">廖肇弘 博士</span>
+            <span class="founder-role">Dr. John Liao — Founder</span>
           </div>
         </div>
       </div>
@@ -254,10 +264,52 @@ import Base from '../layouts/Base.astro';
     33% { transform: translate(30px, -20px) scale(1.05); }
     66% { transform: translate(-20px, 15px) scale(0.95); }
   }
-  .hero-content {
-    max-width: 800px;
+  .hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
     position: relative;
     z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .founder-photo {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border);
+  }
+  .founder-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .founder-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .founder-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .founder-role {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 400;
   }
   .hero-badge {
     display: inline-flex;
@@ -578,6 +630,15 @@ import Base from '../layouts/Base.astro';
 
   /* ===== Responsive ===== */
   @media (max-width: 768px) {
+    .hero-layout {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .hero-image {
+      order: -1;
+      max-width: 280px;
+      margin: 0 auto;
+    }
     .products-grid,
     .services-row,
     .channels-grid {
