@@ -15,10 +15,7 @@ import Base from '../layouts/Base.astro';
     <div class="container contact-container">
       <div class="contact-form-wrapper">
         <h3>留下您的需求</h3>
-        <form class="contact-form" action="https://formsubmit.co/service@aittlabs.org" method="POST">
-          <input type="hidden" name="_subject" value="AITT Labs 官網諮詢" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://aittlabs.org/contact/?sent=true" />
+        <form class="contact-form" id="contactForm">
           <input type="text" name="_honey" style="display:none" />
           <div class="form-row">
             <div class="form-group">
@@ -50,8 +47,13 @@ import Base from '../layouts/Base.astro';
             <label for="message">訊息內容</label>
             <textarea id="message" name="message" placeholder="請簡述您的需求..." rows="5"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary form-submit">送出諮詢</button>
+          <button type="submit" class="btn btn-primary form-submit" id="submitBtn">送出諮詢</button>
         </form>
+        <div class="form-success" id="formSuccess">
+          <span class="success-icon">✓</span>
+          <h4>諮詢已送出！</h4>
+          <p>感謝您的來信，我們會盡快回覆您。</p>
+        </div>
       </div>
 
       <div class="contact-email">
@@ -143,7 +145,64 @@ import Base from '../layouts/Base.astro';
     padding: 1rem;
     font-size: 1rem;
   }
+  .form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .form-success.show {
+    display: block;
+  }
+  .success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--teal);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .form-success h4 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .form-success p {
+    color: var(--text-dim);
+  }
   @media (max-width: 768px) {
     .form-row { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = document.getElementById('submitBtn') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = '送出中...';
+    try {
+      await fetch('https://formsubmit.co/ajax/service@aittlabs.org', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      form.style.display = 'none';
+      document.getElementById('formSuccess')?.classList.add('show');
+    } catch {
+      btn.disabled = false;
+      btn.textContent = '送出諮詢';
+      alert('送出失敗，請直接來信 service@aittlabs.org');
+    }
+  });
+</script>
