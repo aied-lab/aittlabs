@@ -12,28 +12,16 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <section>
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-info">
-          <h3>聯絡方式</h3>
-          <div class="contact-methods">
-            <a href="mailto:service@aittlabs.org" class="contact-item">
-              <span class="ci-icon">✉</span>
-              <div>
-                <span class="ci-label">Email</span>
-                <span class="ci-value">service@aittlabs.org</span>
-              </div>
-            </a>
-          </div>
+    <div class="container contact-container">
+      <div class="contact-email">
+        <span class="ci-icon">✉</span>
+        <a href="mailto:service@aittlabs.org">service@aittlabs.org</a>
+      </div>
 
-          <div class="office-info">
-            <h4>服務據點</h4>
-            <p>台灣 台北市</p>
-          </div>
-        </div>
-
-        <div class="contact-form-wrapper">
-          <form class="contact-form" id="contactForm">
+      <div class="contact-form-wrapper">
+        <h3>留下您的需求</h3>
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
             <div class="form-group">
               <label for="name">姓名</label>
               <input type="text" id="name" name="name" placeholder="您的姓名" required />
@@ -42,6 +30,8 @@ import Base from '../layouts/Base.astro';
               <label for="email">Email</label>
               <input type="email" id="email" name="email" placeholder="your@email.com" required />
             </div>
+          </div>
+          <div class="form-row">
             <div class="form-group">
               <label for="org">公司 / 機關</label>
               <input type="text" id="org" name="org" placeholder="您的組織名稱" />
@@ -56,71 +46,43 @@ import Base from '../layouts/Base.astro';
                 <option value="other">其他</option>
               </select>
             </div>
-            <div class="form-group">
-              <label for="message">訊息內容</label>
-              <textarea id="message" name="message" placeholder="請簡述您的需求..." rows="5"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary form-submit">送出諮詢</button>
-          </form>
-        </div>
+          </div>
+          <div class="form-group">
+            <label for="message">訊息內容</label>
+            <textarea id="message" name="message" placeholder="請簡述您的需求..." rows="5"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">送出諮詢</button>
+        </form>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
+  .contact-container {
+    max-width: 720px;
   }
-  .contact-info h3 {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-  }
-  .contact-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 2.5rem;
-  }
-  .contact-item {
+  .contact-email {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem;
     border-radius: var(--radius);
     background: var(--surface);
     border: 1px solid var(--border);
-    transition: all 0.3s;
+    margin-bottom: 2.5rem;
   }
-  .contact-item:hover {
-    border-color: var(--accent);
+  .ci-icon {
+    font-size: 1.25rem;
   }
-  .ci-icon { font-size: 1.25rem; }
-  .ci-label {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-bottom: 0.15rem;
-  }
-  .ci-value {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    font-weight: 500;
-  }
-  .office-info h4 {
-    font-family: var(--font-display);
-    font-size: 1rem;
+  .contact-email a {
+    font-size: 1.1rem;
+    color: var(--accent-light);
     font-weight: 600;
-    margin-bottom: 0.5rem;
   }
-  .office-info p {
-    color: var(--text-dim);
-    font-size: 0.9rem;
+  .contact-email a:hover {
+    color: var(--gold);
   }
 
   .contact-form-wrapper {
@@ -128,6 +90,17 @@ import Base from '../layouts/Base.astro';
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 2.5rem;
+  }
+  .contact-form-wrapper h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
   .form-group {
     margin-bottom: 1.25rem;
@@ -166,6 +139,6 @@ import Base from '../layouts/Base.astro';
     font-size: 1rem;
   }
   @media (max-width: 768px) {
-    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
   }
 </style>
