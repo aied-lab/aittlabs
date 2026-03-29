@@ -17,9 +17,8 @@ import Base from '../layouts/Base.astro';
     </div>
     <div class="hero-body">
       <div class="container">
-        <p class="animate-on-scroll">
-          AI TalenTech Labs 致力於 AI 人才科技的研究與應用，透過自主研發的 AI 模擬教練系統與顧問方法論，協助政府機關與企業組織打造 AI 時代的核心競爭力。
-        </p>
+        <p class="hero-subtitle animate-on-scroll">AI TalenTech Labs | AI 人才科技實驗室</p>
+        <p class="hero-tagline animate-on-scroll">專注 AI 人工智慧 | TalenTech 人才科技 | EdTech 學習科技</p>
         <div class="hero-buttons animate-on-scroll">
           <a href="/products/" class="btn btn-primary">
             <span>探索產品</span>
@@ -233,12 +232,19 @@ import Base from '../layouts/Base.astro';
     padding: 2.5rem 0 3rem;
     text-align: center;
   }
-  .hero-body p {
-    color: var(--text-dim);
-    font-size: 1.15rem;
-    max-width: 650px;
-    margin: 0 auto 2rem;
-    line-height: 1.8;
+  .hero-subtitle {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .hero-tagline {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05em;
   }
   .hero h1 {
     font-family: var(--font-display);
