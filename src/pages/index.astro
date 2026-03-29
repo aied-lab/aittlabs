@@ -5,30 +5,29 @@ import Base from '../layouts/Base.astro';
 <Base title="首頁">
   <!-- Hero -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-banner-wrap animate-on-scroll">
-        <img src="/images/aittlabs_banner.jpg" alt="AI TalenTech Labs" class="hero-banner" loading="eager" />
-      </div>
-      <div class="hero-content">
-          <div class="hero-badge animate-on-scroll">
-            <span class="dot pulse"></span>
-            2025.04.01 正式啟動
-          </div>
-          <h1 class="animate-on-scroll">
-            用 AI 重新定義<br>
-            <span class="highlight">人才發展與組織轉型</span>
-          </h1>
-          <p class="animate-on-scroll">
-            AI TalenTech Labs 致力於 AI 人才科技的研究與應用，透過自主研發的 AI 模擬教練系統與顧問方法論，協助政府機關與企業組織打造 AI 時代的核心競爭力。
-          </p>
-          <div class="hero-buttons animate-on-scroll">
-            <a href="/products/" class="btn btn-primary">
-              <span>探索產品</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a href="/contact/" class="btn btn-outline">預約諮詢</a>
-          </div>
+    <div class="hero-banner-section">
+      <img src="/images/aittlabs_banner.jpg" alt="AI TalenTech Labs" class="hero-banner" loading="eager" />
+      <div class="hero-overlay"></div>
+      <div class="hero-content container">
+        <div class="hero-badge animate-on-scroll">
+          <span class="dot pulse"></span>
+          2025.04.01 正式啟動
         </div>
+        <h1 class="animate-on-scroll">
+          用 AI 重新定義<br>
+          <span class="highlight">人才發展與組織轉型</span>
+        </h1>
+        <p class="animate-on-scroll">
+          AI TalenTech Labs 致力於 AI 人才科技的研究與應用，透過自主研發的 AI 模擬教練系統與顧問方法論，協助政府機關與企業組織打造 AI 時代的核心競爭力。
+        </p>
+        <div class="hero-buttons animate-on-scroll">
+          <a href="/products/" class="btn btn-primary">
+            <span>探索產品</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="/contact/" class="btn btn-outline">預約諮詢</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -179,27 +178,40 @@ import Base from '../layouts/Base.astro';
 <style>
   /* ===== Hero ===== */
   .hero {
-    position: relative;
-    overflow: hidden;
-    padding-top: 8rem;
-    padding-bottom: 2rem;
+    padding: 0;
   }
-  .hero-banner-wrap {
-    margin-bottom: 3rem;
-    border-radius: var(--radius-lg);
+  .hero-banner-section {
+    position: relative;
+    margin-top: 64px;
+    min-height: 500px;
+    display: flex;
+    align-items: flex-end;
     overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   }
   .hero-banner {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(11, 17, 32, 0.95) 0%,
+      rgba(11, 17, 32, 0.7) 40%,
+      rgba(11, 17, 32, 0.2) 70%,
+      transparent 100%
+    );
   }
   .hero-content {
-    max-width: 800px;
     position: relative;
     z-index: 1;
+    padding-bottom: 3rem;
+    padding-top: 6rem;
   }
   .hero-badge {
     display: inline-flex;
