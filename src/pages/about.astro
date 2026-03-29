@@ -29,15 +29,59 @@ import Base from '../layouts/Base.astro';
           <span class="section-label">Founder</span>
           <h2>廖肇弘 博士</h2>
           <h3>Dr. John Liao</h3>
+
           <div class="founder-titles">
             <p>AI TalenTech Labs 創辦人</p>
             <p>AI 人才科技研訓院 院長</p>
             <p>智園科技 首席 AI 科學家</p>
-            <p>TAIGTO 執行長</p>
+            <p>TAIGTO（Taiwan AI Government Talent Office）執行長</p>
           </div>
+
           <div class="founder-bio">
-            <p>擁有超過二十年的 AI 策略與人才發展經驗，曾任工業技術研究院（ITRI）資深研究員，長期投入政府 AI 人才培育政策規劃與執行，累計培訓數千名政府及企業 AI 人才。</p>
+            <p>擁有 28 年以上的數位人才發展與 AI 策略經驗。曾任工研院產業學院數位訓練長，長期投入政府與企業的 AI 人才培育與數位轉型工作，累計培訓超過 99,000 名學員、服務 386 家以上企業機構，教學時數超過 19,800 小時。</p>
             <p>專精於系統思考方法論、企業 AI 轉型策略、以及 AI 模擬教練系統的研發。致力於以「人才科技」（TalenTech）的創新理念，打造 AI 時代的人才發展新典範。</p>
+          </div>
+
+          <div class="founder-exp">
+            <h4>主要經歷</h4>
+            <ul>
+              <li>行政院人總 + 數發部 AI 公務人才發展辦公室 PMO 執行長</li>
+              <li>行政院人事行政總處 AI 政府領航人才發展計畫主持人</li>
+              <li>數發部 政府數位人才培育計畫｜數位職能及 AI 應用計畫主持人</li>
+              <li>經濟部 DIGI⁺Talent 跨域數位人才加速躍升計畫主持人</li>
+              <li>工研院 產業學院 數位訓練長</li>
+              <li>國立清華大學 教育學院 兼任教授</li>
+              <li>CIO 資訊長雜誌專欄作家｜CIO 協進會 AI 顧問群總召集人</li>
+              <li>Microsoft、IBM、PwC 等多家世界 500 強企業顧問</li>
+              <li>50+ 政府機關社群媒體顧問</li>
+            </ul>
+          </div>
+
+          <div class="founder-awards">
+            <h4>榮譽與獎項</h4>
+            <ul>
+              <li>ATD 全球人才發展創新大獎</li>
+              <li>Horizon、HundrED100 等多項全球大獎</li>
+            </ul>
+          </div>
+
+          <div class="founder-stats">
+            <div class="f-stat">
+              <span class="f-stat-number">28+</span>
+              <span class="f-stat-label">專業年資</span>
+            </div>
+            <div class="f-stat">
+              <span class="f-stat-number">386+</span>
+              <span class="f-stat-label">培訓企業</span>
+            </div>
+            <div class="f-stat">
+              <span class="f-stat-number">99,000+</span>
+              <span class="f-stat-label">培訓學員</span>
+            </div>
+            <div class="f-stat">
+              <span class="f-stat-number">19,800+</span>
+              <span class="f-stat-label">教學時數</span>
+            </div>
           </div>
         </div>
       </div>
@@ -168,6 +212,74 @@ import Base from '../layouts/Base.astro';
     line-height: 1.8;
   }
 
+  .founder-exp,
+  .founder-awards {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .founder-exp h4,
+  .founder-awards h4 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .founder-exp ul,
+  .founder-awards ul {
+    list-style: none;
+    padding: 0;
+  }
+  .founder-exp li,
+  .founder-awards li {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .founder-exp li::before,
+  .founder-awards li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .founder-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .f-stat {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .f-stat-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .f-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
   .mission-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -217,6 +329,7 @@ import Base from '../layouts/Base.astro';
   }
   @media (max-width: 768px) {
     .founder-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .founder-stats { grid-template-columns: repeat(2, 1fr); }
     .mission-grid { grid-template-columns: 1fr; }
     .timeline-item { grid-template-columns: 80px 1fr; gap: 1rem; }
   }
