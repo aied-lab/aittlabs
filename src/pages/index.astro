@@ -8,11 +8,15 @@ import Base from '../layouts/Base.astro';
     <div class="hero-banner-section">
       <img src="/images/aittlabs_banner.jpg" alt="AI TalenTech Labs" class="hero-banner" loading="eager" />
       <div class="hero-overlay"></div>
-      <div class="hero-content container">
+      <div class="hero-title container">
         <h1 class="animate-on-scroll">
           用 AI 重新定義<br>
           <span class="highlight">人才發展與組織轉型</span>
         </h1>
+      </div>
+    </div>
+    <div class="hero-body">
+      <div class="container">
         <p class="animate-on-scroll">
           AI TalenTech Labs 致力於 AI 人才科技的研究與應用，透過自主研發的 AI 模擬教練系統與顧問方法論，協助政府機關與企業組織打造 AI 時代的核心競爭力。
         </p>
@@ -179,35 +183,41 @@ import Base from '../layouts/Base.astro';
   .hero-banner-section {
     position: relative;
     margin-top: 64px;
-    min-height: 500px;
-    display: flex;
-    align-items: flex-end;
     overflow: hidden;
   }
   .hero-banner {
-    position: absolute;
-    inset: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    height: auto;
+    display: block;
   }
   .hero-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to top,
-      rgba(11, 17, 32, 0.95) 0%,
-      rgba(11, 17, 32, 0.7) 40%,
-      rgba(11, 17, 32, 0.2) 70%,
+      rgba(11, 17, 32, 1) 0%,
+      rgba(11, 17, 32, 0.85) 25%,
+      rgba(11, 17, 32, 0.2) 60%,
       transparent 100%
     );
   }
-  .hero-content {
-    position: relative;
+  .hero-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 1;
-    padding-bottom: 3rem;
-    padding-top: 6rem;
+    padding-bottom: 2rem;
+  }
+  .hero-body {
+    padding: 2.5rem 0 3rem;
+  }
+  .hero-body p {
+    color: var(--text-dim);
+    font-size: 1.15rem;
+    max-width: 650px;
+    margin-bottom: 2rem;
+    line-height: 1.8;
   }
   .hero h1 {
     font-family: var(--font-display);
