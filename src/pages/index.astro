@@ -96,6 +96,15 @@ import Base from '../layouts/Base.astro';
           <p>運用 Systemaster 系統思考與 FlowMaster 流程優化方法論，為企業與政府機關量身打造 AI 轉型策略與落地方案。</p>
           <span class="card-link">了解服務 <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </a>
+        <a href="/products/" class="card service-block animate-on-scroll">
+          <div class="service-icon icon-coral">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <span class="tag tag-product">R&D</span>
+          <h3>AI 科技研發</h3>
+          <p>自主研發 AI 模擬教練系統，包括 AI Interviewer、iCoach360、PPTutor 等產品，以生成式 AI 驅動高擬真情境模擬訓練。</p>
+          <span class="card-link">探索產品 <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
       </div>
     </div>
   </section>
@@ -147,6 +156,13 @@ import Base from '../layouts/Base.astro';
           </div>
           <h4>YouTube 頻道</h4>
           <p>JohnLionTW | AI Investing — AI 驅動的投資分析與科技趨勢解讀。</p>
+        </a>
+        <a href="https://www.facebook.com/ai.talentech.labs" target="_blank" class="card channel-card animate-on-scroll">
+          <div class="channel-icon-box icon-fb">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <h4>Facebook 粉絲頁</h4>
+          <p>AI 人才科技實驗室最新動態、活動資訊與產業觀點分享。</p>
         </a>
         <a href="https://aitti.online" target="_blank" class="card channel-card animate-on-scroll">
           <div class="channel-icon-box icon-teal">
@@ -322,8 +338,12 @@ import Base from '../layouts/Base.astro';
   }
   .services-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+  }
+  .service-icon.icon-coral {
+    background: rgba(249, 115, 22, 0.1);
+    color: var(--coral);
   }
   .service-block {
     display: flex;
@@ -397,8 +417,12 @@ import Base from '../layouts/Base.astro';
   }
   .channels-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
+  }
+  .channel-icon-box.icon-fb {
+    background: rgba(66, 103, 178, 0.12);
+    color: #4267B2;
   }
   .channel-card {
     display: flex;
@@ -493,7 +517,7 @@ import Base from '../layouts/Base.astro';
     .products-grid,
     .services-row,
     .channels-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr !important;
     }
     .cta-box { padding: 2.5rem 1.5rem; }
   }
