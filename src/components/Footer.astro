@@ -6,7 +6,10 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <span class="footer-logo">AI TalenTech Labs</span>
+        <div class="footer-logo-row">
+          <img src="/images/logo.png" alt="AITT Labs" width="28" height="28" class="footer-logo-icon" />
+          <span class="footer-logo">AI TalenTech Labs</span>
+        </div>
         <p>AI 人才科技實驗室<br>用 AI 重新定義人才發展與組織轉型</p>
       </div>
       <div class="footer-col">
@@ -53,6 +56,17 @@ const year = new Date().getFullYear();
     gap: 3rem;
     margin-bottom: 3rem;
   }
+  .footer-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .footer-logo-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
   .footer-logo {
     font-family: var(--font-display);
     font-weight: 800;
@@ -60,8 +74,6 @@ const year = new Date().getFullYear();
     background: linear-gradient(135deg, var(--accent-light), var(--gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: block;
-    margin-bottom: 0.75rem;
   }
   .footer-brand p {
     color: var(--text-muted);

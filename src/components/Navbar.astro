@@ -12,6 +12,7 @@ const links = [
 <nav id="navbar">
   <div class="nav-inner container">
     <a href="/" class="nav-logo">
+      <img src="/images/logo.png" alt="AITT Labs" class="logo-icon" width="32" height="32" />
       <span class="logo-text">AI TalenTech Labs</span>
     </a>
     <button class="mobile-toggle" id="menuToggle" aria-label="Toggle menu">
@@ -49,7 +50,12 @@ const links = [
   .nav-logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
+  }
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
   }
   .logo-text {
     font-family: var(--font-display);
