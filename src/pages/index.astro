@@ -12,8 +12,7 @@ import Base from '../layouts/Base.astro';
       <div class="glow glow-3"></div>
     </div>
     <div class="container">
-      <div class="hero-layout">
-        <div class="hero-content">
+      <div class="hero-content">
           <div class="hero-badge animate-on-scroll">
             <span class="dot pulse"></span>
             2025.04.01 正式啟動
@@ -49,16 +48,6 @@ import Base from '../layouts/Base.astro';
             </div>
           </div>
         </div>
-        <div class="hero-image animate-on-scroll">
-          <div class="founder-photo">
-            <img src="/images/founder.jpg" alt="廖肇弘博士 Dr. John Liao — AI TalenTech Labs 創辦人" width="530" height="800" loading="eager" />
-          </div>
-          <div class="founder-title">
-            <span class="founder-name">廖肇弘 博士</span>
-            <span class="founder-role">Dr. John Liao — Founder</span>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -264,52 +253,10 @@ import Base from '../layouts/Base.astro';
     33% { transform: translate(30px, -20px) scale(1.05); }
     66% { transform: translate(-20px, 15px) scale(0.95); }
   }
-  .hero-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
   .hero-content {
+    max-width: 800px;
     position: relative;
     z-index: 1;
-  }
-  .hero-image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-  }
-  .founder-photo {
-    position: relative;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--border);
-  }
-  .founder-photo img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .founder-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-  }
-  .founder-name {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .founder-role {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-weight: 400;
   }
   .hero-badge {
     display: inline-flex;
@@ -630,15 +577,6 @@ import Base from '../layouts/Base.astro';
 
   /* ===== Responsive ===== */
   @media (max-width: 768px) {
-    .hero-layout {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-    .hero-image {
-      order: -1;
-      max-width: 280px;
-      margin: 0 auto;
-    }
     .products-grid,
     .services-row,
     .channels-grid {
