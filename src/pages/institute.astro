@@ -49,6 +49,28 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
 
+      <div class="videos-section">
+        <span class="section-label">Testimonials</span>
+        <h2 class="section-title">課程實錄與學員回饋</h2>
+        <div class="videos-grid">
+          <div class="video-card">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/F1m-Jd9_zhc" title="課程實錄" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/SOAorpmwMh0" title="課程實錄" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/Mo0hv3DVKHg" title="課程實錄" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="institute-cta">
         <div class="cta-inner">
           <div>
@@ -133,6 +155,32 @@ import Base from '../layouts/Base.astro';
     color: var(--teal);
     font-size: 0.8rem;
   }
+  .videos-section {
+    margin-bottom: 4rem;
+  }
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .video-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+  }
+  .video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
   .institute-cta {
     margin-bottom: 4rem;
   }
@@ -181,6 +229,7 @@ import Base from '../layouts/Base.astro';
   }
   @media (max-width: 768px) {
     .institute-grid { grid-template-columns: 1fr; }
+    .videos-grid { grid-template-columns: 1fr; }
     .cta-inner { flex-direction: column; text-align: center; }
     .stats-row { grid-template-columns: repeat(2, 1fr); }
   }
