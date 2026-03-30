@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const products = [
+const featuredProducts = [
   {
     name: 'AI Interviewer',
     nameZh: 'AI 面試官',
@@ -9,6 +9,7 @@ const products = [
     features: ['多輪深度追問', '即時表情與語調分析', '客製化評分標準', '詳細評估報告輸出'],
     tag: 'Recruitment',
     color: 'tag-product',
+    image: '/images/ai-interviewer-screenshot.jpg',
   },
   {
     name: 'iCoach360',
@@ -17,38 +18,46 @@ const products = [
     features: ['多角色情境扮演', '即時教練回饋', '能力雷達圖分析', '客製化企業情境'],
     tag: 'Leadership',
     color: 'tag-product',
+    image: '/images/icoach360-screenshot.jpg',
   },
+];
+
+const otherProducts = [
   {
     name: 'PPTutor',
     nameZh: '簡報提案模擬教練',
-    desc: 'AI 模擬審查委員與評審團，針對你的簡報內容進行即時提問、挑戰與回饋。無論是政府標案提案、董事會報告、或是創業 Pitch，都能在上場前充分準備。',
+    desc: 'AI 模擬審查委員與評審團，針對簡報內容進行即時提問、挑戰與回饋。適用於政府標案、董事會報告、創業 Pitch。',
     features: ['AI 模擬多位評審', '針對內容邏輯追問', '簡報結構建議', '限時壓力模擬'],
     tag: 'Presentation',
     color: 'tag-product',
+    icon: 'P',
   },
   {
     name: 'Systemaster',
     nameZh: '系統思考大師',
-    desc: '以系統動力學（System Dynamics）為基礎的 AI 輔助分析工具，幫助組織從全局視角理解複雜問題的因果結構，找出關鍵槓桿點。',
+    desc: '以系統動力學為基礎的 AI 輔助分析工具，從全局視角理解複雜問題因果結構，找出關鍵槓桿點。',
     features: ['因果循環圖（CLD）自動生成', '系統基模識別與分析', '策略情境模擬', '組織動態分析報告'],
     tag: 'Systems Thinking',
     color: 'tag-consulting',
+    icon: 'S',
   },
   {
     name: 'FlowMaster',
     nameZh: '流程大師',
-    desc: 'AI 驅動的流程分析與優化系統，將組織的業務流程視覺化、數位化，找出瓶頸與改善機會，設計最佳流程方案。',
+    desc: 'AI 驅動的流程分析與優化系統，將業務流程視覺化、數位化，找出瓶頸與改善機會。',
     features: ['流程自動建模與視覺化', '瓶頸識別與效率分析', 'AI 改善方案建議', '導入前後效益評估'],
     tag: 'Process Optimization',
     color: 'tag-consulting',
+    icon: 'F',
   },
   {
     name: 'Courstart.ai',
     nameZh: 'AI 智慧課程生成',
-    desc: 'AI 全自動智慧生成數位教學內容，從課程架構規劃、教材內容撰寫到多媒體素材製作，一鍵完成高品質數位課程開發，大幅縮短製課時間。',
+    desc: 'AI 全自動智慧生成數位教學內容，從課程架構到多媒體素材製作，一鍵完成高品質數位課程開發。',
     features: ['課程架構自動生成', '教材內容智慧撰寫', '多媒體教學素材製作', '多格式數位課程輸出'],
     tag: 'Course Design',
     color: 'tag-product',
+    icon: 'C',
   },
 ];
 ---
@@ -62,9 +71,10 @@ const products = [
     </div>
   </section>
 
-  <section class="products-detail">
+  <!-- Featured Products with Screenshots -->
+  <section class="products-featured">
     <div class="container">
-      {products.map((product, i) => (
+      {featuredProducts.map((product, i) => (
         <div class:list={['product-row', { reverse: i % 2 === 1 }]}>
           <div class="product-info">
             <span class={`tag ${product.color}`}>{product.tag}</span>
@@ -79,20 +89,46 @@ const products = [
             <a href="/contact/" class="btn btn-primary">預約 Demo →</a>
           </div>
           <div class="product-visual">
-            <div class="visual-placeholder">
-              <span class="visual-icon">{product.name.charAt(0)}</span>
-              <span class="visual-label">{product.name}</span>
+            <div class="screenshot-wrapper">
+              <img src={product.image} alt={`${product.nameZh} 產品截圖`} loading="lazy" />
             </div>
           </div>
         </div>
       ))}
     </div>
   </section>
+
+  <!-- Other Products Grid -->
+  <section class="products-grid-section">
+    <div class="container">
+      <h2 class="grid-section-title">更多產品</h2>
+      <div class="products-grid">
+        {otherProducts.map(product => (
+          <div class="product-card">
+            <div class="card-header">
+              <span class="card-icon">{product.icon}</span>
+              <span class={`tag ${product.color}`}>{product.tag}</span>
+            </div>
+            <h3 class="card-name">{product.name}</h3>
+            <p class="card-name-zh">{product.nameZh}</p>
+            <p class="card-desc">{product.desc}</p>
+            <ul class="feature-list">
+              {product.features.map(f => (
+                <li>{f}</li>
+              ))}
+            </ul>
+            <a href="/contact/" class="btn btn-primary btn-sm">預約 Demo →</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 </Base>
 
 <style>
-  .products-detail {
-    padding-bottom: 4rem;
+  /* Featured Products Section */
+  .products-featured {
+    padding-bottom: 2rem;
   }
   .product-row {
     display: grid;
@@ -149,40 +185,113 @@ const products = [
     align-items: center;
     justify-content: center;
   }
-  .visual-placeholder {
+  .screenshot-wrapper {
     width: 100%;
-    aspect-ratio: 4/3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .screenshot-wrapper:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  }
+  .screenshot-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Products Grid Section */
+  .products-grid-section {
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .grid-section-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .product-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+    gap: 0.5rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .visual-icon {
-    width: 64px;
-    height: 64px;
+  .product-card:hover {
+    border-color: var(--accent-light);
+    box-shadow: 0 4px 24px rgba(59, 130, 246, 0.08);
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .card-icon {
+    width: 40px;
+    height: 40px;
     border-radius: var(--radius);
     background: var(--accent-glow);
     color: var(--accent-light);
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
-  .visual-label {
-    color: var(--text-muted);
+  .card-name {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .card-name-zh {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-bottom: 0.25rem;
+  }
+  .card-desc {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+  .product-card .feature-list {
+    margin: 0.5rem 0;
+  }
+  .product-card .feature-list li {
     font-size: 0.85rem;
   }
+  .btn-sm {
+    font-size: 0.85rem;
+    padding: 0.5rem 1.25rem;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
   @media (max-width: 768px) {
     .product-row {
       grid-template-columns: 1fr;
       gap: 2rem;
     }
     .product-row.reverse { direction: ltr; }
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
