@@ -14,7 +14,7 @@ import Base from '../layouts/Base.astro';
   <section>
     <div class="container contact-container">
       <div class="contact-form-wrapper">
-        <h3>留下您的需求</h3>
+        <h3>歡迎填寫以下表單，我們將儘速與您聯繫</h3>
         <form class="contact-form" id="contactForm">
           <input type="text" name="_honey" style="display:none" />
           <div class="form-row">
@@ -47,7 +47,7 @@ import Base from '../layouts/Base.astro';
             <label for="message">訊息內容</label>
             <textarea id="message" name="message" placeholder="請簡述您的需求..." rows="5"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary form-submit" id="submitBtn">送出諮詢</button>
+          <button type="submit" class="btn btn-primary form-submit" id="submitBtn">送出表單</button>
         </form>
         <div class="form-success" id="formSuccess">
           <span class="success-icon">✓</span>
@@ -103,6 +103,7 @@ import Base from '../layouts/Base.astro';
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
+    text-align: center;
   }
   .form-row {
     display: grid;
@@ -201,7 +202,7 @@ import Base from '../layouts/Base.astro';
       document.getElementById('formSuccess')?.classList.add('show');
     } catch {
       btn.disabled = false;
-      btn.textContent = '送出諮詢';
+      btn.textContent = '送出表單';
       alert('送出失敗，請直接來信 service@aittlabs.org');
     }
   });
