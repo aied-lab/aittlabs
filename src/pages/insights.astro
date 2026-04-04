@@ -6,7 +6,7 @@ type Article = { title: string; link: string; date: Date; summary: string; sourc
 // Fetch Substack: try API first (50 posts), fallback to rss2json (10 posts)
 let substackArticles: Article[] = [];
 try {
-  const apiRes = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=10');
+  const apiRes = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=15');
   if (apiRes.ok) {
     const posts = await apiRes.json() as any[];
     substackArticles = posts.map((p: any) => ({
@@ -61,9 +61,12 @@ function parseCioItems(xml: string): Article[] {
 let cioArticles: Article[] = [];
 try {
   const headers = { 'User-Agent': 'Mozilla/5.0 (compatible; ASTROBot/1.0)' };
-  const res = await fetch('https://www.cio.com.tw/author/author2/feed/', { headers });
-  const xml = await res.text();
-  cioArticles = parseCioItems(xml);
+  const [res1, res2] = await Promise.all([
+    fetch('https://www.cio.com.tw/author/author2/feed/', { headers }),
+    fetch('https://www.cio.com.tw/author/author2/feed/?paged=2', { headers }),
+  ]);
+  const [xml1, xml2] = await Promise.all([res1.text(), res2.text()]);
+  cioArticles = [...parseCioItems(xml1), ...parseCioItems(xml2)].slice(0, 15);
 } catch (e) {
   console.error('Failed to fetch CIO Taiwan RSS:', e);
 }
