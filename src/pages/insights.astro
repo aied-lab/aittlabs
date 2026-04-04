@@ -3,20 +3,20 @@ import Base from '../layouts/Base.astro';
 
 type Article = { title: string; link: string; date: Date; summary: string; source: string };
 
-// Fetch Substack via JSON API (more reliable than RSS in CI environments)
+// Fetch Substack via rss2json proxy (Substack blocks GitHub Actions IPs directly)
 let substackArticles: Article[] = [];
 try {
-  const res = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=50');
-  const posts = await res.json() as any[];
-  substackArticles = posts
-    .filter((p: any) => p.audience === 'everyone' || p.audience === 'only_free')
-    .map((p: any) => ({
-      title: p.title,
-      link: p.canonical_url,
-      date: new Date(p.post_date),
-      summary: (p.subtitle || p.description || '').slice(0, 120) + '...',
+  const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Faiedlab.substack.com%2Ffeed');
+  const data = await res.json() as any;
+  if (data.status === 'ok' && data.items) {
+    substackArticles = data.items.map((item: any) => ({
+      title: item.title,
+      link: item.link,
+      date: new Date(item.pubDate),
+      summary: (item.description || '').replace(/<[^>]*>/g, '').replace(/&#(\d+);/g, (_: string, n: string) => String.fromCharCode(Number(n))).replace(/&[^;]+;/g, '').slice(0, 120) + '...',
       source: 'Substack' as const,
     }));
+  }
 } catch (e) {
   console.error('Failed to fetch Substack:', e);
 }
