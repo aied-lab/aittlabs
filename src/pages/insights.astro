@@ -1,13 +1,35 @@
 ---
 import Base from '../layouts/Base.astro';
-import fs from 'node:fs';
-import path from 'node:path';
 
 type Article = { title: string; link: string; date: Date; summary: string; source: string };
 
-function parseRssItems(xml: string, source: string): Article[] {
+// Fetch Substack via JSON API (more reliable than RSS in CI environments)
+let substackArticles: Article[] = [];
+try {
+  const res = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=50');
+  const posts = await res.json() as any[];
+  substackArticles = posts
+    .filter((p: any) => p.audience === 'everyone' || p.audience === 'only_free')
+    .map((p: any) => ({
+      title: p.title,
+      link: p.canonical_url,
+      date: new Date(p.post_date),
+      summary: (p.subtitle || p.description || '').slice(0, 120) + '...',
+      source: 'Substack' as const,
+    }));
+} catch (e) {
+  console.error('Failed to fetch Substack:', e);
+}
+
+// Fetch CIO Taiwan RSS
+let cioArticles: Article[] = [];
+try {
+  const res = await fetch('https://www.cio.com.tw/author/author2/feed/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ASTROBot/1.0)' },
+  });
+  const xml = await res.text();
   const items = xml.match(/<item>([\s\S]*?)<\/item>/g) || [];
-  return items.map(item => {
+  cioArticles = items.map(item => {
     const title = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1]
       || item.match(/<title>(.*?)<\/title>/)?.[1] || '';
     const link = item.match(/<link>(.*?)<\/link>/)?.[1]
@@ -16,41 +38,8 @@ function parseRssItems(xml: string, source: string): Article[] {
     const desc = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/)?.[1]
       || item.match(/<description>(.*?)<\/description>/)?.[1] || '';
     const summary = desc.replace(/<[^>]*>/g, '').replace(/&#(\d+);/g, (_: string, n: string) => String.fromCharCode(Number(n))).replace(/&[^;]+;/g, '').slice(0, 120) + '...';
-    return { title, link, date: new Date(pubDate), summary, source };
+    return { title, link, date: new Date(pubDate), summary, source: 'CIO Taiwan' as const };
   });
-}
-
-async function fetchRss(url: string, cacheFile: string): Promise<string> {
-  // Try reading from pre-fetched cache file first (created by CI)
-  const cachePath = path.resolve(cacheFile);
-  try {
-    if (fs.existsSync(cachePath)) {
-      console.log(`Reading cached RSS: ${cachePath}`);
-      return fs.readFileSync(cachePath, 'utf-8');
-    }
-  } catch {}
-  // Fallback: fetch directly
-  console.log(`Fetching RSS: ${url}`);
-  const res = await fetch(url, {
-    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ASTROBot/1.0)' },
-  });
-  return res.text();
-}
-
-// Fetch Substack RSS
-let substackArticles: Article[] = [];
-try {
-  const xml = await fetchRss('https://aiedlab.substack.com/feed', '.cache/substack.xml');
-  substackArticles = parseRssItems(xml, 'Substack');
-} catch (e) {
-  console.error('Failed to fetch Substack RSS:', e);
-}
-
-// Fetch CIO Taiwan RSS
-let cioArticles: Article[] = [];
-try {
-  const xml = await fetchRss('https://www.cio.com.tw/author/author2/feed/', '.cache/cio.xml');
-  cioArticles = parseRssItems(xml, 'CIO Taiwan');
 } catch (e) {
   console.error('Failed to fetch CIO Taiwan RSS:', e);
 }

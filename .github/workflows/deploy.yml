@@ -26,13 +26,6 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Pre-fetch RSS feeds
-        run: |
-          mkdir -p .cache
-          curl -sL -A "Mozilla/5.0" -o .cache/substack.xml "https://aiedlab.substack.com/feed" || true
-          curl -sL -A "Mozilla/5.0" -o .cache/cio.xml "https://www.cio.com.tw/author/author2/feed/" || true
-          echo "Substack RSS size: $(wc -c < .cache/substack.xml) bytes"
-          echo "CIO RSS size: $(wc -c < .cache/cio.xml) bytes"
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
