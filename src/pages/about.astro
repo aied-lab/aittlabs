@@ -32,6 +32,33 @@ import Base from '../layouts/Base.astro';
               Facebook
             </a>
           </div>
+
+          <div class="founder-stats-side">
+            <div class="f-stat">
+              <span class="f-stat-number">29+</span>
+              <span class="f-stat-label">專業年資</span>
+            </div>
+            <div class="f-stat">
+              <span class="f-stat-number">400+</span>
+              <span class="f-stat-label">培訓企業</span>
+            </div>
+            <div class="f-stat">
+              <span class="f-stat-number">120,000+</span>
+              <span class="f-stat-label">培訓學員</span>
+            </div>
+            <div class="f-stat">
+              <span class="f-stat-number">20,000+</span>
+              <span class="f-stat-label">教學時數</span>
+            </div>
+          </div>
+
+          <div class="founder-awards-side">
+            <h4>榮譽與獎項</h4>
+            <ul>
+              <li>ATD 全球人才發展創新大獎</li>
+              <li>Horizon、HundrED100 等多項全球大獎</li>
+            </ul>
+          </div>
         </div>
         <div class="founder-info">
           <span class="section-label">Founder</span>
@@ -72,32 +99,6 @@ import Base from '../layouts/Base.astro';
             </ul>
           </div>
 
-          <div class="founder-awards">
-            <h4>榮譽與獎項</h4>
-            <ul>
-              <li>ATD 全球人才發展創新大獎</li>
-              <li>Horizon、HundrED100 等多項全球大獎</li>
-            </ul>
-          </div>
-
-          <div class="founder-stats">
-            <div class="f-stat">
-              <span class="f-stat-number">29+</span>
-              <span class="f-stat-label">專業年資</span>
-            </div>
-            <div class="f-stat">
-              <span class="f-stat-number">400+</span>
-              <span class="f-stat-label">培訓企業</span>
-            </div>
-            <div class="f-stat">
-              <span class="f-stat-number">120,000+</span>
-              <span class="f-stat-label">培訓學員</span>
-            </div>
-            <div class="f-stat">
-              <span class="f-stat-number">20,000+</span>
-              <span class="f-stat-label">教學時數</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -200,52 +201,51 @@ import Base from '../layouts/Base.astro';
     line-height: 1.8;
   }
 
-  .founder-exp,
-  .founder-awards {
+  /* Experience - two column */
+  .founder-exp {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
   }
-  .founder-exp h4,
-  .founder-awards h4 {
+  .founder-exp h4 {
     font-family: var(--font-display);
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
     color: var(--text);
   }
-  .founder-exp ul,
-  .founder-awards ul {
+  .founder-exp ul {
     list-style: none;
     padding: 0;
+    columns: 2;
+    column-gap: 2rem;
   }
-  .founder-exp li,
-  .founder-awards li {
+  .founder-exp li {
     color: var(--text-dim);
-    font-size: 1.05rem;
-    padding: 0.4rem 0;
-    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    padding: 0.35rem 0;
+    padding-left: 1rem;
     position: relative;
-    line-height: 1.7;
+    line-height: 1.6;
+    break-inside: avoid;
   }
-  .founder-exp li::before,
-  .founder-awards li::before {
+  .founder-exp li::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 0.7rem;
+    top: 0.65rem;
     width: 4px;
     height: 4px;
     border-radius: 50%;
     background: var(--accent);
   }
-  .founder-stats {
+
+  /* Sidebar stats (under photo) */
+  .founder-stats-side {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.5rem;
   }
   .f-stat {
     text-align: center;
@@ -257,15 +257,51 @@ import Base from '../layouts/Base.astro';
   .f-stat-number {
     display: block;
     font-family: var(--font-display);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 800;
     background: linear-gradient(135deg, var(--gold), var(--gold-light));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .f-stat-label {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
+  }
+
+  /* Sidebar awards (under stats) */
+  .founder-awards-side {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .founder-awards-side h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .founder-awards-side ul {
+    list-style: none;
+    padding: 0;
+  }
+  .founder-awards-side li {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    padding: 0.3rem 0;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .founder-awards-side li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
   }
 
   .mission-grid {
@@ -287,7 +323,8 @@ import Base from '../layouts/Base.astro';
 
   @media (max-width: 768px) {
     .founder-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .founder-stats { grid-template-columns: repeat(2, 1fr); }
+    .founder-exp ul { columns: 1; }
+    .founder-stats-side { grid-template-columns: repeat(2, 1fr); }
     .mission-grid { grid-template-columns: 1fr; }
   }
 </style>
