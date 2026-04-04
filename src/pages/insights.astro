@@ -4,7 +4,9 @@ import Base from '../layouts/Base.astro';
 // Fetch Substack RSS
 let substackArticles: { title: string; link: string; date: Date; summary: string; source: string }[] = [];
 try {
-  const substackRes = await fetch('https://aiedlab.substack.com/feed');
+  const substackRes = await fetch('https://aiedlab.substack.com/feed', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ASTROBot/1.0)' },
+  });
   const substackXml = await substackRes.text();
   const substackItems = substackXml.match(/<item>([\s\S]*?)<\/item>/g) || [];
   substackArticles = substackItems.map(item => {
@@ -14,8 +16,8 @@ try {
     const pubDate = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || '';
     const desc = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/)?.[1]
       || item.match(/<description>(.*?)<\/description>/)?.[1] || '';
-    // Strip HTML tags from description
-    const summary = desc.replace(/<[^>]*>/g, '').slice(0, 120) + '...';
+    // Strip HTML tags and decode HTML entities
+    const summary = desc.replace(/<[^>]*>/g, '').replace(/&#(\d+);/g, (_: string, n: string) => String.fromCharCode(Number(n))).replace(/&[^;]+;/g, '').slice(0, 120) + '...';
     return { title, link, date: new Date(pubDate), summary, source: 'Substack' };
   });
 } catch (e) {
@@ -25,7 +27,9 @@ try {
 // Fetch CIO Taiwan RSS
 let cioArticles: { title: string; link: string; date: Date; summary: string; source: string }[] = [];
 try {
-  const cioRes = await fetch('https://www.cio.com.tw/author/author2/feed/');
+  const cioRes = await fetch('https://www.cio.com.tw/author/author2/feed/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ASTROBot/1.0)' },
+  });
   const cioXml = await cioRes.text();
   const cioItems = cioXml.match(/<item>([\s\S]*?)<\/item>/g) || [];
   cioArticles = cioItems.map(item => {
