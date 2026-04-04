@@ -26,6 +26,11 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Pre-fetch Substack API
+        run: |
+          mkdir -p .cache
+          curl -sL -o .cache/substack.json "https://aiedlab.substack.com/api/v1/posts?limit=15" || true
+          echo "Substack JSON size: $(wc -c < .cache/substack.json) bytes"
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,25 +1,41 @@
 ---
 import Base from '../layouts/Base.astro';
+import fs from 'node:fs';
 
 type Article = { title: string; link: string; date: Date; summary: string; source: string; image?: string };
 
-// Fetch Substack: try API first (50 posts), fallback to rss2json (10 posts)
+function parseSubstackPosts(posts: any[]): Article[] {
+  return posts.map((p: any) => ({
+    title: p.title,
+    link: p.canonical_url,
+    date: new Date(p.post_date),
+    summary: (p.subtitle || p.description || '').slice(0, 120) + '...',
+    source: 'Substack' as const,
+    image: p.cover_image || undefined,
+  }));
+}
+
+// Fetch Substack: try cache file → API → rss2json fallback
 let substackArticles: Article[] = [];
+// 1. Try cache file (pre-fetched by CI)
 try {
-  const apiRes = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=15');
-  if (apiRes.ok) {
-    const posts = await apiRes.json() as any[];
-    substackArticles = posts.map((p: any) => ({
-      title: p.title,
-      link: p.canonical_url,
-      date: new Date(p.post_date),
-      summary: (p.subtitle || p.description || '').slice(0, 120) + '...',
-      source: 'Substack' as const,
-      image: p.cover_image || undefined,
-    }));
+  if (fs.existsSync('.cache/substack.json')) {
+    const posts = JSON.parse(fs.readFileSync('.cache/substack.json', 'utf-8'));
+    if (Array.isArray(posts) && posts.length > 0) {
+      substackArticles = parseSubstackPosts(posts);
+    }
   }
 } catch {}
-// Fallback to rss2json proxy if direct API failed
+// 2. Try direct API
+if (substackArticles.length === 0) {
+  try {
+    const apiRes = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=15');
+    if (apiRes.ok) {
+      substackArticles = parseSubstackPosts(await apiRes.json() as any[]);
+    }
+  } catch {}
+}
+// 3. Fallback to rss2json proxy
 if (substackArticles.length === 0) {
   try {
     const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Faiedlab.substack.com%2Ffeed');
