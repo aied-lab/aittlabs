@@ -29,8 +29,18 @@ jobs:
       - name: Pre-fetch Substack API
         run: |
           mkdir -p .cache
-          curl -sL -o .cache/substack.json "https://aiedlab.substack.com/api/v1/posts?limit=15" || true
-          echo "Substack JSON size: $(wc -c < .cache/substack.json) bytes"
+          node -e "
+            fetch('https://aiedlab.substack.com/api/v1/posts?limit=15', {
+              headers: {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/json',
+              }
+            })
+            .then(r => { console.log('Status:', r.status); return r.text(); })
+            .then(t => { require('fs').writeFileSync('.cache/substack.json', t); console.log('Saved:', t.length, 'bytes'); })
+            .catch(e => console.error('Failed:', e));
+          "
+          echo "File size: $(wc -c < .cache/substack.json 2>/dev/null || echo 0) bytes"
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
