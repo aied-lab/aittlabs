@@ -1,12 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 
-type Article = { title: string; link: string; date: Date; summary: string; source: string };
+type Article = { title: string; link: string; date: Date; summary: string; source: string; image?: string };
 
 // Fetch Substack: try API first (50 posts), fallback to rss2json (10 posts)
 let substackArticles: Article[] = [];
 try {
-  const apiRes = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=50');
+  const apiRes = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=10');
   if (apiRes.ok) {
     const posts = await apiRes.json() as any[];
     substackArticles = posts.map((p: any) => ({
@@ -15,6 +15,7 @@ try {
       date: new Date(p.post_date),
       summary: (p.subtitle || p.description || '').slice(0, 120) + '...',
       source: 'Substack' as const,
+      image: p.cover_image || undefined,
     }));
   }
 } catch {}
@@ -30,6 +31,7 @@ if (substackArticles.length === 0) {
         date: new Date(item.pubDate),
         summary: (item.description || '').replace(/<[^>]*>/g, '').replace(/&#(\d+);/g, (_: string, n: string) => String.fromCharCode(Number(n))).replace(/&[^;]+;/g, '').slice(0, 120) + '...',
         source: 'Substack' as const,
+        image: item.thumbnail || item.enclosure?.link || undefined,
       }));
     }
   } catch (e) {
@@ -49,20 +51,19 @@ function parseCioItems(xml: string): Article[] {
     const desc = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/)?.[1]
       || item.match(/<description>(.*?)<\/description>/)?.[1] || '';
     const summary = desc.replace(/<[^>]*>/g, '').replace(/&#(\d+);/g, (_: string, n: string) => String.fromCharCode(Number(n))).replace(/&[^;]+;/g, '').slice(0, 120) + '...';
-    return { title, link, date: new Date(pubDate), summary, source: 'CIO Taiwan' as const };
+    // Extract first image from description or content:encoded
+    const imgMatch = item.match(/src="(https?:\/\/[^"]+\.(?:jpg|jpeg|png|webp))/i);
+    const image = imgMatch?.[1] || undefined;
+    return { title, link, date: new Date(pubDate), summary, source: 'CIO Taiwan' as const, image };
   });
 }
 
 let cioArticles: Article[] = [];
 try {
   const headers = { 'User-Agent': 'Mozilla/5.0 (compatible; ASTROBot/1.0)' };
-  // Fetch page 1 and page 2 in parallel
-  const [res1, res2] = await Promise.all([
-    fetch('https://www.cio.com.tw/author/author2/feed/', { headers }),
-    fetch('https://www.cio.com.tw/author/author2/feed/?paged=2', { headers }),
-  ]);
-  const [xml1, xml2] = await Promise.all([res1.text(), res2.text()]);
-  cioArticles = [...parseCioItems(xml1), ...parseCioItems(xml2)];
+  const res = await fetch('https://www.cio.com.tw/author/author2/feed/', { headers });
+  const xml = await res.text();
+  cioArticles = parseCioItems(xml);
 } catch (e) {
   console.error('Failed to fetch CIO Taiwan RSS:', e);
 }
@@ -97,20 +98,27 @@ function formatDate(date: Date) {
         {allArticles.map(article => (
           <a href={article.link} target="_blank" rel="noopener noreferrer"
              class="card article-card animate-on-scroll" data-source={article.source}>
-            <div class="article-meta">
-              <span class={`source-tag ${article.source === 'Substack' ? 'tag-substack' : 'tag-cio'}`}>
-                {article.source}
+            {article.image && (
+              <div class="article-thumb">
+                <img src={article.image} alt={article.title} loading="lazy" />
+              </div>
+            )}
+            <div class="article-body">
+              <div class="article-meta">
+                <span class={`source-tag ${article.source === 'Substack' ? 'tag-substack' : 'tag-cio'}`}>
+                  {article.source}
+                </span>
+                <span class="article-date">{formatDate(article.date)}</span>
+              </div>
+              <h3>{article.title}</h3>
+              <p>{article.summary}</p>
+              <span class="read-more">
+                閱讀全文
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </span>
-              <span class="article-date">{formatDate(article.date)}</span>
             </div>
-            <h3>{article.title}</h3>
-            <p>{article.summary}</p>
-            <span class="read-more">
-              閱讀全文
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
           </a>
         ))}
       </div>
@@ -168,11 +176,35 @@ function formatDate(date: Date) {
   .article-card {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
     transition: all var(--transition);
   }
   .article-card.hidden {
     display: none;
+  }
+
+  .article-thumb {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  .article-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .article-card:hover .article-thumb img {
+    transform: scale(1.05);
+  }
+
+  .article-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
   }
 
   .article-meta {
