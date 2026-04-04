@@ -52,13 +52,6 @@ import Base from '../layouts/Base.astro';
             </div>
           </div>
 
-          <div class="founder-awards-side">
-            <h4>榮譽與獎項</h4>
-            <ul>
-              <li>ATD 全球人才發展創新大獎</li>
-              <li>Horizon、HundrED100 等多項全球大獎</li>
-            </ul>
-          </div>
         </div>
         <div class="founder-info">
           <span class="section-label">Founder</span>
@@ -66,7 +59,7 @@ import Base from '../layouts/Base.astro';
           <h3>Dr. John Liao</h3>
 
           <div class="founder-titles">
-            <p>AI TalenTech Labs 創辦人</p>
+            <p>AI TalenTech Labs 創辦人暨執行長</p>
             <p>AI 人才科技研訓院 院長</p>
           </div>
 
@@ -78,7 +71,6 @@ import Base from '../layouts/Base.astro';
           <div class="founder-exp">
             <h4>主要經歷</h4>
             <ul>
-              <li>AI TalenTech Labs 創辦人暨執行長</li>
               <li>行政院人總 + 數發部 AI 公務人才發展辦公室 PMO 執行長</li>
               <li>行政院人事行政總處 AI 政府領航人才發展計畫主持人</li>
               <li>行政院人事行政總處 公務人力發展學院 講座</li>
@@ -99,6 +91,13 @@ import Base from '../layouts/Base.astro';
             </ul>
           </div>
 
+          <div class="founder-awards">
+            <h4>榮譽與獎項</h4>
+            <ul>
+              <li>ATD 全球人才發展創新大獎</li>
+              <li>Horizon、HundrED100 等多項全球大獎</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -129,9 +128,12 @@ import Base from '../layouts/Base.astro';
   .founder-section {
     background: var(--surface);
   }
+  .founder-section .container {
+    max-width: 1400px;
+  }
   .founder-grid {
     display: grid;
-    grid-template-columns: 1fr 1.3fr;
+    grid-template-columns: 1fr 1.8fr;
     gap: 4rem;
     align-items: start;
   }
@@ -268,36 +270,36 @@ import Base from '../layouts/Base.astro';
     color: var(--text-muted);
   }
 
-  /* Sidebar awards (under stats) */
-  .founder-awards-side {
+  /* Awards (under experience) */
+  .founder-awards {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
   }
-  .founder-awards-side h4 {
+  .founder-awards h4 {
     font-family: var(--font-display);
-    font-size: 1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
     color: var(--text);
   }
-  .founder-awards-side ul {
+  .founder-awards ul {
     list-style: none;
     padding: 0;
   }
-  .founder-awards-side li {
+  .founder-awards li {
     color: var(--text-dim);
-    font-size: 0.88rem;
-    padding: 0.3rem 0;
+    font-size: 0.9rem;
+    padding: 0.35rem 0;
     padding-left: 1rem;
     position: relative;
     line-height: 1.6;
   }
-  .founder-awards-side li::before {
+  .founder-awards li::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 0.6rem;
+    top: 0.65rem;
     width: 4px;
     height: 4px;
     border-radius: 50%;
