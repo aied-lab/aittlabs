@@ -4,55 +4,21 @@ import fs from 'node:fs';
 
 type Article = { title: string; link: string; date: Date; summary: string; source: string; image?: string };
 
-function parseSubstackPosts(posts: any[]): Article[] {
-  return posts.map((p: any) => ({
-    title: p.title,
-    link: p.canonical_url,
-    date: new Date(p.post_date),
-    summary: (p.subtitle || p.description || '').slice(0, 120) + '...',
-    source: 'Substack' as const,
-    image: p.cover_image || undefined,
-  }));
-}
-
-// Fetch Substack: try cache file → API → rss2json fallback
+// Fetch Substack: read from committed cache file (.cache/substack.json)
 let substackArticles: Article[] = [];
-// 1. Try cache file (pre-fetched by CI)
 try {
-  if (fs.existsSync('.cache/substack.json')) {
-    const posts = JSON.parse(fs.readFileSync('.cache/substack.json', 'utf-8'));
-    if (Array.isArray(posts) && posts.length > 0) {
-      substackArticles = parseSubstackPosts(posts);
-    }
-  }
-} catch {}
-// 2. Try direct API
-if (substackArticles.length === 0) {
-  try {
-    const apiRes = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=15');
-    if (apiRes.ok) {
-      substackArticles = parseSubstackPosts(await apiRes.json() as any[]);
-    }
-  } catch {}
-}
-// 3. Fallback to rss2json proxy
-if (substackArticles.length === 0) {
-  try {
-    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Faiedlab.substack.com%2Ffeed');
-    const data = await res.json() as any;
-    if (data.status === 'ok' && data.items) {
-      substackArticles = data.items.map((item: any) => ({
-        title: item.title,
-        link: item.link,
-        date: new Date(item.pubDate),
-        summary: (item.description || '').replace(/<[^>]*>/g, '').replace(/&#(\d+);/g, (_: string, n: string) => String.fromCharCode(Number(n))).replace(/&[^;]+;/g, '').slice(0, 120) + '...',
-        source: 'Substack' as const,
-        image: item.thumbnail || item.enclosure?.link || undefined,
-      }));
-    }
-  } catch (e) {
-    console.error('Failed to fetch Substack:', e);
-  }
+  const raw = fs.readFileSync('.cache/substack.json', 'utf-8');
+  const posts = JSON.parse(raw) as any[];
+  substackArticles = posts.map((p: any) => ({
+    title: p.title,
+    link: p.link,
+    date: new Date(p.date),
+    summary: (p.summary || '').slice(0, 120) + '...',
+    source: 'Substack' as const,
+    image: p.image || undefined,
+  }));
+} catch (e) {
+  console.error('Failed to read Substack cache:', e);
 }
 
 // Fetch CIO Taiwan RSS (all pages)
