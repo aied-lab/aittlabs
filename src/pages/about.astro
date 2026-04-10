@@ -63,8 +63,8 @@ import Base from '../layouts/Base.astro';
           </div>
 
           <div class="founder-bio">
-            <p>擁有 29 年以上的數位人才與推動產官學研大型計畫經驗。曾任工研院產業學院數位訓練長，長期投入政府與企業的 AI 人才培育與數位轉型工作，累計培訓超過 120,000 名學員、服務 400 家以上企業機構，教學時數超過 20,000 小時。</p>
-            <p>專精於系統思考方法論、企業 AI 轉型策略、以及 AI 模擬教練系統的研發。致力於以「人才科技」（TalenTech）的創新理念，打造 AI 時代的人才發展新典範。</p>
+            <p>擁有 <em class="hl">29 年以上</em>的數位人才與推動產官學研大型計畫經驗。曾任工研院產業學院數位訓練長，長期投入政府與企業的 AI 人才培育與數位轉型工作，累計培訓超過 <em class="hl">120,000 名學員</em>、服務 <em class="hl">400 家</em>以上企業機構，教學時數超過 <em class="hl">20,000 小時</em>。</p>
+            <p>專精於系統思考方法論、企業 AI 轉型策略、以及 AI 模擬教練系統的研發。致力於以<em class="hl">「人才科技」（TalenTech）</em>的創新理念，打造 AI 時代的人才發展新典範。</p>
           </div>
 
           <div class="founder-exp">
@@ -252,7 +252,7 @@ import Base from '../layouts/Base.astro';
     background: var(--surface);
   }
   .founder-section .container {
-    max-width: 1400px;
+    max-width: 1200px;
   }
   .founder-grid {
     display: grid;
@@ -310,9 +310,11 @@ import Base from '../layouts/Base.astro';
     margin-bottom: 1.5rem;
   }
   .founder-titles p {
-    color: var(--text-dim);
-    font-size: 0.95rem;
-    padding: 0.2rem 0;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.2rem 0 0.2rem 0.85rem;
+    border-left: 3px solid var(--gold);
   }
   .founder-bio {
     margin-top: 1.5rem;
@@ -323,8 +325,16 @@ import Base from '../layouts/Base.astro';
     color: var(--text-dim);
     font-size: 0.95rem;
     margin-bottom: 1rem;
-    line-height: 1.8;
+    line-height: 1.9;
     max-width: 42em;
+  }
+  .founder-bio .hl {
+    font-style: normal;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Experience - two column */
