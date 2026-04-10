@@ -158,41 +158,43 @@ import Base from '../layouts/Base.astro';
 
           <div class="advisor-block">
             <h4>主協辦重大資訊專案</h4>
-            <div class="proj-group">
-              <span class="proj-tag">內政部警政署</span>
-              <ul class="advisor-list">
-                <li>M-Police 行動警察建置案（2006–2010）</li>
-                <li>警政 e 網通專案（2006–2008）</li>
-                <li>e 化勤務指揮管制系統建置案（2006–2009）</li>
-                <li>關聯式分析平臺案（2008–2010）</li>
-                <li>戶役政相片查詢系統建置案（2009–2010）</li>
-                <li>停車數位多元化查詢系統建置案（2009–2010）</li>
-              </ul>
-            </div>
-            <div class="proj-group">
-              <span class="proj-tag">內政部移民署</span>
-              <ul class="advisor-list">
-                <li>陸客來臺線上申請平台及入出國查驗系統委外建置案（2010–2013）</li>
-              </ul>
-            </div>
-            <div class="proj-group">
-              <span class="proj-tag">國家發展委員會</span>
-              <ul class="advisor-list">
-                <li>第四階段電子化政府 — e 化服務宅配到家計畫（2014–2016）</li>
-                <li>第五階段電子化政府 — 主動服務及網路參與精進計畫（2017–2020）</li>
-                <li>數位機會調查委外服務案（2014–2020）</li>
-                <li>紓困資料上傳與比對平臺規劃建置案（2020）</li>
-                <li>行政院及所屬委員會雲端資料中心服務建置及維運委外案（2020–2024）</li>
-                <li>資訊安全強化及整體資訊維運委託服務案（2020–2024）</li>
-                <li>資訊安全管理制度稽核驗證服務案（2020–2024）</li>
-                <li>內部行政支援系統維護案（2020–2024）</li>
-              </ul>
-            </div>
-            <div class="proj-group">
-              <span class="proj-tag">中央警察大學</span>
-              <ul class="advisor-list">
-                <li>生成式人工智慧科技犯罪偵防實驗室建置案（2026）</li>
-              </ul>
+            <div class="proj-cols">
+              <div class="proj-group">
+                <span class="proj-tag">內政部警政署</span>
+                <ul class="advisor-list">
+                  <li>M-Police 行動警察建置案（2006–2010）</li>
+                  <li>警政 e 網通專案（2006–2008）</li>
+                  <li>e 化勤務指揮管制系統建置案（2006–2009）</li>
+                  <li>關聯式分析平臺案（2008–2010）</li>
+                  <li>戶役政相片查詢系統建置案（2009–2010）</li>
+                  <li>停車數位多元化查詢系統建置案（2009–2010）</li>
+                </ul>
+              </div>
+              <div class="proj-group">
+                <span class="proj-tag">內政部移民署</span>
+                <ul class="advisor-list">
+                  <li>陸客來臺線上申請平台及入出國查驗系統委外建置案（2010–2013）</li>
+                </ul>
+              </div>
+              <div class="proj-group">
+                <span class="proj-tag">中央警察大學</span>
+                <ul class="advisor-list">
+                  <li>生成式人工智慧科技犯罪偵防實驗室建置案（2026）</li>
+                </ul>
+              </div>
+              <div class="proj-group">
+                <span class="proj-tag">國家發展委員會</span>
+                <ul class="advisor-list">
+                  <li>第四階段電子化政府 — e 化服務宅配到家計畫（2014–2016）</li>
+                  <li>第五階段電子化政府 — 主動服務及網路參與精進計畫（2017–2020）</li>
+                  <li>數位機會調查委外服務案（2014–2020）</li>
+                  <li>紓困資料上傳與比對平臺規劃建置案（2020）</li>
+                  <li>行政院及所屬委員會雲端資料中心服務建置及維運委外案（2020–2024）</li>
+                  <li>資訊安全強化及整體資訊維運委託服務案（2020–2024）</li>
+                  <li>資訊安全管理制度稽核驗證服務案（2020–2024）</li>
+                  <li>內部行政支援系統維護案（2020–2024）</li>
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -585,10 +587,15 @@ import Base from '../layouts/Base.astro';
     background: var(--accent);
   }
 
+  .proj-cols {
+    columns: 2;
+    column-gap: 1.5rem;
+  }
   .proj-group {
     margin-top: 0.6rem;
+    break-inside: avoid;
   }
-  .proj-group:first-child {
+  .proj-cols > .proj-group:first-child {
     margin-top: 0;
   }
   .proj-tag {
@@ -635,5 +642,6 @@ import Base from '../layouts/Base.astro';
       margin: 0 auto;
     }
     .advisor-list.two-col { columns: 1; }
+    .proj-cols { columns: 1; }
   }
 </style>
