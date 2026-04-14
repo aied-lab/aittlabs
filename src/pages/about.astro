@@ -223,6 +223,77 @@ import Base from '../layouts/Base.astro';
           </div>
         </div>
       </div>
+
+      <div class="advisor-card">
+        <div class="advisor-photo">
+          <img src="/images/advisors/sun-jyhbin.jpg" alt="孫志彬博士 Dr. Jason Jyh-Bin Sun" loading="lazy" />
+        </div>
+        <div class="advisor-info">
+          <div class="advisor-head">
+            <h3>孫志彬 博士</h3>
+            <span class="advisor-en">Jason Jyh-Bin Sun, Ph.D.</span>
+            <p class="advisor-title">義守大學 新媒體設計學系 副教授兼系主任</p>
+          </div>
+
+          <div class="advisor-stats">
+            <span class="adv-stat"><strong>28+</strong> 年產學研究資歷</span>
+            <span class="adv-stat"><strong>100+</strong> 培訓企業</span>
+            <span class="adv-stat"><strong>200+</strong> AI 演講場次</span>
+            <span class="adv-stat"><strong>7+</strong> 專業證照</span>
+          </div>
+
+          <p class="advisor-bio">
+            <strong>跨界創新的 AI 科技領航者。</strong>現任義守大學新媒體設計學系副教授兼系主任，擁有國立臺灣大學工學博士學位，曾赴德國漢堡工業大學擔任研究學者，具備深厚的跨領域技術與國際視野。研究專長融合 AI 科技與創新設計思考，涵蓋生成式 AI 設計、XR 遊戲開發、深度學習與產學創新創業，積極在大學校園推動「X＋AI」創新教學模式，並與 NVIDIA 產學合作創立台灣首座 NVIDIA Studio × GIGABYTE 協作空間，為生成式 AI 設計、3D 動畫、虛實整合課程打造結合創意與專業實務的創作平台，是台灣推動 AI 科技藝術與培育新媒體實戰人才的領航者。
+          </p>
+          <p class="advisor-bio">
+            在產業影響力方面，孫教授持續走在 AI 數位轉型最前沿。近期發表探討輝達（NVIDIA）AI 生態系的專書《生成式 AI 在數位轉型的未來》，深入研究高雄亞灣 2.0 與台灣主權 AI 的創新藍圖，並受邀參與 NVIDIA GTC 大會分享前瞻觀點。
+          </p>
+
+          <div class="advisor-meta">
+            <div class="advisor-meta-item">
+              <span class="meta-label">學歷</span>
+              <span class="meta-value">國立臺灣大學 工學博士；德國漢堡工業大學 博士研究</span>
+            </div>
+            <div class="advisor-meta-item">
+              <span class="meta-label">專業領域</span>
+              <span class="meta-value">生成式 AI 設計、深度學習、XR 互動開發、設計思考創新</span>
+            </div>
+          </div>
+
+          <div class="advisor-block">
+            <h4>主要經歷</h4>
+            <ul class="advisor-list two-col">
+              <li>義守大學 新媒體設計學系 — 副教授兼系主任（現職）</li>
+              <li>行政院 114、115 年 AI 推動實務種子人才認證班 — 領航員及講座</li>
+              <li>行政院人事行政總處 公務人力發展學院 — 講座</li>
+              <li>行政院國家發展基金 — 審議委員</li>
+              <li>國家科學委員會 — 生成式 AI 科普研究計畫主持人</li>
+              <li>國家科學委員會 — 2025 國家 AI 創新獎評審委員</li>
+              <li>數位發展部 — 人工智慧人才培訓委員</li>
+              <li>經濟部 — 企業創新研發計畫審查委員</li>
+              <li>高雄市政府 運動發展局 — 顧問</li>
+              <li>教育部 — 大專院校評鑑委員</li>
+              <li>台灣虛擬及擴增實境產業協會 — 理事長</li>
+            </ul>
+          </div>
+
+          <div class="advisor-block">
+            <h4>國內外獲獎獎項</h4>
+            <ul class="advisor-list two-col">
+              <li>德國學術交流研究獎</li>
+              <li>教育部資深職涯教授獎</li>
+              <li>經濟部 5G AI 菁英獎</li>
+              <li>台北國際發明獎 金獎</li>
+              <li>教育部創新創業獲獎團隊</li>
+              <li>台灣資訊月未來科技展巡迴展</li>
+            </ul>
+          </div>
+
+          <div class="advisor-links">
+            <a class="advisor-link" href="https://www.linkedin.com/in/jason-sun-269186267" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -600,6 +671,30 @@ import Base from '../layouts/Base.astro';
     height: 3px;
     border-radius: 50%;
     background: var(--accent);
+  }
+
+  .advisor-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .advisor-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .advisor-link:hover {
+    border-color: var(--accent);
+    color: var(--accent-light);
   }
 
   .proj-cols {
