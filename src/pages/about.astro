@@ -110,24 +110,48 @@ import Base from '../layouts/Base.astro';
         <p>匯聚跨領域專家學者，共同推動 AI 人才培育與產業應用。</p>
       </div>
 
-      <div class="advisor-card">
-        <div class="advisor-photo">
-          <img src="/images/advisors/chen-yingchieh.png" alt="陳英傑博士 Dr. Ying-Chieh Chen" loading="lazy" />
-        </div>
-        <div class="advisor-info">
-          <div class="advisor-head">
+      <div class="advisors-tabs" role="tablist">
+        <button class="advisor-tab" data-advisor="chen" role="tab" aria-expanded="false" aria-controls="advisor-panel-chen">
+          <div class="tab-photo">
+            <img src="/images/advisors/chen-yingchieh.png" alt="陳英傑博士 Dr. Ying-Chieh Chen" loading="lazy" />
+          </div>
+          <div class="tab-info">
             <h3>陳英傑 博士</h3>
             <span class="advisor-en">Ying-Chieh Chen, Ph.D.</span>
             <p class="advisor-title">中央警察大學 資訊管理學系 助理教授</p>
+            <p class="tab-bio">擁有 27 年以上中央與地方政府公務資歷，專精人工智慧、資料治理、資訊安全與電腦犯罪偵查，推動 AI 在公共治理及執法領域的創新應用。</p>
+            <div class="advisor-stats">
+              <span class="adv-stat"><strong>27+</strong> 年公務資歷</span>
+              <span class="adv-stat"><strong>20+</strong> 大型資訊專案</span>
+              <span class="adv-stat"><strong>100+</strong> AI 課程場次</span>
+              <span class="adv-stat"><strong>8+</strong> 專業證照</span>
+            </div>
+            <span class="tab-cta">完整介紹 <span class="tab-caret">▾</span></span>
           </div>
+        </button>
 
-          <div class="advisor-stats">
-            <span class="adv-stat"><strong>27+</strong> 年公務資歷</span>
-            <span class="adv-stat"><strong>20+</strong> 大型資訊專案</span>
-            <span class="adv-stat"><strong>100+</strong> AI 課程場次</span>
-            <span class="adv-stat"><strong>8+</strong> 專業證照</span>
+        <button class="advisor-tab" data-advisor="sun" role="tab" aria-expanded="false" aria-controls="advisor-panel-sun">
+          <div class="tab-photo">
+            <img src="/images/advisors/sun-jyhbin.jpg" alt="孫志彬博士 Dr. Jason Jyh-Bin Sun" loading="lazy" />
           </div>
+          <div class="tab-info">
+            <h3>孫志彬 博士</h3>
+            <span class="advisor-en">Jason Jyh-Bin Sun, Ph.D.</span>
+            <p class="advisor-title">義守大學 新媒體設計學系 副教授兼系主任</p>
+            <p class="tab-bio">跨界創新的 AI 科技領航者。研究專長融合生成式 AI 設計、XR 遊戲開發、深度學習與產學創新創業，推動台灣 AI 科技藝術與新媒體實戰人才培育。</p>
+            <div class="advisor-stats">
+              <span class="adv-stat"><strong>28+</strong> 年產學研究資歷</span>
+              <span class="adv-stat"><strong>100+</strong> 培訓企業</span>
+              <span class="adv-stat"><strong>200+</strong> AI 演講場次</span>
+              <span class="adv-stat"><strong>7+</strong> 專業證照</span>
+            </div>
+            <span class="tab-cta">完整介紹 <span class="tab-caret">▾</span></span>
+          </div>
+        </button>
+      </div>
 
+      <div id="advisor-panel-chen" class="advisor-panel" role="tabpanel" hidden>
+        <div class="advisor-info">
           <p class="advisor-bio">
             擁有 27 年以上中央與地方政府公務人員資歷，歷任新北市政府警察局、內政部警政署、內政部移民署及國家發展委員會等核心機關，深耕政府數位治理與資訊安全領域。取得國立交通大學資訊管理研究所博士學位，曾赴加拿大國家研究院（NRC）擔任訪問研究生。現任中央警察大學資訊管理學系助理教授，專精於人工智慧、資料治理、資訊安全、電腦犯罪偵查與資訊管理，致力於將實務經驗融入學術研究，推動 AI 在公共治理及執法領域的創新應用。
           </p>
@@ -224,24 +248,8 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
 
-      <div class="advisor-card">
-        <div class="advisor-photo">
-          <img src="/images/advisors/sun-jyhbin.jpg" alt="孫志彬博士 Dr. Jason Jyh-Bin Sun" loading="lazy" />
-        </div>
+      <div id="advisor-panel-sun" class="advisor-panel" role="tabpanel" hidden>
         <div class="advisor-info">
-          <div class="advisor-head">
-            <h3>孫志彬 博士</h3>
-            <span class="advisor-en">Jason Jyh-Bin Sun, Ph.D.</span>
-            <p class="advisor-title">義守大學 新媒體設計學系 副教授兼系主任</p>
-          </div>
-
-          <div class="advisor-stats">
-            <span class="adv-stat"><strong>28+</strong> 年產學研究資歷</span>
-            <span class="adv-stat"><strong>100+</strong> 培訓企業</span>
-            <span class="adv-stat"><strong>200+</strong> AI 演講場次</span>
-            <span class="adv-stat"><strong>7+</strong> 專業證照</span>
-          </div>
-
           <p class="advisor-bio">
             <strong>跨界創新的 AI 科技領航者。</strong>現任義守大學新媒體設計學系副教授兼系主任，擁有國立臺灣大學工學博士學位，曾赴德國漢堡工業大學擔任研究學者，具備深厚的跨領域技術與國際視野。研究專長融合 AI 科技與創新設計思考，涵蓋生成式 AI 設計、XR 遊戲開發、深度學習與產學創新創業，積極在大學校園推動「X＋AI」創新教學模式，並與 NVIDIA 產學合作創立台灣首座 NVIDIA Studio × GIGABYTE 協作空間，為生成式 AI 設計、3D 動畫、虛實整合課程打造結合創意與專業實務的創作平台，是台灣推動 AI 科技藝術與培育新媒體實戰人才的領航者。
           </p>
@@ -536,6 +544,95 @@ import Base from '../layouts/Base.astro';
     font-size: 0.95rem;
   }
 
+  .advisors-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .advisor-tab {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  }
+  .advisor-tab:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .advisor-tab[aria-expanded="true"] {
+    border-color: var(--gold);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+  .tab-photo {
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .tab-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .tab-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .tab-bio {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.75;
+    margin-top: 0.85rem;
+  }
+  .tab-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-light);
+  }
+  .tab-caret {
+    transition: transform 0.25s;
+  }
+  .advisor-tab[aria-expanded="true"] .tab-cta {
+    color: var(--gold-light);
+  }
+  .advisor-tab[aria-expanded="true"] .tab-caret {
+    transform: rotate(180deg);
+  }
+
+  .advisor-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    animation: panelFade 0.3s ease;
+  }
+  .advisor-panel[hidden] {
+    display: none;
+  }
+  @keyframes panelFade {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .advisor-card {
     display: grid;
     grid-template-columns: 220px 1fr;
@@ -753,5 +850,35 @@ import Base from '../layouts/Base.astro';
     }
     .advisor-list.two-col { columns: 1; }
     .proj-cols { columns: 1; }
+    .advisors-tabs { grid-template-columns: 1fr; }
+    .advisor-tab {
+      grid-template-columns: 100px 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .advisor-panel { padding: 1.25rem; }
   }
 </style>
+
+<script>
+  (() => {
+    const tabs = document.querySelectorAll('.advisor-tab');
+    const panels = document.querySelectorAll('.advisor-panel');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const id = tab.getAttribute('data-advisor');
+        const wasOpen = tab.getAttribute('aria-expanded') === 'true';
+        tabs.forEach((t) => t.setAttribute('aria-expanded', 'false'));
+        panels.forEach((p) => p.setAttribute('hidden', ''));
+        if (!wasOpen && id) {
+          tab.setAttribute('aria-expanded', 'true');
+          const panel = document.getElementById(`advisor-panel-${id}`);
+          if (panel) {
+            panel.removeAttribute('hidden');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      });
+    });
+  })();
+</script>
