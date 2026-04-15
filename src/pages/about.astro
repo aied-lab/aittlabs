@@ -110,7 +110,15 @@ import Base from '../layouts/Base.astro';
         <p>匯聚跨領域專家學者，共同推動 AI 人才培育與產業應用。</p>
       </div>
 
-      <div class="advisors-grid">
+      <noscript>
+        <style>
+          .advisors-grid[data-shuffle] > .advisor-card {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        </style>
+      </noscript>
+      <div class="advisors-grid" data-shuffle>
         <article class="advisor-card" data-advisor="chen">
           <div class="advisor-summary">
             <div class="advisor-photo">
@@ -677,6 +685,23 @@ import Base from '../layouts/Base.astro';
     gap: 1.5rem;
     align-items: start;
   }
+  .advisors-grid[data-shuffle] > .advisor-card {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .advisors-grid[data-shuffle].is-revealed > .advisor-card {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .advisors-grid[data-shuffle] > .advisor-card,
+    .advisors-grid[data-shuffle].is-revealed > .advisor-card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
   .advisor-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -969,6 +994,24 @@ import Base from '../layouts/Base.astro';
 </style>
 
 <script>
+  (() => {
+    const grid = document.querySelector('.advisors-grid[data-shuffle]');
+    if (grid) {
+      const cards = Array.from(grid.children).filter((el) => el.classList.contains('advisor-card'));
+      for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+      }
+      cards.forEach((card, i) => {
+        card.style.transitionDelay = `${i * 150}ms`;
+        grid.appendChild(card);
+      });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => grid.classList.add('is-revealed'));
+      });
+    }
+  })();
+
   (() => {
     const buttons = document.querySelectorAll('.advisor-expand');
     buttons.forEach((btn) => {
