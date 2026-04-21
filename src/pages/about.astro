@@ -102,6 +102,16 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <section class="contact-bridge">
+    <div class="container">
+      <div class="bridge-inline">
+        <a href="/contact/" class="btn btn-primary bridge-btn">歡迎與我們聯繫 →</a>
+        <span class="bridge-sep">或來信</span>
+        <a href="mailto:service@aittlabs.org" class="bridge-email">service@aittlabs.org</a>
+      </div>
+    </div>
+  </section>
+
   <section class="advisors-section">
     <div class="container">
       <div class="advisors-header">
@@ -759,6 +769,37 @@ import Base from '../layouts/Base.astro';
     height: 4px;
     border-radius: 50%;
     background: var(--gold);
+  }
+
+  /* Contact Bridge (between founder & advisors) */
+  .contact-bridge {
+    padding: 1.75rem 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .bridge-inline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .bridge-btn {
+    padding: 0.7rem 1.6rem;
+    font-size: 0.95rem;
+  }
+  .bridge-sep {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .bridge-email {
+    color: var(--accent-light);
+    font-weight: 600;
+    font-size: 0.98rem;
+  }
+  .bridge-email:hover {
+    color: var(--gold-light);
   }
 
   /* Advisors Section */
