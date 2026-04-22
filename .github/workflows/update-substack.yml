@@ -13,49 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Fetch Substack posts
-        run: |
-          mkdir -p .cache
-          node -e "
-            async function main() {
-              try {
-                const r = await fetch('https://aiedlab.substack.com/api/v1/posts?limit=15');
-                if (!r.ok) throw new Error('API responded ' + r.status);
-                const posts = await r.json();
-                if (!Array.isArray(posts) || posts.length === 0) throw new Error('Empty response');
-                const data = posts.map(p => ({
-                  title: p.title,
-                  link: p.canonical_url,
-                  date: p.post_date,
-                  summary: (p.subtitle || p.description || '').slice(0, 120),
-                  image: p.cover_image || null,
-                }));
-                require('fs').writeFileSync('.cache/substack.json', JSON.stringify(data, null, 2));
-                console.log('Saved', data.length, 'posts via API');
-                return;
-              } catch (e) {
-                console.warn('API failed:', e.message, '— trying RSS fallback');
-              }
-              try {
-                const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Faiedlab.substack.com%2Ffeed');
-                const d = await r.json();
-                if (d.status !== 'ok' || !d.items?.length) throw new Error('RSS fallback empty');
-                const data = d.items.map(item => ({
-                  title: item.title,
-                  link: item.link,
-                  date: item.pubDate,
-                  summary: (item.description || '').replace(/<[^>]*>/g, '').replace(/&#[0-9]+;/g, '').replace(/&[^;]+;/g, '').slice(0, 120),
-                  image: item.thumbnail || item.enclosure?.link || null,
-                }));
-                require('fs').writeFileSync('.cache/substack.json', JSON.stringify(data, null, 2));
-                console.log('Saved', data.length, 'posts via RSS fallback');
-              } catch (e2) {
-                console.error('Both sources failed:', e2.message);
-                process.exit(1);
-              }
-            }
-            main();
-          "
+        run: node scripts/fetch-substack.mjs
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
