@@ -112,6 +112,164 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <section class="advisory-board-section">
+    <div class="container">
+      <div class="advisors-header">
+        <span class="section-label gold-label">Advisory Board</span>
+        <h2>指導委員</h2>
+        <p>延攬產官學研界翹楚，指導 AI 人才科技策略方向。</p>
+        <p class="advisors-note">* 排序不分先後，每次載入隨機呈現 *</p>
+      </div>
+
+      <noscript>
+        <style>
+          .advisory-grid[data-shuffle] > .advisor-card {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        </style>
+      </noscript>
+      <div class="advisory-grid" data-shuffle>
+        <article class="advisor-card advisory-card" data-advisor="lin">
+          <div class="advisor-summary">
+            <div class="advisor-photo">
+              <img src="/images/advisors/lin-yibing.jpg" alt="林一平教授 Prof. Jason Yi-Bing Lin" loading="lazy" />
+            </div>
+            <div class="advisor-head">
+              <h3>林一平 教授</h3>
+              <span class="advisor-en">Jason Yi-Bing Lin, Ph.D.</span>
+              <p class="advisor-title">國立陽明交通大學 資訊工程學系<br />退休終身講座教授暨榮譽教授</p>
+              <p class="advisor-teaser">臺灣資訊科學領域重量級學者，前中華民國科技部政務次長暨代理部長，物聯網與行動運算權威，研發 IoTtalk 系統廣泛應用於智慧農業、智慧教育與智慧校園。</p>
+              <div class="advisor-stats">
+                <span class="adv-stat"><strong>30+</strong> 年資訊科學研究</span>
+                <span class="adv-stat"><strong>科技部</strong> 前政務次長</span>
+                <span class="adv-stat"><strong>陽明交大</strong> 講座教授</span>
+                <span class="adv-stat"><strong>IoTtalk</strong> 系統創辦人</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="advisor-expand" type="button" aria-expanded="false" aria-controls="advisor-full-lin">
+            <span class="expand-label">完整介紹</span>
+            <span class="expand-caret" aria-hidden="true">▾</span>
+          </button>
+
+          <div id="advisor-full-lin" class="advisor-full" hidden>
+            <div class="advisor-meta">
+              <div class="advisor-meta-item">
+                <span class="meta-label">學歷</span>
+                <span class="meta-value">美國華盛頓大學 電腦科學博士；國立成功大學 電機工程學士</span>
+              </div>
+              <div class="advisor-meta-item">
+                <span class="meta-label">研究領域</span>
+                <span class="meta-value">物聯網（IoT）、行動運算、系統模擬</span>
+              </div>
+            </div>
+
+            <div class="advisor-block">
+              <h4>主要經歷</h4>
+              <ul class="advisor-list two-col">
+                <li>國立陽明交通大學 資訊工程學系 — 退休終身講座教授暨榮譽教授（現職）</li>
+                <li>中國醫藥大學 — 教授</li>
+                <li>國立陽明交通大學 智慧科學暨綠能學院 — 華邦電子講座教授</li>
+                <li>中華民國科技部 — 政務次長、代理部長（2014–2016）</li>
+                <li>國立交通大學 — 副校長、研發長</li>
+                <li>國立交通大學 資訊學院 — 院長</li>
+                <li>國立交通大學 資訊工程學系 — 系主任、教授（1995 起）</li>
+                <li>美國貝爾通訊研究所（Bellcore） — 研究員</li>
+              </ul>
+            </div>
+
+            <div class="advisor-block">
+              <h4>研究與技術貢獻</h4>
+              <ul class="advisor-list">
+                <li>物聯網（IoT）、行動運算、系統模擬領域權威</li>
+                <li>研發 IoTtalk 物聯網系統，廣泛應用於智慧農業、智慧教育與智慧校園</li>
+              </ul>
+            </div>
+
+            <div class="advisor-block">
+              <h4>文學著作與專欄</h4>
+              <ul class="advisor-list two-col">
+                <li>《大橋驟雨》（2017，九歌出版社）</li>
+                <li>《行星組曲》（2019，九歌出版社）</li>
+                <li>《說話的城市》（2021，九歌出版社）</li>
+                <li>Digitimes 科技專欄作家</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="advisor-card advisory-card" data-advisor="ho">
+          <div class="advisor-summary">
+            <div class="advisor-photo">
+              <img src="/images/advisors/ho-chuante.jpg" alt="何全德教授 Prof. Chuan-Te Ho" loading="lazy" />
+            </div>
+            <div class="advisor-head">
+              <h3>何全德 教授</h3>
+              <span class="advisor-en">Chuan-Te Ho</span>
+              <p class="advisor-title">行政法人國家資通安全研究院 前院長<br />輔仁大學 資訊工程學系 講座教授</p>
+              <p class="advisor-teaser">臺灣數位政府與資通安全治理資深專家，歷任國家資通安全研究院院長、總統府第二局局長、國家發展委員會主任秘書，長期推動政府數位轉型、資訊服務委外管理與資通安全政策規劃。</p>
+              <div class="advisor-stats">
+                <span class="adv-stat"><strong>國資院</strong> 前院長</span>
+                <span class="adv-stat"><strong>總統府</strong> 第二局前局長</span>
+                <span class="adv-stat"><strong>輔大</strong> 講座教授</span>
+                <span class="adv-stat"><strong>數位政府</strong> 治理專家</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="advisor-expand" type="button" aria-expanded="false" aria-controls="advisor-full-ho">
+            <span class="expand-label">完整介紹</span>
+            <span class="expand-caret" aria-hidden="true">▾</span>
+          </button>
+
+          <div id="advisor-full-ho" class="advisor-full" hidden>
+            <div class="advisor-meta">
+              <div class="advisor-meta-item">
+                <span class="meta-label">學歷</span>
+                <span class="meta-value">國立政治大學 公共行政研究所 碩士</span>
+              </div>
+              <div class="advisor-meta-item">
+                <span class="meta-label">專業領域</span>
+                <span class="meta-value">數位政府規劃與治理、資通安全管理、資訊服務委外、數位服務創新、風險與危機管理、資訊與資安人才培訓</span>
+              </div>
+            </div>
+
+            <div class="advisor-block">
+              <h4>主要經歷</h4>
+              <ul class="advisor-list two-col">
+                <li>輔仁大學 資訊工程學系 — 講座教授（現職）</li>
+                <li>東吳大學 — 助理教授級專業技術人員</li>
+                <li>行政法人國家資通安全研究院 — 院長</li>
+                <li>行政院數位發展部籌備工作小組 — 諮詢委員</li>
+                <li>總統府 — 第二局局長</li>
+                <li>行政院資訊通信發展推動小組 — 副執行秘書（兼任）</li>
+                <li>國家發展委員會 — 主任秘書、管制考核處處長</li>
+                <li>行政院研究發展考核委員會 — 資訊管理處處長、副處長</li>
+                <li>數位治理研究中心（政大） — 諮議委員</li>
+              </ul>
+            </div>
+
+            <div class="advisor-block">
+              <h4>核心專長</h4>
+              <ul class="advisor-list two-col">
+                <li>數位政府策略規劃與治理</li>
+                <li>資通安全管理、電子簽章法制</li>
+                <li>資訊服務委外管理</li>
+                <li>數位服務創新、數位永續</li>
+                <li>政府重大施政建設績效管理</li>
+                <li>國營事業與財團法人績效管理</li>
+                <li>風險管理及危機管理</li>
+                <li>資訊與資安人才培訓</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="advisors-section">
     <div class="container">
       <div class="advisors-header">
@@ -891,6 +1049,41 @@ import Base from '../layouts/Base.astro';
     color: var(--gold-light);
   }
 
+  /* Advisory Board Section (higher-rank, gold-accented) */
+  .advisory-board-section {
+    background: var(--bg);
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+  .advisory-board-section .container {
+    max-width: 1320px;
+  }
+  .advisory-board-section .section-label.gold-label {
+    color: var(--gold-light);
+  }
+  .advisory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .advisory-card {
+    border-color: rgba(252, 211, 77, 0.35);
+    background: linear-gradient(180deg, rgba(252, 211, 77, 0.04), var(--surface) 60%);
+  }
+  .advisory-card:hover {
+    border-color: rgba(252, 211, 77, 0.6);
+  }
+  .advisory-card:has(.advisor-full:not([hidden])) {
+    border-color: var(--gold-light);
+    box-shadow: 0 10px 30px rgba(252, 211, 77, 0.15);
+  }
+  @media (max-width: 900px) {
+    .advisory-grid { grid-template-columns: 1fr; }
+  }
+
   /* Advisors Section */
   .advisors-section {
     background: var(--bg);
@@ -927,18 +1120,22 @@ import Base from '../layouts/Base.astro';
     gap: 1.5rem;
     align-items: start;
   }
-  .advisors-grid[data-shuffle] > .advisor-card {
+  .advisors-grid[data-shuffle] > .advisor-card,
+  .advisory-grid[data-shuffle] > .advisor-card {
     opacity: 0;
     transform: translateY(24px);
   }
-  .advisors-grid[data-shuffle].is-revealed > .advisor-card {
+  .advisors-grid[data-shuffle].is-revealed > .advisor-card,
+  .advisory-grid[data-shuffle].is-revealed > .advisor-card {
     opacity: 1;
     transform: none;
     transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1);
   }
   @media (prefers-reduced-motion: reduce) {
     .advisors-grid[data-shuffle] > .advisor-card,
-    .advisors-grid[data-shuffle].is-revealed > .advisor-card {
+    .advisors-grid[data-shuffle].is-revealed > .advisor-card,
+    .advisory-grid[data-shuffle] > .advisor-card,
+    .advisory-grid[data-shuffle].is-revealed > .advisor-card {
       opacity: 1;
       transform: none;
       transition: none;
@@ -1237,8 +1434,8 @@ import Base from '../layouts/Base.astro';
 
 <script>
   (() => {
-    const grid = document.querySelector('.advisors-grid[data-shuffle]');
-    if (grid) {
+    const grids = document.querySelectorAll('.advisors-grid[data-shuffle], .advisory-grid[data-shuffle]');
+    grids.forEach((grid) => {
       const cards = Array.from(grid.children).filter((el) => el.classList.contains('advisor-card'));
       for (let i = cards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1251,7 +1448,7 @@ import Base from '../layouts/Base.astro';
       requestAnimationFrame(() => {
         requestAnimationFrame(() => grid.classList.add('is-revealed'));
       });
-    }
+    });
   })();
 
   (() => {
