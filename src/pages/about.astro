@@ -11,7 +11,17 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="founder-section">
+  <nav class="about-tabs" id="aboutTabs" aria-label="About sections">
+    <div class="container">
+      <div class="about-tabs-inner">
+        <a href="#founder" class="about-tab active" data-target="founder">關於創辦人</a>
+        <a href="#advisory-board" class="about-tab" data-target="advisory-board">指導委員</a>
+        <a href="#advisors" class="about-tab" data-target="advisors">講師顧問群</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="founder-section" id="founder">
     <div class="container">
       <div class="founder-grid">
         <div class="founder-visual">
@@ -112,7 +122,7 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="advisory-board-section">
+  <section class="advisory-board-section" id="advisory-board">
     <div class="container">
       <div class="advisors-header">
         <span class="section-label gold-label">Advisory Board</span>
@@ -270,7 +280,7 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="advisors-section">
+  <section class="advisors-section" id="advisors">
     <div class="container">
       <div class="advisors-header">
         <span class="section-label">Advisors & Instructors</span>
@@ -1481,6 +1491,74 @@ import Base from '../layouts/Base.astro';
       gap: 1rem;
     }
   }
+
+  /* Sticky tab navigation */
+  .about-tabs {
+    position: sticky;
+    top: 70px;
+    z-index: 50;
+    background: rgba(11, 17, 32, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .about-tabs-inner {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .about-tabs-inner::-webkit-scrollbar { display: none; }
+  .about-tab {
+    flex: 0 0 auto;
+    position: relative;
+    padding: 1.05rem 1.25rem;
+    color: var(--text-dim);
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+  }
+  .about-tab::after {
+    content: '';
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+  .about-tab:hover { color: var(--text); }
+  .about-tab.active {
+    color: var(--gold-light);
+  }
+  .about-tab.active::after {
+    transform: scaleX(1);
+  }
+
+  /* Offset anchor scroll for fixed nav (~72px) + sticky tabs (~56px) */
+  #founder, #advisory-board, #advisors {
+    scroll-margin-top: 130px;
+  }
+
+  @media (max-width: 768px) {
+    .about-tabs { top: 64px; }
+    .about-tab {
+      padding: 0.85rem 0.9rem;
+      font-size: 0.9rem;
+    }
+    .about-tab::after { left: 0.9rem; right: 0.9rem; }
+    #founder, #advisory-board, #advisors {
+      scroll-margin-top: 116px;
+    }
+  }
 </style>
 
 <script>
@@ -1498,6 +1576,43 @@ import Base from '../layouts/Base.astro';
       });
       requestAnimationFrame(() => {
         requestAnimationFrame(() => grid.classList.add('is-revealed'));
+      });
+    });
+  })();
+
+  (() => {
+    const tabs = Array.from(document.querySelectorAll('.about-tab'));
+    if (!tabs.length) return;
+    const sections = tabs
+      .map((tab) => document.getElementById(tab.dataset.target))
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    const setActive = (id) => {
+      tabs.forEach((tab) => {
+        tab.classList.toggle('active', tab.dataset.target === id);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: '-140px 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    sections.forEach((s) => observer.observe(s));
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById(tab.dataset.target);
+        if (!target) return;
+        setActive(tab.dataset.target);
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + tab.dataset.target);
       });
     });
   })();
