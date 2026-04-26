@@ -80,12 +80,12 @@ const switcherTarget = (() => {
           class:list={[{ active: lang === 'zh' }]}
           aria-current={lang === 'zh' ? 'true' : 'false'}
         >中</a>
-        <span class="lang-divider" aria-hidden="true">/</span>
+        <span class="lang-divider" aria-hidden="true">|</span>
         <a
           href={lang === 'en' ? currentPath : switcherTarget}
           class:list={[{ active: lang === 'en' }]}
           aria-current={lang === 'en' ? 'true' : 'false'}
-        >EN</a>
+        >ENG</a>
       </span>
       <a href={contactHref} class="nav-cta">{t.contact}</a>
     </div>
@@ -168,11 +168,11 @@ const switcherTarget = (() => {
   .lang-switch {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.25rem;
     font-family: var(--font-mono);
-    font-size: 0.82rem;
-    letter-spacing: 0.04em;
-    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0;
+    padding: 0.3rem 0.55rem;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
   }
