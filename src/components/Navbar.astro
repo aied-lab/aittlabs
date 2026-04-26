@@ -1,18 +1,64 @@
 ---
 const currentPath = Astro.url.pathname;
+const isEn = currentPath.startsWith('/en');
+const lang = isEn ? 'en' : 'zh';
+
+const t = {
+  zh: {
+    home: '首頁',
+    institute: '研訓院',
+    products: '產品',
+    consulting: '顧問服務',
+    insights: '洞察觀點',
+    about: '關於我們',
+    contact: '聯絡我們',
+  },
+  en: {
+    home: 'Home',
+    institute: 'Institute',
+    products: 'Products',
+    consulting: 'Consulting',
+    insights: 'Insights',
+    about: 'About',
+    contact: 'Contact',
+  },
+}[lang];
+
+const enVersionMap: Record<string, string> = {
+  '/': '/en/',
+  '/institute/': '/en/institute/',
+  '/products/': '/en/products/',
+  '/consulting/': '/en/consulting/',
+  '/insights/': '/en/insights/',
+  '/about/': '/en/about/',
+  '/contact/': '/en/contact/',
+};
+
+const linkFor = (zhPath: string) =>
+  lang === 'en' && enVersionMap[zhPath] ? enVersionMap[zhPath] : zhPath;
+
 const links = [
-  { href: '/', label: '首頁' },
-  { href: '/institute/', label: '研訓院' },
-  { href: '/products/', label: '產品' },
-  { href: '/consulting/', label: '顧問服務' },
-  { href: '/insights/', label: '洞察觀點' },
-  { href: '/about/', label: '關於我們' },
+  { href: linkFor('/'), label: t.home },
+  { href: linkFor('/institute/'), label: t.institute },
+  { href: linkFor('/products/'), label: t.products },
+  { href: linkFor('/consulting/'), label: t.consulting },
+  { href: linkFor('/insights/'), label: t.insights },
+  { href: linkFor('/about/'), label: t.about },
 ];
+
+const contactHref = linkFor('/contact/');
+
+const switcherTarget = (() => {
+  if (lang === 'en') {
+    return currentPath.replace(/^\/en/, '') || '/';
+  }
+  return enVersionMap[currentPath] ?? '/en/about/';
+})();
 ---
 
 <nav id="navbar">
   <div class="nav-inner container">
-    <a href="/" class="nav-logo">
+    <a href={lang === 'en' ? '/en/' : '/'} class="nav-logo">
       <img src="/images/logo.png" alt="AITT Labs" class="logo-icon" width="40" height="40" />
       <span class="logo-text-group">
         <span class="logo-text-en">AI TalenTech Labs</span>
@@ -28,7 +74,20 @@ const links = [
           {link.label}
         </a>
       ))}
-      <a href="/contact/" class="nav-cta">聯絡我們</a>
+      <span class="lang-switch" aria-label="Language">
+        <a
+          href={lang === 'zh' ? currentPath : switcherTarget}
+          class:list={[{ active: lang === 'zh' }]}
+          aria-current={lang === 'zh' ? 'true' : 'false'}
+        >中</a>
+        <span class="lang-divider" aria-hidden="true">/</span>
+        <a
+          href={lang === 'en' ? currentPath : switcherTarget}
+          class:list={[{ active: lang === 'en' }]}
+          aria-current={lang === 'en' ? 'true' : 'false'}
+        >EN</a>
+      </span>
+      <a href={contactHref} class="nav-cta">{t.contact}</a>
     </div>
   </div>
 </nav>
@@ -84,15 +143,15 @@ const links = [
     align-items: center;
     gap: 1.75rem;
   }
-  .nav-links a {
+  .nav-links > a {
     color: var(--text-dim);
     font-size: 0.9rem;
     font-weight: 500;
     transition: color 0.3s;
     letter-spacing: 0.01em;
   }
-  .nav-links a:hover,
-  .nav-links a.active {
+  .nav-links > a:hover,
+  .nav-links > a.active {
     color: var(--accent-light);
   }
   .nav-cta {
@@ -105,6 +164,35 @@ const links = [
   .nav-cta:hover {
     background: var(--accent-light) !important;
     transform: translateY(-1px);
+  }
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .lang-switch a {
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .lang-switch a:hover {
+    color: var(--accent-light);
+  }
+  .lang-switch a.active {
+    color: var(--text);
+    font-weight: 700;
+    pointer-events: none;
+    cursor: default;
+  }
+  .lang-divider {
+    color: var(--text-muted);
+    opacity: 0.5;
   }
   .mobile-toggle {
     display: none;

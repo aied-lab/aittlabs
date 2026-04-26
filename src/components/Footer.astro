@@ -1,48 +1,102 @@
 ---
 const year = new Date().getFullYear();
+const currentPath = Astro.url.pathname;
+const isEn = currentPath.startsWith('/en');
+const lang = isEn ? 'en' : 'zh';
+
+const t = {
+  zh: {
+    tagline: '用 AI 重新定義人才發展與組織轉型',
+    products: '產品',
+    services: '服務',
+    services_items: {
+      institute: 'AI 人才科技研訓院',
+      strategy: 'AI 組織人才發展策略',
+      blueprint: 'AI 組織轉型藍圖規劃',
+      adoption: 'AI 創新應用落地輔導',
+      learning: 'AI 數位學習課程設計',
+    },
+    links: '連結',
+    insights: '洞察觀點',
+    about: '關於我們',
+    contact: '聯絡我們',
+    course_platform: '課程平台',
+    rights: 'All rights reserved.',
+  },
+  en: {
+    tagline: 'Redefining talent development and organizational transformation through AI',
+    products: 'Products',
+    services: 'Services',
+    services_items: {
+      institute: 'AI TalenTech Institute',
+      strategy: 'AI Talent Development Strategy',
+      blueprint: 'AI Transformation Roadmap',
+      adoption: 'AI Adoption & Implementation',
+      learning: 'AI Digital Learning Design',
+    },
+    links: 'Links',
+    insights: 'Insights',
+    about: 'About',
+    contact: 'Contact',
+    course_platform: 'Course Platform',
+    rights: 'All rights reserved.',
+  },
+}[lang];
+
+const enVersionMap: Record<string, string> = {
+  '/': '/en/',
+  '/institute/': '/en/institute/',
+  '/products/': '/en/products/',
+  '/consulting/': '/en/consulting/',
+  '/insights/': '/en/insights/',
+  '/about/': '/en/about/',
+  '/contact/': '/en/contact/',
+};
+const linkFor = (zhPath: string) =>
+  lang === 'en' && enVersionMap[zhPath] ? enVersionMap[zhPath] : zhPath;
 ---
 
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="footer-logo-row">
+        <a href={lang === 'en' ? '/en/' : '/'} class="footer-logo-row">
           <img src="/images/logo.png" alt="AITT Labs" width="40" height="40" class="footer-logo-icon" />
           <span class="footer-logo-text-group">
             <span class="footer-logo-text-en">AI TalenTech Labs</span>
             <span class="footer-logo-text-zh">AI 人才科技實驗室</span>
           </span>
         </a>
-        <p>用 AI 重新定義人才發展與組織轉型</p>
+        <p>{t.tagline}</p>
       </div>
       <div class="footer-col">
-        <h4>產品</h4>
-        <a href="/products/">AI Interviewer</a>
-        <a href="/products/">iCoach360</a>
-        <a href="/products/">PPTutor</a>
-        <a href="/products/">Systemaster</a>
-        <a href="/products/">FlowMaster</a>
-        <a href="/products/">Courstart.ai</a>
+        <h4>{t.products}</h4>
+        <a href={linkFor('/products/')}>AI Interviewer</a>
+        <a href={linkFor('/products/')}>iCoach360</a>
+        <a href={linkFor('/products/')}>PPTutor</a>
+        <a href={linkFor('/products/')}>Systemaster</a>
+        <a href={linkFor('/products/')}>FlowMaster</a>
+        <a href={linkFor('/products/')}>Courstart.ai</a>
       </div>
       <div class="footer-col">
-        <h4>服務</h4>
-        <a href="/institute/">AI 人才科技研訓院</a>
-        <a href="/consulting/">AI 組織人才發展策略</a>
-        <a href="/consulting/">AI 組織轉型藍圖規劃</a>
-        <a href="/consulting/">AI 創新應用落地輔導</a>
-        <a href="/consulting/">AI 數位學習課程設計</a>
+        <h4>{t.services}</h4>
+        <a href={linkFor('/institute/')}>{t.services_items.institute}</a>
+        <a href={linkFor('/consulting/')}>{t.services_items.strategy}</a>
+        <a href={linkFor('/consulting/')}>{t.services_items.blueprint}</a>
+        <a href={linkFor('/consulting/')}>{t.services_items.adoption}</a>
+        <a href={linkFor('/consulting/')}>{t.services_items.learning}</a>
       </div>
       <div class="footer-col">
-        <h4>連結</h4>
-        <a href="/insights/">洞察觀點</a>
-        <a href="/about/">關於我們</a>
-        <a href="/contact/">聯絡我們</a>
-        <a href="https://aitti.online" target="_blank">課程平台</a>
+        <h4>{t.links}</h4>
+        <a href={linkFor('/insights/')}>{t.insights}</a>
+        <a href={linkFor('/about/')}>{t.about}</a>
+        <a href={linkFor('/contact/')}>{t.contact}</a>
+        <a href="https://aitti.online" target="_blank">{t.course_platform}</a>
         <a href="https://substack.com/@johnliontw" target="_blank">Substack</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; {year} AI TalenTech Labs. All rights reserved.</p>
+      <p>&copy; {year} AI TalenTech Labs. {t.rights}</p>
       <div class="footer-social">
         <a href="https://www.youtube.com/@ai-talentech-labs" target="_blank" aria-label="YouTube">YT</a>
         <a href="https://www.facebook.com/ai.talentech.labs" target="_blank" aria-label="Facebook">FB</a>

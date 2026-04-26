@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Consulting">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Consulting</span>
+      <h1>AI TalenTech <span class="highlight">Consulting</span></h1>
+      <p>End-to-end consulting for enterprises and government agencies — from AI strategy and talent development to full organizational transformation.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="services-section">
+        <h2 class="section-title">Service Areas</h2>
+        <div class="services-list">
+          <div class="card service-item">
+            <h3>AI Talent Development Strategy</h3>
+            <p>Design strategic AI talent development plans for enterprises and government — covering competency framework design, learning path planning, and talent pipeline construction — to build durable AI talent strength inside your organization.</p>
+          </div>
+          <div class="card service-item">
+            <h3>AI Transformation Roadmap</h3>
+            <p>Starting from organizational diagnosis, build an AI transformation roadmap with clear execution paths — covering technology selection, process redesign, change management, and milestone planning.</p>
+          </div>
+          <div class="card service-item">
+            <h3>AI Innovation &amp; Adoption Coaching</h3>
+            <p>Help organizations move AI from proof-of-concept to real deployment — with use-case mapping, technology onboarding plans, and execution coaching — so AI innovation generates measurable value.</p>
+          </div>
+          <div class="card service-item">
+            <h3>AI-Powered Digital Learning Design</h3>
+            <p>Use AI to plan and develop digital learning content — from course architecture and material generation to interactive learning experiences — accelerating organizational knowledge transfer and talent development.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .services-section {
+    padding-top: 0;
+  }
+  .services-section .section-title {
+    margin-bottom: 2rem;
+  }
+  .services-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .service-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .service-item p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  @media (max-width: 768px) {
+    .services-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

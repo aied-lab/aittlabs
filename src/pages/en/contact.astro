@@ -1,0 +1,210 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Contact">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Contact</span>
+      <h1>Get in <span class="highlight">Touch</span></h1>
+      <p>Whether you have a product question, want to discuss training partnerships, or need consulting services — get in touch and we'll get back to you promptly.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container contact-container">
+      <div class="contact-form-wrapper">
+        <h3>Fill out the form below and we'll be in touch shortly</h3>
+        <form class="contact-form" id="contactForm">
+          <input type="text" name="_honey" style="display:none" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="org">Company / Organization</label>
+              <input type="text" id="org" name="org" placeholder="Your organization" />
+            </div>
+            <div class="form-group">
+              <label for="interest">Service of Interest</label>
+              <select id="interest" name="interest">
+                <option value="">Please select</option>
+                <option value="products">AI Simulation Coach Products</option>
+                <option value="institute">Training Programs</option>
+                <option value="consulting">Consulting</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Briefly describe your needs..." rows="5"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit" id="submitBtn">Submit</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <span class="success-icon">✓</span>
+          <h4>Inquiry sent!</h4>
+          <p>Thank you for reaching out — we'll get back to you as soon as possible.</p>
+        </div>
+      </div>
+
+      <div class="contact-email">
+        <span class="ci-icon">✉</span>
+        <span class="ci-text">or email us directly</span>
+        <a href="mailto:service@aittlabs.org">service@aittlabs.org</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-container {
+    max-width: 720px;
+  }
+  .contact-email {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .ci-icon {
+    font-size: 1.1rem;
+  }
+  .ci-text {
+    color: var(--text-muted);
+  }
+  .contact-email a {
+    color: var(--accent-light);
+    font-weight: 600;
+  }
+  .contact-email a:hover {
+    color: var(--gold);
+  }
+
+  .contact-form-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+  }
+  .contact-form-wrapper h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  .form-group label {
+    display: block;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--primary);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--accent);
+  }
+  .form-group textarea { resize: vertical; }
+  .form-group select option { background: var(--surface); }
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    justify-content: center;
+  }
+  .form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .form-success.show {
+    display: block;
+  }
+  .success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--teal);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .form-success h4 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .form-success p {
+    color: var(--text-dim);
+  }
+  @media (max-width: 768px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const btn = document.getElementById('submitBtn') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    try {
+      await fetch('https://formsubmit.co/ajax/service@aittlabs.org', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      form.style.display = 'none';
+      document.getElementById('formSuccess')?.classList.add('show');
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Submit';
+      alert('Submission failed. Please email service@aittlabs.org directly.');
+    }
+  });
+</script>

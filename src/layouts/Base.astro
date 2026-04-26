@@ -6,20 +6,97 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, description = 'AI TalenTech Labs — AI 人才科技實驗室，致力於 AI 人才發展策略、企業 AI 轉型顧問，以及 AI 模擬教練產品研發。' } = Astro.props;
+const SITE_URL = 'https://aittlabs.org';
+
+const enVersionMap: Record<string, string> = {
+  '/': '/en/',
+  '/institute/': '/en/institute/',
+  '/products/': '/en/products/',
+  '/consulting/': '/en/consulting/',
+  '/insights/': '/en/insights/',
+  '/about/': '/en/about/',
+  '/contact/': '/en/contact/',
+};
+const zhVersionMap: Record<string, string> = Object.fromEntries(
+  Object.entries(enVersionMap).map(([zh, en]) => [en, zh])
+);
+
+const currentPath = Astro.url.pathname;
+const isEn = currentPath.startsWith('/en');
+const lang = isEn ? 'en' : 'zh';
+
+const defaultDescriptions = {
+  zh: 'AI TalenTech Labs — AI 人才科技實驗室，致力於 AI 人才發展策略、企業 AI 轉型顧問，以及 AI 模擬教練產品研發。',
+  en: 'AI TalenTech Labs — AI talent development strategy, enterprise AI transformation consulting, and AI simulation coach products.',
+};
+
+const { title, description = defaultDescriptions[lang], ogImage = '/images/aittlabs_banner.jpg' } = Astro.props;
+const htmlLang = isEn ? 'en' : 'zh-Hant';
+const fullTitle = `${title} | AI TalenTech Labs`;
+
+const canonical = SITE_URL + currentPath;
+const zhAlt = isEn ? zhVersionMap[currentPath] : currentPath;
+const enAlt = isEn ? currentPath : enVersionMap[currentPath];
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : SITE_URL + ogImage;
+
+const isHomepage = currentPath === '/' || currentPath === '/en/';
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'AI TalenTech Labs',
+  alternateName: 'AI 人才科技實驗室',
+  url: SITE_URL,
+  logo: SITE_URL + '/images/logo.png',
+  description: defaultDescriptions.en,
+  founder: {
+    '@type': 'Person',
+    name: 'Dr. John Liao',
+    alternateName: '廖肇弘',
+    jobTitle: 'Founder & CEO',
+  },
+  sameAs: [
+    'https://www.youtube.com/@ai-talentech-labs',
+    'https://www.facebook.com/ai.talentech.labs',
+    'https://substack.com/@johnliontw',
+    'https://www.linkedin.com/in/johnliontw',
+  ],
+};
 ---
 
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang={htmlLang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <title>{title} | AI TalenTech Labs</title>
+  <title>{fullTitle}</title>
+
+  <link rel="canonical" href={canonical} />
+  {zhAlt && <link rel="alternate" hreflang="zh-Hant" href={SITE_URL + zhAlt} />}
+  {enAlt && <link rel="alternate" hreflang="en" href={SITE_URL + enAlt} />}
+  {zhAlt && <link rel="alternate" hreflang="x-default" href={SITE_URL + zhAlt} />}
+
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:locale" content={isEn ? 'en_US' : 'zh_TW'} />
+  <meta property="og:site_name" content="AI TalenTech Labs" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  {isHomepage && <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />}
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPVYB4D5FN"></script>
   <script is:inline>

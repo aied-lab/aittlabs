@@ -1,0 +1,232 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="AI TalenTech Institute">
+  <div class="page-banner-wrap">
+    <img src="/images/aitti_banner.jpg" alt="AI TalenTech Institute" class="page-banner" loading="eager" />
+  </div>
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">AI TalenTech Institute</span>
+      <h1>AI TalenTech <span class="highlight">Institute</span></h1>
+      <p>Structured AI talent development programs — from AI literacy to applied AI — preparing government agencies and enterprises with future-ready talent who can think and operate in the AI era.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="institute-grid">
+        <div class="card program-card">
+          <span class="tag tag-institute">Foundation</span>
+          <h3>AI Literacy</h3>
+          <p>Build foundational AI understanding from the ground up — covering generative AI principles, real-world use cases, and limitations — with the goal of organization-wide AI literacy.</p>
+          <ul>
+            <li>Generative AI: principles &amp; applications</li>
+            <li>Prompt engineering in practice</li>
+            <li>AI ethics &amp; governance frameworks</li>
+          </ul>
+        </div>
+        <div class="card program-card">
+          <span class="tag tag-institute">Advanced</span>
+          <h3>Applied AI</h3>
+          <p>Role-specific AI tool training that equips professionals to apply AI in their daily work — improving efficiency, decision quality, and execution speed.</p>
+          <ul>
+            <li>Building AI agents in practice</li>
+            <li>AI-driven data analysis</li>
+            <li>AI-assisted project management</li>
+          </ul>
+        </div>
+        <div class="card program-card">
+          <span class="tag tag-institute">Leadership</span>
+          <h3>AI Leadership</h3>
+          <p>AI strategy programs designed for senior leaders — leading organizational AI transformation and shaping the AI talent development strategy.</p>
+          <ul>
+            <li>AI transformation strategy</li>
+            <li>Leadership models for the AI era</li>
+            <li>Organizational AI maturity assessment</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="videos-section">
+        <span class="section-label">Testimonials</span>
+        <h2 class="section-title">Inside the Classroom</h2>
+        <div class="videos-grid">
+          <div class="video-card">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/F1m-Jd9_zhc" title="Course footage" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/SOAorpmwMh0" title="Course footage" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/Mo0hv3DVKHg" title="Course footage" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="institute-cta">
+        <div class="cta-inner">
+          <div>
+            <h3>Explore the Full Course Catalog</h3>
+            <p>Visit the AI TalenTech Institute online learning platform to browse all courses and training programs.</p>
+          </div>
+          <a href="https://aitti.online" target="_blank" class="btn btn-primary">Go to Course Platform →</a>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-num">120,000+</span>
+          <span class="stat-label">Trainees</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">400+</span>
+          <span class="stat-label">Organizations Trained</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">20,000+</span>
+          <span class="stat-label">Teaching Hours</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-banner-wrap {
+    margin-top: 64px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2rem;
+  }
+  .page-banner {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-lg);
+  }
+  .institute-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .program-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .program-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .program-card p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  .program-card ul {
+    list-style: none;
+    margin-top: 0.5rem;
+  }
+  .program-card ul li {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    padding: 0.35rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .program-card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-size: 0.8rem;
+  }
+  .videos-section {
+    margin-bottom: 4rem;
+  }
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .video-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+  }
+  .video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .institute-cta {
+    margin-bottom: 4rem;
+  }
+  .cta-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .cta-inner h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .cta-inner p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-light), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+  }
+  .stat-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .institute-grid { grid-template-columns: 1fr; }
+    .videos-grid { grid-template-columns: 1fr; }
+    .cta-inner { flex-direction: column; text-align: center; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

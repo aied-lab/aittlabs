@@ -1,0 +1,181 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const products = [
+  {
+    name: 'AI Interviewer',
+    nameZh: 'AI 面試官',
+    desc: 'An AI system that simulates real interview scenarios — supporting multi-turn dialogue, real-time evaluation, and detailed feedback reports. Built for job-seeker interview preparation, enterprise HR screening optimization, and civil service selection rehearsals.',
+    features: ['Multi-turn deep follow-up questioning', 'Real-time facial expression & voice tone analysis', 'Customizable scoring criteria', 'Detailed evaluation reports'],
+    tag: 'Recruitment',
+    color: 'tag-product',
+    image: '/images/ai-interviewer-screenshot.jpg',
+  },
+  {
+    name: 'iCoach360',
+    nameZh: 'High-Fidelity Scenario Simulation Coach',
+    desc: 'A 360° immersive scenario simulation system that turns real workplace situations into AI-driven practice environments. Leaders can rehearse difficult conversations, crisis response, and cross-functional coordination — all in a safe, repeatable simulated environment.',
+    features: ['Multi-role scenario roleplay', 'Real-time coaching feedback', 'Competency radar chart analysis', 'Custom enterprise scenarios'],
+    tag: 'Leadership',
+    color: 'tag-product',
+    image: '/images/icoach360-screenshot.jpg',
+  },
+  {
+    name: 'PPTutor',
+    nameZh: 'Pitch & Presentation Simulation Coach',
+    desc: 'AI-simulated review panels and judging committees ask, challenge, and give feedback on your presentation in real time. Whether it\'s a government bid, a board report, or a startup pitch — get fully prepared before going live.',
+    features: ['Multi-judge AI simulation', 'Logic-driven follow-up questions', 'Presentation structure suggestions', 'Timed pressure simulation'],
+    tag: 'Presentation',
+    color: 'tag-product',
+    image: '/images/pptutor-screenshot.jpg',
+  },
+  {
+    name: 'Systemaster',
+    nameZh: 'Systems Thinking Master',
+    desc: 'An AI-assisted analysis tool grounded in System Dynamics — helping organizations understand the causal structure behind complex problems from a holistic view, and identify the highest-leverage points for intervention.',
+    features: ['Auto-generated Causal Loop Diagrams (CLDs)', 'System archetype identification & analysis', 'Strategic scenario simulation', 'Organizational dynamics reports'],
+    tag: 'Systems Thinking',
+    color: 'tag-consulting',
+    image: '/images/systemaster-screenshot.jpg',
+  },
+  {
+    name: 'FlowMaster',
+    nameZh: 'Process Optimization Master',
+    desc: 'An AI-powered process analysis and optimization system that visualizes and digitizes business processes — surfacing bottlenecks and improvement opportunities, and designing optimal process flows.',
+    features: ['Automated process modeling & visualization', 'Bottleneck identification & efficiency analysis', 'AI improvement recommendations', 'Before/after benefit assessment'],
+    tag: 'Process Optimization',
+    color: 'tag-consulting',
+    image: '/images/flowmaster-screenshot.jpg',
+  },
+  {
+    name: 'Courstart.ai',
+    nameZh: 'AI Smart Course Generation',
+    desc: 'End-to-end AI generation of digital learning content — from course structure planning to material authoring to multimedia asset production. Build high-quality digital courses with one click and dramatically shorten production time.',
+    features: ['Automated course structure generation', 'Smart course material authoring', 'Multimedia teaching asset production', 'Multi-format digital course export'],
+    tag: 'Course Design',
+    color: 'tag-product',
+    image: '/images/courstart-screenshot.jpg',
+  },
+];
+---
+
+<Base title="Products">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Products</span>
+      <h1>AI TalenTech <span class="highlight">Product Suite</span></h1>
+      <p>Generative-AI-powered simulation coaches and methodology tools — spanning interviewing, leadership training, pitch presentations, systems thinking, and process optimization.</p>
+    </div>
+  </section>
+
+  <section class="products-detail">
+    <div class="container">
+      {products.map((product, i) => (
+        <div class:list={['product-row', { reverse: i % 2 === 1 }]}>
+          <div class="product-info">
+            <span class={`tag ${product.color}`}>{product.tag}</span>
+            <h2>{product.name}</h2>
+            <h3>{product.nameZh}</h3>
+            <p>{product.desc}</p>
+            <ul class="feature-list">
+              {product.features.map(f => (
+                <li>{f}</li>
+              ))}
+            </ul>
+            <a href="/en/contact/" class="btn btn-primary">Book a Demo →</a>
+          </div>
+          <div class="product-visual">
+            <div class="screenshot-wrapper">
+              <img src={product.image} alt={`${product.name} screenshot`} loading="lazy" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .products-detail {
+    padding-bottom: 4rem;
+  }
+  .product-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .product-row:last-child { border-bottom: none; }
+  .product-row.reverse { direction: rtl; }
+  .product-row.reverse > * { direction: ltr; }
+  .product-info { display: flex; flex-direction: column; gap: 0.75rem; }
+  .product-info h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .product-info h3 {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+  .product-info p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .feature-list li {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .feature-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--accent-light);
+    font-size: 0.7rem;
+    top: 0.2rem;
+  }
+  .product-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .screenshot-wrapper {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .screenshot-wrapper:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  }
+  .screenshot-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .product-row {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .product-row.reverse { direction: ltr; }
+  }
+</style>

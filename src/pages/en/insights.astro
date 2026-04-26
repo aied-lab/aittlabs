@@ -1,0 +1,289 @@
+---
+import Base from '../../layouts/Base.astro';
+import fs from 'node:fs';
+
+type Article = { title: string; link: string; date: Date; summary: string; source: string; image?: string };
+
+let substackArticles: Article[] = [];
+try {
+  const raw = fs.readFileSync('.cache/substack.json', 'utf-8');
+  const posts = JSON.parse(raw) as any[];
+  substackArticles = posts.map((p: any) => ({
+    title: p.title,
+    link: p.link,
+    date: new Date(p.date),
+    summary: (p.summary || '').slice(0, 120) + '...',
+    source: 'Substack' as const,
+    image: p.image || undefined,
+  }));
+} catch (e) {
+  console.error('Failed to read Substack cache:', e);
+}
+
+function parseCioItems(xml: string): Article[] {
+  const items = xml.match(/<item>([\s\S]*?)<\/item>/g) || [];
+  return items.map(item => {
+    const title = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1]
+      || item.match(/<title>(.*?)<\/title>/)?.[1] || '';
+    const link = item.match(/<link>(.*?)<\/link>/)?.[1]
+      || item.match(/<link\/>\s*(https?:\/\/[^\s<]+)/)?.[1] || '';
+    const pubDate = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || '';
+    const desc = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/)?.[1]
+      || item.match(/<description>(.*?)<\/description>/)?.[1] || '';
+    const summary = desc.replace(/<[^>]*>/g, '').replace(/&#(\d+);/g, (_: string, n: string) => String.fromCharCode(Number(n))).replace(/&[^;]+;/g, '').slice(0, 120) + '...';
+    const imgMatch = item.match(/src="(https?:\/\/[^"]+\.(?:jpg|jpeg|png|webp))/i);
+    const image = imgMatch?.[1] || undefined;
+    return { title, link, date: new Date(pubDate), summary, source: 'CIO Taiwan' as const, image };
+  });
+}
+
+let cioArticles: Article[] = [];
+try {
+  const headers = { 'User-Agent': 'Mozilla/5.0 (compatible; ASTROBot/1.0)' };
+  const [res1, res2] = await Promise.all([
+    fetch('https://www.cio.com.tw/author/author2/feed/', { headers }),
+    fetch('https://www.cio.com.tw/author/author2/feed/?paged=2', { headers }),
+  ]);
+  const [xml1, xml2] = await Promise.all([res1.text(), res2.text()]);
+  cioArticles = [...parseCioItems(xml1), ...parseCioItems(xml2)].slice(0, 15);
+} catch (e) {
+  console.error('Failed to fetch CIO Taiwan RSS:', e);
+}
+
+const allArticles = [...substackArticles, ...cioArticles].sort((a, b) => b.date.getTime() - a.date.getTime());
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<Base title="Insights" description="Dr. John Liao's analysis of AI talent technology trends, industry insights, and strategic thinking.">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label animate-on-scroll">Insights</span>
+      <h1 class="animate-on-scroll">Insights</h1>
+      <p class="animate-on-scroll">Analysis of AI talent technology trends, industry insights, and strategic thinking.</p>
+      <p class="animate-on-scroll" style="margin-top:0.6rem; color: var(--text-muted); font-size: 0.9rem;">Articles below are originally published in Chinese. Use your browser's translation feature to read in English.</p>
+    </div>
+  </section>
+
+  <section class="insights-section">
+    <div class="container">
+      <div class="filter-bar animate-on-scroll">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Substack">Substack</button>
+        <button class="filter-btn" data-filter="CIO Taiwan">CIO Taiwan</button>
+      </div>
+
+      <div class="articles-grid">
+        {allArticles.map(article => (
+          <a href={article.link} target="_blank" rel="noopener noreferrer"
+             class="card article-card animate-on-scroll" data-source={article.source} hreflang="zh-Hant">
+            {article.image && (
+              <div class="article-thumb">
+                <img src={article.image} alt={article.title} loading="lazy" />
+              </div>
+            )}
+            <div class="article-body">
+              <div class="article-meta">
+                <span class={`source-tag ${article.source === 'Substack' ? 'tag-substack' : 'tag-cio'}`}>
+                  {article.source}
+                </span>
+                <span class="article-date">{formatDate(article.date)}</span>
+              </div>
+              <h3 lang="zh-Hant">{article.title}</h3>
+              <p lang="zh-Hant">{article.summary}</p>
+              <span class="read-more">
+                Read more
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {allArticles.length === 0 && (
+        <div class="empty-state">
+          <p>No articles available right now. Please check back later.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .insights-section {
+    padding-top: 0;
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent-light);
+  }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: all var(--transition);
+  }
+  .article-card.hidden {
+    display: none;
+  }
+
+  .article-thumb {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  .article-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .article-card:hover .article-thumb img {
+    transform: scale(1.05);
+  }
+
+  .article-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .source-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .tag-substack {
+    background: rgba(255, 102, 0, 0.12);
+    color: #FF6600;
+  }
+  .tag-cio {
+    background: rgba(59, 130, 246, 0.12);
+    color: var(--accent-light);
+  }
+
+  .article-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .article-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .article-card p {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .read-more {
+    color: var(--accent-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: gap 0.3s;
+  }
+  .article-card:hover .read-more {
+    gap: 0.6rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = (btn as HTMLElement).dataset.filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.article-card').forEach(card => {
+        const source = (card as HTMLElement).dataset.source;
+        if (filter === 'all' || source === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        const delay = Array.from(el.parentElement?.children ?? [])
+          .filter(c => c.classList.contains('animate-on-scroll'))
+          .indexOf(el) * 100;
+        setTimeout(() => el.classList.add('visible'), Math.min(delay, 500));
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
