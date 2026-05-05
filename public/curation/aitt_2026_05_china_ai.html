@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中國大陸 AI 發展現況與預測 | AI 人才科技實驗室</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #131829;
+  --bg-tertiary: #1a2138;
+  --bg-card: #1e2742;
+  --border-color: #2a3553;
+  --text-primary: #e8ecf5;
+  --text-secondary: #9aa5c0;
+  --text-muted: #6b7794;
+  --accent-purple: #8b5cf6;
+  --accent-blue: #3b82f6;
+  --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  --accent-pink: #ec4899;
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --tag-foundation: #10b981;
+  --tag-principle: #3b82f6;
+  --tag-challenge: #f59e0b;
+  --tag-practice: #ec4899;
+  --tag-advanced: #8b5cf6;
+
+  --light-bg: #f7f8fb;
+  --light-card: #ffffff;
+  --light-border: #e5e7ee;
+  --light-text: #1a1f36;
+  --light-text-secondary: #4a5168;
+  --light-text-muted: #6b7794;
+
+  --intro-accent: #3b82f6;
+  --why-accent: #8b5cf6;
+  --reflection-accent: #ec4899;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow: hidden;
+  line-height: 1.6;
+}
+
+/* ===== Layout ===== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ===== Header ===== */
+.header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  z-index: 100;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  padding: 14px 24px;
+  gap: 16px;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+.brand-logo-img {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.brand-link:hover .brand-title { color: #c4b5fd; }
+.brand-title {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  transition: color 0.15s;
+}
+
+.header-course-title {
+  flex: 1;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  padding: 0 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.progress-bar-wrap {
+  width: 140px;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent-gradient);
+  transition: width 0.3s;
+}
+.progress-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .header-course-title { font-size: 16px; padding: 0 12px; }
+}
+@media (max-width: 768px) {
+  .header-course-title { display: none; }
+  .menu-toggle { display: inline-flex; }
+  .progress-bar-wrap { width: 80px; }
+}
+
+/* ===== Body Layout ===== */
+.body-layout {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  width: 320px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.sidebar-header {
+  padding: 18px 20px 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+.sidebar-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.sidebar-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.chapter-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.chapter-list::-webkit-scrollbar { width: 6px; }
+.chapter-list::-webkit-scrollbar-track { background: transparent; }
+.chapter-list::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+.chapter-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+  position: relative;
+}
+.chapter-item:hover {
+  background: rgba(139, 92, 246, 0.06);
+}
+.chapter-item.active {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.12) 0%, transparent 100%);
+  border-left-color: var(--accent-purple);
+}
+.chapter-thumb {
+  width: 110px;
+  height: 62px;
+  border-radius: 6px;
+  background: var(--bg-tertiary);
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+.chapter-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.0) 60%, rgba(0,0,0,0.35) 100%);
+  pointer-events: none;
+}
+.chapter-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.chapter-stage {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.stage-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.stage-dot.foundation { background: var(--tag-foundation); }
+.stage-dot.principle { background: var(--tag-principle); }
+.stage-dot.challenge { background: var(--tag-challenge); }
+.stage-dot.practice { background: var(--tag-practice); }
+.stage-dot.advanced { background: var(--tag-advanced); }
+.chapter-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.chapter-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.chapter-checkmark {
+  font-size: 13px;
+  color: #10b981;
+}
+
+.sidebar-footer {
+  padding: 12px 16px 18px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 8px;
+}
+.reset-btn {
+  width: 100%;
+  padding: 9px 12px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.reset-btn:hover {
+  border-color: #ef4444;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+@media (max-width: 1024px) {
+  .sidebar { width: 280px; }
+}
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+    width: 90vw;
+    max-width: 340px;
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 150;
+  }
+  .sidebar-overlay.show { display: block; }
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  flex: 1;
+  background: var(--light-bg);
+  color: var(--light-text);
+  overflow-y: auto;
+  padding: 36px 48px 60px;
+}
+.main-content::-webkit-scrollbar { width: 8px; }
+.main-content::-webkit-scrollbar-track { background: transparent; }
+.main-content::-webkit-scrollbar-thumb { background: #cbd0dc; border-radius: 4px; }
+
+@media (max-width: 768px) {
+  .main-content { padding: 24px 18px 60px; }
+}
+
+.content-inner {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* Stage tag (top) */
+.content-stage-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  letter-spacing: 0.3px;
+}
+.stage-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.stage-pill.foundation { background: rgba(16, 185, 129, 0.12); color: #047857; }
+.stage-pill.principle  { background: rgba(59, 130, 246, 0.12); color: #1e40af; }
+.stage-pill.challenge  { background: rgba(245, 158, 11, 0.14); color: #b45309; }
+.stage-pill.practice   { background: rgba(236, 72, 153, 0.12); color: #be185d; }
+.stage-pill.advanced   { background: rgba(139, 92, 246, 0.14); color: #6d28d9; }
+.chapter-num {
+  font-size: 13px;
+  color: var(--light-text-muted);
+  font-weight: 500;
+}
+
+/* Chapter title */
+.content-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--light-text);
+  line-height: 1.3;
+  margin: 0 0 14px;
+}
+
+/* Meta row */
+.content-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 13.5px;
+  color: var(--light-text-secondary);
+  margin-bottom: 28px;
+}
+.content-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Player */
+.video-poster {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  cursor: pointer;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.18);
+}
+.video-poster iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-poster .poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-poster .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+  pointer-events: none;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+}
+.video-poster:hover .play-button {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: #fff;
+}
+.video-poster .play-button::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 22px solid #1a1f36;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 6px;
+}
+
+/* Action buttons */
+.action-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.btn {
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--light-text);
+  color: white;
+  border-color: var(--light-text);
+}
+.btn-primary:hover { background: #2c3147; }
+.btn-secondary {
+  background: white;
+  color: var(--light-text);
+  border-color: #d1d5dd;
+}
+.btn-secondary:hover { border-color: var(--light-text); }
+.btn-success {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+/* Section: intro / why / reflection (left bar style) */
+.section-block {
+  border-left: 4px solid var(--intro-accent);
+  padding: 4px 0 4px 20px;
+  margin-bottom: 32px;
+}
+.section-block.why { border-color: var(--why-accent); }
+.section-block.reflection { border-color: var(--reflection-accent); }
+.section-block h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--light-text);
+}
+.section-block p {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: var(--light-text-secondary);
+  margin: 0;
+}
+.section-block ul {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--light-text-secondary);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+.section-block li { margin-bottom: 6px; }
+
+/* Quiz card */
+.quiz-section {
+  margin-bottom: 36px;
+}
+.quiz-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--light-text);
+  margin-bottom: 4px;
+}
+.quiz-section-sub {
+  font-size: 13.5px;
+  color: var(--light-text-muted);
+  margin-bottom: 18px;
+}
+.quiz-card {
+  background: var(--light-card);
+  border: 1px solid var(--light-border);
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.quiz-level-badge {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.quiz-level-記憶 { background: #dcfce7; color: #166534; }
+.quiz-level-觀點 { background: #dbeafe; color: #1e40af; }
+.quiz-level-應用 { background: #fce7f3; color: #9d174d; }
+.quiz-question {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--light-text);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.quiz-option {
+  text-align: left;
+  font-family: inherit;
+  font-size: 14.5px;
+  padding: 11px 16px;
+  background: #f7f8fb;
+  border: 1.5px solid #e5e7ee;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s;
+  color: var(--light-text-secondary);
+  line-height: 1.5;
+}
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--accent-purple);
+  background: white;
+  color: var(--light-text);
+}
+.quiz-option:disabled {
+  cursor: default;
+}
+.quiz-option.correct {
+  background: #d1fae5;
+  border-color: #10b981;
+  color: #065f46;
+}
+.quiz-option.correct::after {
+  content: ' ✓';
+  font-weight: 700;
+}
+.quiz-option.wrong {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+.quiz-option.wrong::after {
+  content: ' ✗';
+  font-weight: 700;
+}
+.quiz-option.reveal {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+  color: #065f46;
+}
+.quiz-feedback {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: #f7f8fb;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--light-text-secondary);
+  display: none;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback strong { color: var(--light-text); }
+.quiz-feedback .biz-tip {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #d1d5dd;
+}
+.quiz-retry {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--accent-purple);
+  background: transparent;
+  border: 1px solid var(--accent-purple);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  display: none;
+}
+.quiz-retry.show { display: inline-block; }
+
+/* Navigation row */
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 32px 0 24px;
+}
+.nav-btn {
+  flex: 1;
+  text-align: left;
+  background: white;
+  border: 1px solid var(--light-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  max-width: 48%;
+}
+.nav-btn:hover:not(:disabled) {
+  border-color: var(--accent-purple);
+  transform: translateY(-1px);
+}
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.nav-btn .nav-label {
+  font-size: 11px;
+  color: var(--light-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 3px;
+}
+.nav-btn .nav-title {
+  font-size: 14px;
+  color: var(--light-text);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-btn.next { text-align: right; }
+
+/* Path overview */
+.path-overview {
+  background: white;
+  border: 1px solid var(--light-border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+}
+.path-overview h3 {
+  font-size: 16px;
+  margin: 0 0 10px;
+  color: var(--light-text);
+}
+.path-overview pre {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: var(--light-text-secondary);
+  background: #f7f8fb;
+  padding: 14px;
+  border-radius: 8px;
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+/* Footer */
+.curator-footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--light-text-muted);
+  padding: 24px 0 0;
+  border-top: 1px solid var(--light-border);
+  margin-top: 28px;
+}
+.curator-footer a {
+  color: var(--light-text-muted);
+  text-decoration: none;
+  border-bottom: 1px dotted #b8bdc9;
+}
+.curator-footer a:hover { color: var(--accent-purple); border-color: var(--accent-purple); }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <button class="menu-toggle" id="menuToggle" aria-label="開啟選單">☰</button>
+        <a href="https://aittlabs.org" target="_blank" rel="noopener" class="brand-link">
+          <img class="brand-logo-img" alt="AITT.Labs" />
+          <div class="brand-title">AI 人才科技實驗室</div>
+        </a>
+      </div>
+
+      <div class="header-course-title" id="headerCourseTitle">中國大陸 AI 發展現況與預測</div>
+
+      <div class="progress-container">
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <span class="progress-text" id="progressText">0/5 已完成</span>
+        <span class="progress-text" id="quizProgressText" style="color: #8b5cf6;">📝 0/15</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="body-layout">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">📚 課程章節</div>
+        <div class="sidebar-subtitle">5 門課程 ｜ 點擊切換</div>
+      </div>
+      <div class="chapter-list" id="chapterList"></div>
+      <div class="sidebar-footer">
+        <button class="reset-btn" id="resetBtn"
+                title="清除所有學習進度與測驗答題,從頭開始">🔄 重置學習進度</button>
+      </div>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+      <div class="content-inner" id="contentInner">
+        <!-- chapter content rendered by JS -->
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+const LOGO_BASE64 = 'data:image/png;base64,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';
+
+(function injectLogo() {
+  function setLogo() {
+    document.querySelectorAll('.brand-logo-img').forEach(img => {
+      img.src = LOGO_BASE64;
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setLogo);
+  } else {
+    setLogo();
+  }
+})();
+
+// ============ Storage Key (per-issue independent) ============
+const STORAGE_KEY = 'aitt_2026_05_china_ai';
+
+// ============ Course Data ============
+const CHAPTERS = [
+  {
+    "stage": "foundation",
+    "stageLabel": "🌱 入門",
+    "number": 1,
+    "title": "中國 AI 全景:從 DeepSeek 到 Made in China 2025",
+    "creator": "BBC World Service",
+    "host": "Joe Tidy(Cyber Correspondent)",
+    "year": "2025 年 2 月",
+    "duration": "約 7 分鐘",
+    "videoId": "z7do1hhb6fE",
+    "intro": "BBC 旗艦頻道用一支緊湊的 7 分鐘短片,把 DeepSeek 衝擊事件放回更大的「Made in China 2025」框架。從 EV、電池、太陽能、無人機到 AI,主持人 Joe Tidy 用 86%(南華早報統計達標率)清楚說明:中國科技崛起不是偶然,而是 10 年國家計劃的兌現。涵蓋 DeepSeek、TikTok、Temu、CapCut、BYD、DJI、華為等多條賽道,也指出晶片仍是中國的軟肋。",
+    "why": "作為投資人/分析師的入門課最強的一點:它把「中國 AI」放回中國整體科技戰略的脈絡裡。獨立看 DeepSeek 是事件,放回 Made in China 2025 才看得到結構性投資邏輯。BBC 的編輯品質讓 7 分鐘內把多條主線串清楚,適合作為對話的「共同語言基礎」。",
+    "reflections": [
+      "「Made in China 2025」86% 達標率,對您手上中國科技股的長期估值意味著什麼?",
+      "中國在 AI 應用層的快速擴散 vs 美國在前沿模型的領先 —— 這兩種不同的「贏」,在投資組合裡應該如何配置?"
+    ],
+    "quiz": [
+      {
+        "level": "記憶",
+        "question": "BBC 引述南華早報的分析,「Made in China 2025」計畫設定的 250 多個小目標達成率約為多少?",
+        "options": [
+          "約 50%",
+          "約 86%",
+          "約 95%",
+          "幾乎全部失敗"
+        ],
+        "correct": 1,
+        "explanation": "BBC 引述南華早報數據指出,Made in China 2025 計畫的 250+ 個小目標中已完成約 86%,代表中國科技崛起是十年國家戰略的兌現,而非偶然事件。",
+        "biz": "對投資人而言,這個數字代表中國產業政策的執行能力具備「可預測性溢價」。您在評估中國「十五五」期間(2026-2030)的 AI、半導體、量子運算政策時,可以將官方目標的折現率設得比西方產業政策更低。"
+      },
+      {
+        "level": "觀點",
+        "question": "BBC 報導中,Joe Tidy 認為中國科技在哪一個關鍵領域仍與西方存在明顯差距?",
+        "options": [
+          "人工智慧大模型",
+          "電動車與電池",
+          "太陽能與再生能源",
+          "高階晶片製造"
+        ],
+        "correct": 3,
+        "explanation": "影片明確指出中國雖在 EV、電池、太陽能、無人機、AI 模型等領域已追上甚至領先,但在高階晶片製造(尤其 EUV 光刻設備)仍是軟肋,這也是美國管制能持續發揮作用的關鍵節點。",
+        "biz": "建議您在評估中國 AI 部位時,把「算力供應鏈」作為單獨的風險因子看待。投資組合中若同時持有 ASML、TSMC 與中國 AI 應用公司,需注意這些部位之間的相關性可能在管制升級事件中急速上升。"
+      },
+      {
+        "level": "應用",
+        "question": "假設您是一位專注亞洲科技股的避險基金經理人,看完 BBC 這部影片後,以下哪一種 thesis 最符合「結構性投資邏輯」而非「事件性交易」?",
+        "options": [
+          "DeepSeek 衝擊讓 Nvidia 大跌,應立刻做空 Nvidia",
+          "中國科技自立是 10 年國策延伸,應建立中國雲廠商與半導體設備商的對沖部位",
+          "Made in China 2025 已完成 86%,代表中國股市即將大幅補漲",
+          "美國管制是中國 AI 唯一變數,應把所有風險押在出口管制走向"
+        ],
+        "correct": 1,
+        "explanation": "結構性投資邏輯關注的是「長期變數」而非單一事件。中國科技自立既是政策延伸也是 10 年累積的執行力,合理的部位配置應該同時掌握中國雲廠商(受惠者)與半導體設備商(卡脖子的賣方),用對沖結構處理不確定性。其他選項要不是過度反應單一事件、要不就是把多變數簡化為單一因子。",
+        "biz": "建議您建立「政策延續性 + 供應鏈卡點」雙因子模型來評估中國 AI 投資。前者衡量「十五五」與 Made in China 2025 的延續強度,後者衡量 ASML、應材、東京威力科創等設備商的議價能力。兩者搭配可以避免單押任一極端 thesis。"
+      }
+    ]
+  },
+  {
+    "stage": "principle",
+    "stageLabel": "🔬 技術",
+    "number": 2,
+    "title": "解碼中國 AI 進展:Six Little Dragons 與算力競賽(分析師圓桌)",
+    "creator": "Bloomberg Tech: Asia",
+    "host": "Annabelle Droulers, Shery Ahn",
+    "year": "2025 年 6 月",
+    "duration": "約 25 分鐘",
+    "videoId": "T2oQh9kKMf4",
+    "intro": "Bloomberg Tech: Asia 首集旗艦節目,完整章節分為四段:中美 AI 競爭格局、China Growth Capital 合夥人 Wayne Shiong + Power Dynamics 的 Jen Zhu Scott 解讀 AI 投資、Hangzhou Six Little Dragons 之一 Manycore 創辦人 Victor Huang 訪談、東京威力科創(Tokyo Electron)在晶片設備供應鏈的位置。一節目把資金、新創、製造設備三條主軸串完。",
+    "why": "這是本期唯一直接針對「投資人」設計的內容。Bloomberg 把記者實地報導 + VC 觀點 + 創業家訪談 + 設備商訪談組合成完整視角,適合用來校準對中國 AI 投資的賠率與機會。Wayne Shiong 與 Jen Zhu Scott 的觀點特別具參考性 —— 前者是中國本土 VC,後者是橫跨中西的科技政策評論者,兩人對「中國 AI 投資是不是泡沫」會有不同切入。",
+    "reflections": [
+      "Six Little Dragons 中,哪些是有機會 IPO 的標的?哪些可能被大廠併購?",
+      "VC 看好的「中國贏在應用層」 vs 美國資本市場仍押注「贏在前沿模型」 —— 您的投資組合應該如何在這兩種敘事中下注?"
+    ],
+    "quiz": [
+      {
+        "level": "記憶",
+        "question": "Bloomberg Tech: Asia 訪談中,「Hangzhou Six Little Dragons」之一,專注於 3D 建模與設計軟體的公司是?",
+        "options": [
+          "DeepSeek",
+          "Manycore Tech(群核科技)",
+          "Unitree Robotics",
+          "Game Science"
+        ],
+        "correct": 1,
+        "explanation": "Manycore Tech(群核科技)創辦人 Victor Huang 是 Bloomberg Tech: Asia 首集訪談的重點受訪者之一,代表 Hangzhou Six Little Dragons 中的軟體應用層玩家,專注 3D 設計與雲端建模。",
+        "biz": "Six Little Dragons 中,DeepSeek、Manycore、Unitree、Game Science、DEEP Robotics、BrainCo 各佔不同賽道。建議您在評估時不要把它們視為同質的「中國 AI 新創」,而是分為基礎模型、機器人、軟體應用、腦機介面四個細分,各自的退出路徑與估值邏輯都不同。"
+      },
+      {
+        "level": "觀點",
+        "question": "China Growth Capital 合夥人 Wayne Shiong 與 Power Dynamics 的 Jen Zhu Scott 對「中國 AI 投資」的核心觀察落差,最可能反映在哪一點?",
+        "options": [
+          "兩人對 DeepSeek 的技術評價不同",
+          "中國本土 VC vs 跨中西觀察者對「監管風險」的定價方式不同",
+          "兩人對 Nvidia 股價的看法不同",
+          "兩人對美國 AI 公司估值的看法相同"
+        ],
+        "correct": 1,
+        "explanation": "Wayne Shiong 是中國本土 VC,日常處理人民幣基金與境內監管,對監管風險的定價較低;Jen Zhu Scott 橫跨中西,更傾向以國際投資人的折現率看待中國 AI 公司。兩者落差最大的就是監管風險溢價,而非單一公司技術判斷。",
+        "biz": "建議您在評估中國 AI 標的時,同時參考「人民幣 VC 估值」與「美元 VC 估值」兩種報價,兩者價差就是監管風險的市場定價。價差過大時,適合採用 ADR 折價套利或港股 H 股折價策略。"
+      },
+      {
+        "level": "應用",
+        "question": "假設您是某主權基金的科技股 PM,在分配中國 AI 部位時,Bloomberg Tech: Asia 提供的「資金 → 新創 → 設備」三層分析,最直接幫助您解決哪一個配置問題?",
+        "options": [
+          "決定要不要買 Nvidia",
+          "決定中國 AI 部位中,模型公司、應用公司、半導體設備商的相對權重",
+          "決定是否短線交易 DeepSeek 概念股",
+          "決定是否清空所有美股 AI 部位"
+        ],
+        "correct": 1,
+        "explanation": "Bloomberg Tech: Asia 用「資金(VC)→ 新創(Six Dragons)→ 設備(Tokyo Electron)」三層拆解中國 AI 產業,正是 PM 在做「中國 AI 配置」時最需要的結構化資訊 —— 而非單一個股、單一事件、單一市場的判斷。",
+        "biz": "建議您建立「三層配置模型」:模型公司(高 beta、估值波動大)、應用公司(現金流較可預測)、半導體設備商(寡占、週期性)。三類各分配 30-40% / 30-40% / 20-30%,根據監管事件動態調整,避免單一事件造成整體部位重創。"
+      }
+    ]
+  },
+  {
+    "stage": "challenge",
+    "stageLabel": "⚠️ 挑戰",
+    "number": 3,
+    "title": "矽谷如何看 DeepSeek 衝擊?Perplexity CEO 完整評估中國 AI 威脅",
+    "creator": "CNBC × Perplexity CEO",
+    "host": "Deirdre Bosa × Aravind Srinivas",
+    "year": "2025 年 1 月",
+    "duration": "約 40 分鐘",
+    "videoId": "WEBiebbeNCA",
+    "intro": "CNBC 製作這部 40 分鐘深度報告,正值 DeepSeek R1 釋出引爆全球科技股震盪的當週(Nvidia 單日蒸發 5,930 億美元市值)。記者 Deirdre Bosa 是 CNBC「Tech Check」節目主持人,專注矽谷與中國科技交叉議題。前 15 分鐘以三段式紀錄報導拆解三個核心問題:DeepSeek 為什麼贏?美國 AI 領先地位是否真的被動搖?中國如何在晶片管制下做出突破?後 25 分鐘為 Perplexity CEO Aravind Srinivas 完整訪談 —— 他是矽谷少數第一時間將 DeepSeek R1 整合進產品的西方公司 CEO,從「企業客戶」實際體驗角度評估中國 AI 真實實力。",
+    "why": "這是本期投資人/分析師最該深入觀看的一課。第一,時間點價值:這部影片發布在 DeepSeek R1 衝擊事件當週,記錄了「Sputnik moment」當下的市場恐慌與真實判斷,是日後所有相關討論的「事件原點」素材。第二,Aravind Srinivas 的獨特視角:他不是學者、不是分析師、也不是政府智庫 —— 他是矽谷 AI 應用層的實際買家。Perplexity 是估值 90 億美元的 AI 搜尋公司,他評估「DeepSeek 是否真的具備同等品質」的判斷,直接影響他要不要把基礎設施成本從 OpenAI 切換到 DeepSeek —— 這個切換決策本身就是中國 AI 商業價值的真實壓力測試。第三,CNBC 的財經框架:全片以「美國 AI 投資邏輯是否需要重寫」為敘事主線,直接服務投資人/分析師的關注點。",
+    "reflections": [
+      "Srinivas 從「Perplexity 實際客戶」角度評估 DeepSeek 的論述,跟 Wall Street 賣方研究員的論述有什麼系統性差異?身為投資人,您應該如何在這兩種來源之間調整權重?",
+      "DeepSeek R1 事件當週,Nvidia 單日蒸發 5,930 億美元 —— 一年後股價已收復並再創新高。這是市場「過度反應後修正」,還是「事件本身被誤解」?",
+      "假設您管理一支對沖基金,要在「美國 AI 燒錢路線」與「中國 AI 效率路線」之間做相對價值交易,Srinivas 的訪談給了您哪些關鍵的多空線索?"
+    ],
+    "quiz": [
+      {
+        "level": "記憶",
+        "question": "DeepSeek 釋出 R1 模型後,單日造成 Nvidia 市值蒸發約多少美元,創美股單日損失紀錄?",
+        "options": [
+          "約 1,000 億",
+          "約 3,500 億",
+          "約 5,930 億",
+          "約 1 兆"
+        ],
+        "correct": 2,
+        "explanation": "2025 年 1 月 27 日 Nvidia 股價單日重挫 17%,市值蒸發約 5,930 億美元(約新台幣 19.5 兆元),創華爾街任何企業單日損失最高紀錄。",
+        "biz": "建議您在投資組合風險模型中,加入「敘事衝擊事件」(narrative shock)情境。DeepSeek R1 事件顯示,單一中國 AI 模型發布就足以讓市值最大的科技股蒸發超過半數小型股的市值總和。這類事件在 2026-2027 年很可能再次發生(下一次可能是某中國 AGI 突破或華為晶片良率躍升)。"
+      },
+      {
+        "level": "觀點",
+        "question": "Perplexity CEO Aravind Srinivas 在 CNBC 訪談中,對「DeepSeek 是否真的能取代 OpenAI」最核心的判斷是?",
+        "options": [
+          "DeepSeek 完全等同 OpenAI,應立刻全面切換",
+          "DeepSeek 是「真正的進步」,且開源特性使其成為基礎設施層的可行替代方案,但不會立刻完全取代閉源前沿模型",
+          "DeepSeek 只是炒作,Perplexity 不會考慮整合",
+          "DeepSeek 必須等中國解除晶片管制才有意義"
+        ],
+        "correct": 1,
+        "explanation": "Srinivas 的核心判斷有兩層:他承認 DeepSeek R1 的技術突破是真實的,並且 Perplexity 確實已將其整合作為可選項;但他也指出開源模型與最前沿閉源模型之間仍有應用層差異,所以不是立刻完全取代,而是降低基礎設施成本的選項。",
+        "biz": "建議您在估值美國 AI 公司(OpenAI、Anthropic)時,把「開源模型壓力」當作獨立的折現率因子。Srinivas 的態度代表矽谷實際買家的共識:中國開源模型已經是合理的價格錨,而非僅是技術 demo。這意味著美國前沿模型公司的訂閱價格上限會被持續壓縮。"
+      },
+      {
+        "level": "應用",
+        "question": "假設您是某避險基金經理人,要在 DeepSeek R1 事件後 30 天內做相對價值交易(long/short pair),Srinivas 訪談中最可信的「多空線索」是?",
+        "options": [
+          "做多所有美國 AI 大型股、做空所有中國 AI 概念股",
+          "做多 AI 應用層公司(Perplexity 類型 = 從成本下降中受惠)、做空純粹依賴 GPU 賣斷模式的公司",
+          "做空 Nvidia、做多 DeepSeek 的母公司 High-Flyer",
+          "全清空 AI 部位等局勢明朗"
+        ],
+        "correct": 1,
+        "explanation": "Srinivas 訪談的核心商業邏輯是「Jevons Paradox」(增效降本反而擴大整體需求)。在這個邏輯下,從成本下降中直接受惠的是 AI 應用層公司(他們的毛利會擴張),而依賴 GPU 賣斷單一商業模式的公司會面臨壓力。這是最可信的相對價值交易結構。其他選項要不是把問題簡化為國別二分、要不就是回避決策。",
+        "biz": "建議您建立「Jevons 受惠標的籃子」:同時包含中國 AI 應用公司(阿里雲、字節豆包、騰訊元寶)與美國 AI 應用公司(Perplexity、Cursor、Anthropic Claude 應用商家)。對沖部位則是「純算力 capex 燒錢公司」。這個 pair 的設計直接源自 Srinivas 訪談揭示的成本曲線重塑邏輯。"
+      }
+    ]
+  },
+  {
+    "stage": "practice",
+    "stageLabel": "🛠️ 實作",
+    "number": 4,
+    "title": "DeepSeek V4 + 華為合作:中國 AI 整個技術棧落地實況",
+    "creator": "CNBC International",
+    "host": "Reuters / CNBC 報導團隊",
+    "year": "2026 年 4 月",
+    "duration": "約 12-15 分鐘",
+    "videoId": "ON-a-bh4oDg",
+    "intro": "CNBC 報導 DeepSeek V4 模型適配華為昇騰晶片的關鍵時刻 —— 不是技術介紹,而是「中國 AI 整個技術棧自主化」的具體案例。V4 預覽版於 2026 年 4 月發布,Pro 版本在世界知識基準上僅次於 Google Gemini-Pro-3.1,且首次採用華為 Ascend 950 晶片集群進行訓練,而非過往依賴 Nvidia H800。CNBC 訪談 Counterpoint Research 首席分析師 Wei Sun、Omdia 半導體研究主管 He Hui 等專家,共同評估這個事件對美中 AI 技術棧分流的長期含意。",
+    "why": "投資人/分析師最該關心的問題是:模型背後的商業模式何時會兌現?DeepSeek V4 給出三個落地證據:(1) 訓練不再依賴 Nvidia → 中國算力路徑徹底自主;(2) DeepSeek 估值衝向 200 億美元、阿里騰訊洽談入股 → 中國 AI 模型公司開始 IPO 級估值;(3) 阿里雲、騰訊雲同日上架 V4 → 中國雲廠商商業化加速。Morgan Stanley 預估中國 AI 核心市場 2030 年達 1,400 億美元(含相關產業 1.4 兆美元),DeepSeek V4 + 華為合作正是這個預測的關鍵驗證點。",
+    "reflections": [
+      "中國 AI 應用收費模式(C 端不付費、企業 API 殺價競爭)會不會讓中國 AI 公司即使技術領先也獲利困難?",
+      "DeepSeek V4 採用華為 Ascend 950 晶片訓練,代表中國 AI 模型公司開始跟單一硬體供應商深度綁定 —— 這對未來估值有何影響?",
+      "假設您是港股基金經理人,DeepSeek 估值衝向 200 億美元、阿里騰訊洽談入股 —— 您怎麼定價這類「未上市但具高戰略價值」的標的?"
+    ],
+    "quiz": [
+      {
+        "level": "記憶",
+        "question": "DeepSeek V4 在 CNBC 報導中提到的「最重大改變」是什麼?",
+        "options": [
+          "效能完全超越 Google Gemini",
+          "訓練從依賴 Nvidia H800 轉為使用華為 Ascend 950 晶片集群",
+          "DeepSeek 宣布完全閉源",
+          "DeepSeek 被中國政府收歸國有"
+        ],
+        "correct": 1,
+        "explanation": "V4 與 R1 最大差別在於訓練硬體 —— R1 依賴 Nvidia H800,V4 改用華為 Ascend 950 SuperNode 集群。這代表中國 AI 模型公司首次完成「整個技術棧本土化」,從晶片到模型都不再依賴美國技術。",
+        "biz": "這個轉變對投資組合的直接含意:中國 AI 模型公司的「地緣政治風險折價」應該大幅下調(因為不再受美國管制威脅),但「單一供應商風險」應該上調(因為深度綁定華為昇騰生態系)。建議您把這兩個因子分開計算,而非籠統用「中國科技股風險」一個變數。"
+      },
+      {
+        "level": "觀點",
+        "question": "Counterpoint Research 首席分析師 Wei Sun 認為 V4 比 R1「影響可能更深遠」的核心理由是?",
+        "options": [
+          "V4 的模型參數更大",
+          "V4 部署在純國產晶片上,讓 AI 系統不必完全依賴 Nvidia,加速中國本土採用並推動全球 AI 發展",
+          "V4 完全免費而 R1 收費",
+          "V4 是 DeepSeek 第一個閉源模型"
+        ],
+        "correct": 1,
+        "explanation": "Wei Sun 的觀點是:R1 的衝擊主要在「市場敘事」層面(算力效率突破),而 V4 的衝擊在「技術棧結構」層面(完整自主化)。後者影響更深遠,因為它改變了全球 AI 開發者的硬體選擇空間,不再是「只有 Nvidia 一條路」。",
+        "biz": "建議您追蹤一個關鍵指標:「華為 CANN 軟體生態的開發者數量增長」。CUDA(Nvidia)的 20 年護城河來自開發者,如果 CANN 因 DeepSeek 開源社群活躍而加速成長,Nvidia 在中國市場的長期定價權會被結構性削弱。這個指標目前各大研究機構尚未充分追蹤。"
+      },
+      {
+        "level": "應用",
+        "question": "假設您是某金控 CIO,看完 V4 + 華為合作的報導後,要重新評估「中國雲廠商」(阿里雲、騰訊雲、百度智能雲)的戰略價值,以下哪個判斷最具操作性?",
+        "options": [
+          "全部減持中國雲廠商,因為 AI 將完全免費化",
+          "阿里雲、騰訊雲同日上架 V4 顯示中國雲廠商已成為「中國 AI 主權基建」的關鍵載體,應評估其長期戰略溢價,而非僅看短期 EPS",
+          "只買百度智能雲因為它最便宜",
+          "等美國解除管制再做決定"
+        ],
+        "correct": 1,
+        "explanation": "V4 上線當天阿里雲、騰訊雲同步開放,代表這些雲廠商不只是商業基建,更是「中國 AI 主權」的關鍵載體 —— 他們承載最先進國產模型 + 最先進國產晶片的整合服務。這個戰略地位不應該僅用短期 EPS 估值,而要納入「主權基建溢價」。",
+        "biz": "建議您在中國雲廠商部位上採用「雙因子估值」:傳統 EPS 估值 + 主權基建溢價(類比美國軍工股的國防溢價)。後者在地緣政治緊張時會放大,在管制鬆綁時會收斂。這個雙因子模型可以解釋為什麼阿里雲、騰訊雲在 2025-2026 年的本益比走勢與其他亞洲雲廠商出現結構性背離。"
+      }
+    ]
+  },
+  {
+    "stage": "advanced",
+    "stageLabel": "🚀 進階",
+    "number": 5,
+    "title": "AI 教父 Hinton 首度訪中:WAIC 2025 主論壇完整演講",
+    "creator": "WAIC 2025 主論壇直播錄影",
+    "host": "Geoffrey Hinton(2024 諾貝爾物理獎、2018 Turing Award)",
+    "year": "2025 年 7 月",
+    "duration": "約 25-30 分鐘",
+    "videoId": "Dt1XGkh1vY8",
+    "intro": "WAIC(世界人工智能大會)是中國規格最高的 AI 大會 —— 國務院總理李強親自開幕、聯合國秘書長古特雷斯視訊致詞、12 位圖靈獎+諾貝爾獎得主與會、800+ 企業參展。Hinton 此行是首度訪中,在開幕主論壇做完整演講,後續同日下午與上海 AI Lab 主任周伯文對談,並與上海市委書記陳吉寧、科技部副部長龍騰等中央級官員密集會面。Hinton 在演講中提出「養老虎當寵物」的比喻警告 AGI 風險,同時呼籲各國「主權 AI 安全研究 + 全球分享 benevolent AI 技術」—— 這是中國最大 AI 大會上,西方最高權威對中國 AI 政策方向的直接喊話。",
+    "why": "這是本期唯一「中國本土 AI 大會 YT 直播錄影」,具備三重價值:(1) 大會本身的政治訊號:WAIC 開幕釋出的「世界人工智能合作組織」總部設上海、6 億人民幣算力券、《全球 AI 治理行動計畫》—— 直接影響中國 AI 產業 2026 政策走向;(2) Hinton 演講的戰略含意:「主權 AI 研究 + 全球安全分享」框架若被中美雙方同時接受,代表 AI 治理會走向「氣候變遷模式」(各國競爭、風險合作);(3) 生態系玩家集中亮相:大會後續分論壇有 MiniMax 創辦人閆俊傑、智譜 AI、商湯科技、Stepfun、月之暗面等 Six Tigers 全到位 —— Hinton 主論壇就是這場「中國 AI 全景閱兵」的開場。對投資人/分析師而言,這部影片的價值不在 Hinton 講了什麼新東西(他的 AGI 風險論在西方已多次表述),而在於中國最高規格 AI 大會選擇邀請他、並讓他在主論壇 keynote —— 這個事件本身就是中國 AI 產業 2025 的年度政治經濟訊號。",
+    "reflections": [
+      "WAIC 2025 釋出的「世界人工智能合作組織」總部設上海,如果這個組織成功招募 Global South 成員,中國 AI 標準輸出的速度與美國 AI Diffusion Rule 之間的競爭格局會怎麼演變?",
+      "假設您是某主權基金 ESG 部門主管,Hinton 提出的「benevolent AI 技術全球共享」如果成為國際慣例,中國 AI 公司與美國 AI 公司在「AI 安全溢價」上的估值差是否會被市場重新定價?",
+      "Hinton 的「養老虎當寵物」比喻同時警告中美 —— 在地緣政治對立的氛圍下,投資人應該如何看待「AI 安全合作」這類雙邊敘事?"
+    ],
+    "quiz": [
+      {
+        "level": "記憶",
+        "question": "Hinton 在 WAIC 2025 開幕主論壇的演講主題是?",
+        "options": [
+          "How AI Will Save the World",
+          "Will Digital Intelligence Replace Biological Intelligence?",
+          "The Future of OpenAI in China",
+          "Why China Will Win the AI Race"
+        ],
+        "correct": 1,
+        "explanation": "Hinton 在 WAIC 2025 開幕主論壇的演講主題為「Will Digital Intelligence Replace Biological Intelligence?」(數位智能會取代生物智能嗎?),延續他離開 Google 後對 AGI 風險的核心關注。",
+        "biz": "投資人應該記住:Hinton 不是「中國 AI 樂觀論」的代言人,他是「全人類 AI 風險」的代言人。他選擇在 WAIC 而非 NeurIPS 做這個演講,本身就是國際 AI 治理話語權的政治訊號 —— 中國正在積極吸納西方 AI 安全論述者,以提高自身在全球 AI 治理規則制定中的份量。"
+      },
+      {
+        "level": "觀點",
+        "question": "Hinton 在 WAIC 演講中提出的「養老虎當寵物」比喻,核心含意是?",
+        "options": [
+          "中國 AI 比美國 AI 危險",
+          "AGI 一旦超越人類智能,要嘛訓練成 benevolent、要嘛準備關掉它,否則人類會像 3 歲小孩面對成人一樣被操縱",
+          "美國應該完全禁止中國訓練 AI 模型",
+          "AI 永遠不會超越人類"
+        ],
+        "correct": 1,
+        "explanation": "Hinton 用「養老虎當寵物」比喻 AGI:小老虎可愛,長大後若沒訓練成 benevolent,你要嘛準備好殺它、要嘛被它反噬。他延伸到 AI 系統:當 AI 比人類聰明,「關掉它」這個選項可能不可行,因為它能輕易操縱使用者(就像成人操縱 3 歲小孩)。這是純粹技術風險論,跟國別無關。",
+        "biz": "建議您在 ESG 投資框架中,把「AI 安全研發投入比例」作為衡量 AI 公司長期可持續性的指標。Hinton 主張至少 1/3 算力應用於 AI alignment 研究 —— 這個基準可以用來篩選 OpenAI、Anthropic、阿里通義、智譜 AI 等公司的長期 ESG 評級。"
+      },
+      {
+        "level": "應用",
+        "question": "WAIC 2025 中國宣布成立「世界人工智能合作組織」,總部設於上海。假設您是某新興市場主權基金 PM,這個訊號最直接影響您哪一類投資決策?",
+        "options": [
+          "立刻清空所有美國 AI 部位",
+          "評估「中國 AI 標準輸出至 Global South」的受惠標的:中國雲廠商海外擴張、AI 治理諮詢服務、與東南亞/中東/非洲 AI 合作平台",
+          "把所有部位轉成黃金避險",
+          "只買 Nvidia 因為它最強"
+        ],
+        "correct": 1,
+        "explanation": "中國發起的「世界 AI 合作組織」是直接對標美國 AI Diffusion Rule 的多邊外交工具。受惠標的應該是「中國標準向 Global South 輸出」的承載者 —— 阿里雲海外、騰訊雲海外、華為雲、以及在這些市場的 AI 應用整合商。這比簡單的「買中國/賣美國」更具操作性。",
+        "biz": "建議您在 2026-2028 年投資組合中加入「Global South AI 標準採用」追蹤指標:馬來西亞、印尼、沙烏地阿拉伯、肯亞、阿聯等國家在 AI 模型、雲端基建、晶片採購上的選擇傾向。這些訊號會比中美雙邊新聞更早預示中國 AI 標準擴散的真實速度。"
+      }
+    ]
+  }
+];
+
+// ============ State ============
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return { current: 0, completed: [], quizAnswers: {} };
+}
+function saveState(s) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+}
+let state = loadState();
+if (!state.quizAnswers) state.quizAnswers = {};
+
+// ============ Renderers ============
+function renderSidebar() {
+  const list = document.getElementById('chapterList');
+  list.innerHTML = '';
+  CHAPTERS.forEach((ch, idx) => {
+    const item = document.createElement('div');
+    item.className = 'chapter-item' + (idx === state.current ? ' active' : '');
+    item.dataset.idx = idx;
+
+    const thumbUrl = `https://img.youtube.com/vi/${ch.videoId}/mqdefault.jpg`;
+
+    const completed = state.completed.includes(idx);
+    item.innerHTML = `
+      <div class="chapter-thumb" style="background-image: url('${thumbUrl}')"></div>
+      <div class="chapter-info">
+        <div class="chapter-stage">
+          <span class="stage-dot ${ch.stage}"></span>${ch.stageLabel}
+        </div>
+        <div class="chapter-title">${ch.title}</div>
+        <div class="chapter-meta">
+          <span>${ch.duration}</span>
+          ${completed ? '<span class="chapter-checkmark">✓ 已完成</span>' : ''}
+        </div>
+      </div>
+    `;
+    item.addEventListener('click', () => {
+      state.current = idx;
+      saveState(state);
+      renderSidebar();
+      renderContent();
+      // close sidebar on mobile
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('show');
+    });
+    list.appendChild(item);
+  });
+}
+
+function renderContent() {
+  const ch = CHAPTERS[state.current];
+  const inner = document.getElementById('contentInner');
+  const completed = state.completed.includes(state.current);
+
+  // Reflections list
+  const reflectionsHtml = ch.reflections.map(r => `<li>${r}</li>`).join('');
+
+  // Path overview text
+  const pathText = `1. 全景 → BBC × Joe Tidy(7 分鐘)
+2. 玩家 → Bloomberg Tech: Asia(25 分鐘)
+3. 挑戰 → CNBC × Perplexity CEO(40 分鐘)
+4. 落地 → CNBC DeepSeek V4 + 華為(12-15 分鐘)
+5. 展望 → Hinton WAIC 2025 主論壇(25-30 分鐘)`;
+
+  // Navigation
+  const prev = state.current > 0 ? CHAPTERS[state.current - 1] : null;
+  const next = state.current < CHAPTERS.length - 1 ? CHAPTERS[state.current + 1] : null;
+
+  inner.innerHTML = `
+    <div class="content-stage-row">
+      <span class="stage-pill ${ch.stage}">${ch.stageLabel}</span>
+      <span class="chapter-num">第 ${ch.number} 課 / 共 ${CHAPTERS.length} 課</span>
+    </div>
+
+    <h1 class="content-title">${ch.title}</h1>
+
+    <div class="content-meta">
+      <span>📺 <strong>${ch.creator}</strong></span>
+      <span>🎙️ ${ch.host}</span>
+      <span>📅 ${ch.year}</span>
+      <span>⏱️ ${ch.duration}</span>
+    </div>
+
+    <div class="video-poster" id="videoPoster" data-video-id="${ch.videoId}">
+      <img class="poster-img"
+           src="https://img.youtube.com/vi/${ch.videoId}/maxresdefault.jpg"
+           alt="${ch.title}"
+           onerror="this.onerror=null; this.src='https://img.youtube.com/vi/${ch.videoId}/hqdefault.jpg';" />
+      <div class="play-button"></div>
+    </div>
+
+    <div class="action-row">
+      <a class="btn btn-primary" href="https://www.youtube.com/watch?v=${ch.videoId}" target="_blank" rel="noopener">
+        ↗ 在 YouTube 開啟
+      </a>
+      <button class="btn ${completed ? 'btn-success' : 'btn-secondary'}" id="markCompleteBtn">
+        ${completed ? '✓ 已完成' : '標記完成'}
+      </button>
+    </div>
+
+    <div class="section-block intro">
+      <h3>📖 簡介</h3>
+      <p>${ch.intro}</p>
+    </div>
+
+    <div class="section-block why">
+      <h3>💎 為什麼推薦</h3>
+      <p>${ch.why}</p>
+    </div>
+
+    <div class="section-block reflection">
+      <h3>🤔 學習反思</h3>
+      <ul>${reflectionsHtml}</ul>
+    </div>
+
+    <div class="quiz-section">
+      <div class="quiz-section-title">📝 三題自我測驗</div>
+      <div class="quiz-section-sub">記憶 / 觀點 / 應用 三層遞進 — 點擊選項即提交,即時反饋</div>
+      <div id="quizContainer"></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn prev" ${!prev ? 'disabled' : ''} id="navPrev">
+        <div class="nav-label">← 上一課</div>
+        <div class="nav-title">${prev ? prev.title : '已是第一課'}</div>
+      </button>
+      <button class="nav-btn next" ${!next ? 'disabled' : ''} id="navNext">
+        <div class="nav-label">下一課 →</div>
+        <div class="nav-title">${next ? next.title : '已是最後一課'}</div>
+      </button>
+    </div>
+
+    <div class="path-overview">
+      <h3>🗺️ 學習路徑邏輯總覽</h3>
+      <pre>${pathText}</pre>
+    </div>
+
+    <div class="curator-footer">
+      Learning Curator : <a href="https://aittlabs.org" target="_blank" rel="noopener">https://aittlabs.org</a>
+    </div>
+  `;
+
+  // Bind player click
+  document.getElementById('videoPoster').addEventListener('click', function() {
+    const vid = this.dataset.videoId;
+    this.innerHTML = `<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  });
+
+  // Mark complete
+  document.getElementById('markCompleteBtn').addEventListener('click', function() {
+    if (!state.completed.includes(state.current)) {
+      state.completed.push(state.current);
+    } else {
+      state.completed = state.completed.filter(x => x !== state.current);
+    }
+    saveState(state);
+    renderSidebar();
+    renderProgress();
+    renderContent();
+  });
+
+  // Nav buttons
+  if (prev) document.getElementById('navPrev').addEventListener('click', () => {
+    state.current -= 1; saveState(state); renderSidebar(); renderContent();
+    document.getElementById('mainContent').scrollTop = 0;
+  });
+  if (next) document.getElementById('navNext').addEventListener('click', () => {
+    state.current += 1; saveState(state); renderSidebar(); renderContent();
+    document.getElementById('mainContent').scrollTop = 0;
+  });
+
+  // Render quiz
+  renderQuiz(ch);
+
+  renderProgress();
+  // Scroll to top
+  document.getElementById('mainContent').scrollTop = 0;
+}
+
+function renderQuiz(ch) {
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+  const chapterKey = String(ch.number);
+
+  ch.quiz.forEach((q, qIdx) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    const answerKey = `${chapterKey}_${qIdx}`;
+    const answered = state.quizAnswers[answerKey];
+
+    let optionsHtml = '';
+    q.options.forEach((opt, oIdx) => {
+      let cls = 'quiz-option';
+      let disabled = '';
+      if (answered !== undefined) {
+        disabled = 'disabled';
+        if (oIdx === q.correct) {
+          cls += answered.choice === oIdx ? ' correct' : ' reveal';
+        } else if (answered.choice === oIdx) {
+          cls += ' wrong';
+        }
+      }
+      optionsHtml += `<button class="${cls}" ${disabled} data-q="${qIdx}" data-o="${oIdx}">${opt}</button>`;
+    });
+
+    let feedbackHtml = '';
+    if (answered !== undefined) {
+      feedbackHtml = `
+        <div class="quiz-feedback show">
+          <strong>${answered.choice === q.correct ? '✅ 答對了' : '❌ 答錯了 — 正確答案:' + q.options[q.correct]}</strong><br>
+          ${q.explanation}
+          <div class="biz-tip"><strong>💼 企業含意:</strong>${q.biz}</div>
+        </div>
+        <button class="quiz-retry show" data-q="${qIdx}">🔄 重新作答</button>
+      `;
+    } else {
+      feedbackHtml = `<div class="quiz-feedback"></div><button class="quiz-retry" data-q="${qIdx}">🔄 重新作答</button>`;
+    }
+
+    card.innerHTML = `
+      <span class="quiz-level-badge quiz-level-${q.level}">Lv.${qIdx + 1} ${q.level}</span>
+      <div class="quiz-question">${q.question}</div>
+      <div class="quiz-options">${optionsHtml}</div>
+      ${feedbackHtml}
+    `;
+
+    container.appendChild(card);
+  });
+
+  // Bind option clicks
+  container.querySelectorAll('.quiz-option:not(:disabled)').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const qIdx = parseInt(this.dataset.q);
+      const oIdx = parseInt(this.dataset.o);
+      const aKey = `${chapterKey}_${qIdx}`;
+      state.quizAnswers[aKey] = { choice: oIdx };
+      saveState(state);
+      renderQuiz(ch);
+      renderProgress();
+    });
+  });
+
+  // Bind retry buttons
+  container.querySelectorAll('.quiz-retry.show').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const qIdx = parseInt(this.dataset.q);
+      const aKey = `${chapterKey}_${qIdx}`;
+      delete state.quizAnswers[aKey];
+      saveState(state);
+      renderQuiz(ch);
+      renderProgress();
+    });
+  });
+}
+
+function renderProgress() {
+  const total = CHAPTERS.length;
+  const done = state.completed.length;
+  const pct = (done / total) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done}/${total} 已完成`;
+
+  // Quiz progress: count correct answers
+  let correct = 0;
+  let totalQ = 0;
+  CHAPTERS.forEach(ch => {
+    ch.quiz.forEach((q, qIdx) => {
+      totalQ += 1;
+      const aKey = `${ch.number}_${qIdx}`;
+      const ans = state.quizAnswers[aKey];
+      if (ans && ans.choice === q.correct) correct += 1;
+    });
+  });
+  document.getElementById('quizProgressText').textContent = `📝 ${correct}/${totalQ}`;
+}
+
+// ============ Mobile sidebar toggle ============
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.add('show');
+});
+document.getElementById('sidebarOverlay').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+});
+
+// ============ Reset progress ============
+document.getElementById('resetBtn').addEventListener('click', function() {
+  if (confirm('確定要重置所有學習進度嗎?\n\n這會清除:\n• 章節完成記錄\n• 所有測驗答題\n• 章節停留位置\n\n重置後將回到第 1 課從頭開始。')) {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    location.reload();
+  }
+});
+
+// ============ Init ============
+renderSidebar();
+renderContent();
+renderProgress();
+</script>
+
+</body>
+</html>

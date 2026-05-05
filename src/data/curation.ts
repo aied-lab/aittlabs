@@ -27,6 +27,25 @@ export type CurationIssue = {
 
 export const curationIssues: CurationIssue[] = [
   {
+    slug: '2026-05-china-ai',
+    file: 'aitt_2026_05_china_ai.html',
+    title: '中國大陸 AI 發展現況與預測',
+    subtitle: 'BBC × Bloomberg × CNBC × WAIC × Hinton',
+    summary:
+      '從 BBC 把 DeepSeek 衝擊放回 Made in China 2025 框架,Bloomberg Tech: Asia 解碼 Six Little Dragons 與算力競賽,CNBC × Perplexity CEO 完整評估 DeepSeek 對矽谷的影響,DeepSeek V4 + 華為昇騰落地實況,到 Hinton 首度訪中於 WAIC 2025 主論壇演講 — 五段給投資人/分析師的中國 AI 結構性視角。',
+    date: '2026-05-06',
+    topics: ['中國 AI', 'DeepSeek', '投資分析', 'Made in China 2025', 'WAIC'],
+    episodeCount: 5,
+    videoIds: [
+      'z7do1hhb6fE', // BBC — Made in China 2025 全景
+      'T2oQh9kKMf4', // Bloomberg Tech: Asia — Six Little Dragons
+      'WEBiebbeNCA', // CNBC × Perplexity CEO — DeepSeek 衝擊
+      'ON-a-bh4oDg', // CNBC — DeepSeek V4 + 華為合作
+      'Dt1XGkh1vY8', // Hinton — WAIC 2025 主論壇
+    ],
+    gated: true,
+  },
+  {
     slug: '2026-05-agentic-ai',
     file: 'aitt_2026_05_agentic_ai.html',
     title: 'Agentic AI 發展趨勢與應用案例',
