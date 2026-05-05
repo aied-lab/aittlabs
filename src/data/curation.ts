@@ -20,7 +20,8 @@ export type CurationIssue = {
   topics: string[];      // 主題標籤
   episodeCount?: number; // 收錄影片數量
   duration?: string;     // 累計時長
-  cover?: string;        // 封面圖（可選，留空則用漸層底圖）
+  cover?: string;        // 自訂封面圖網址（最高優先；填了就用這張）
+  videoIds?: string[];   // YouTube 影片 ID 陣列：1 支→單張縮圖；2 支以上→ 2×2 拼貼（最多取前 4 支）
   gated?: boolean;       // 是否需要密碼
 };
 
@@ -36,6 +37,13 @@ export const curationIssues: CurationIssue[] = [
     topics: ['AI Agent', 'Agentic Workflow', '組織轉型', '未來職能'],
     episodeCount: 5,
     duration: '約 220 分鐘',
+    videoIds: [
+      'sal78ACtGTc', // Andrew Ng — What's Next for AI Agentic Workflows
+      'M2Yg1kwPpts', // 李宏毅 — 三堂課搞懂 AI Agent 的原理
+      '8FnOkxj0ZuA', // Ethan Mollick — Co-Intelligence: AI in the Classroom
+      '5nCbHsCG334', // Satya Nadella — AI's Business Revolution
+      '2jOnoTEk-xA', // Aravind Srinivas — Perplexity's Race to Build Agentic Search
+    ],
     gated: true,
   },
 ];
