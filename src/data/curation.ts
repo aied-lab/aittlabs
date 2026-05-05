@@ -27,6 +27,25 @@ export type CurationIssue = {
 
 export const curationIssues: CurationIssue[] = [
   {
+    slug: '2026-05-agentic-ai',
+    file: 'aitt_2026_05_agentic_ai.html',
+    title: 'Agentic AI 發展趨勢與應用案例',
+    subtitle: '李宏毅 × Andrew Ng × McKinsey × a16z',
+    summary:
+      '從李宏毅拆解 Agent 三大支柱(Memory、Tool Use、Planning),到 Andrew Ng 的 Agentic Workflow 框架、McKinsey 的企業導入觀點、3 個打造可靠企業級 Agent 的關鍵要素,以及 a16z 對 2026 的趨勢預判 — 一次掌握 Agentic AI 從原理、框架、企業實作到未來展望的完整路徑。',
+    date: '2026-05-05',
+    topics: ['Agentic AI', 'AI Agent', '企業導入', '趨勢預判'],
+    episodeCount: 5,
+    videoIds: [
+      'M2Yg1kwPpts', // 李宏毅 — 一堂課搞懂 AI Agent 的原理
+      'sal78ACtGTc', // Andrew Ng — What's next for AI agentic workflows
+      'DsRNp3cmJm0', // McKinsey — Agentic AI Explained
+      'kTnfJszFxCg', // 3 ingredients for building reliable enterprise agents
+      'ULszsXDyjMY', // a16z — How AI Agents Will Transform in 2026
+    ],
+    gated: true,
+  },
+  {
     slug: '2026-05-ai-agent-workplace',
     file: 'aitt_2026_05_ai_agent_workplace.html',
     title: 'AI Agent 帶來的職場革命與創新',
