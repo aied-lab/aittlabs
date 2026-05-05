@@ -8,7 +8,16 @@ function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('zh-TW', {
     year: 'numeric',
     month: 'long',
+    day: 'numeric',
   });
+}
+
+function formatCoverDate(dateStr: string) {
+  const d = new Date(dateStr);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}.${m}.${day}`;
 }
 ---
 
@@ -43,7 +52,7 @@ function formatDate(dateStr: string) {
                   <img src={issue.cover} alt={issue.title} loading="lazy" />
                 ) : (
                   <div class="cover-art">
-                    <span class="cover-period">{issue.period}</span>
+                    <span class="cover-period">{issue.label ?? formatCoverDate(issue.date)}</span>
                     <span class="cover-title">{issue.title}</span>
                   </div>
                 )}
@@ -52,7 +61,7 @@ function formatDate(dateStr: string) {
 
               <div class="curation-body">
                 <div class="curation-meta">
-                  <span class="period-tag">{issue.period}</span>
+                  {issue.label && <span class="period-tag">{issue.label}</span>}
                   <span class="curation-date">{formatDate(issue.date)}</span>
                 </div>
                 <h3>{issue.title}</h3>

@@ -35,7 +35,7 @@ function formatDate(dateStr: string) {
         返回學習策展
       </a>
       <div class="detail-meta">
-        <span class="period-tag">{data.period}</span>
+        {data.label && <span class="period-tag">{data.label}</span>}
         <span class="detail-date">{formatDate(data.date)}</span>
         {data.gated && <span class="gated-tag">會員解鎖</span>}
       </div>

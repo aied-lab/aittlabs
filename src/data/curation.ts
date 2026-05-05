@@ -5,6 +5,9 @@
 // 1. 把當期 HTML 檔放到 public/curation/<file>.html
 // 2. 在 issues 陣列最前面新增一筆，slug 用網址友善字串（kebab-case）
 // 3. file 填寫 HTML 檔名（含 .html）
+//
+// 注意：本系統「不會」依 date 自動產生「X月號」之類的期號標籤；
+// 如果你想要任何期數/系列標示，請自己填 label 欄位（自由文字）。
 
 export type CurationIssue = {
   slug: string;          // 對應網址 /curation/<slug>/
@@ -12,8 +15,8 @@ export type CurationIssue = {
   title: string;         // 策展主題
   subtitle?: string;     // 副標（可選）
   summary: string;       // 卡片摘要
-  date: string;          // YYYY-MM-DD（用於排序與顯示）
-  period: string;        // 顯示用期數標籤，例如 "2026 年 5 月號"
+  date: string;          // YYYY-MM-DD（僅用於排序與顯示發佈日，不會自動轉成期號）
+  label?: string;        // 自訂期數／系列標示（自由文字，例如 "Vol. 01"、"AI Agent 系列 #1"），留空則不顯示
   topics: string[];      // 主題標籤
   episodeCount?: number; // 收錄影片數量
   duration?: string;     // 累計時長
@@ -30,7 +33,6 @@ export const curationIssues: CurationIssue[] = [
     summary:
       '從 Andrew Ng 的 Agentic Workflow 框架、李宏毅的 Agent 原理、Mollick 的組織衝擊、Nadella 的實作決策，到 Aravind 對未來職能的預判 — 五位 AI 思想領袖經典演講策展，幫你建立完整的 AI Agent 全景認知。',
     date: '2026-05-01',
-    period: '2026 年 5 月號',
     topics: ['AI Agent', 'Agentic Workflow', '組織轉型', '未來職能'],
     episodeCount: 5,
     duration: '約 220 分鐘',
