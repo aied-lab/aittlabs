@@ -45,26 +45,6 @@ export const curationIssues: CurationIssue[] = [
     ],
     gated: true,
   },
-  {
-    slug: '2026-05-ai-agent-workplace',
-    file: 'aitt_2026_05_ai_agent_workplace.html',
-    title: 'AI Agent 帶來的職場革命與創新',
-    subtitle: 'Andrew Ng × 李宏毅 × Mollick × Nadella × Aravind',
-    summary:
-      '從 Andrew Ng 的 Agentic Workflow 框架、李宏毅的 Agent 原理、Mollick 的組織衝擊、Nadella 的實作決策，到 Aravind 對未來職能的預判 — 五位 AI 思想領袖經典演講策展，幫你建立完整的 AI Agent 全景認知。',
-    date: '2026-05-01',
-    topics: ['AI Agent', 'Agentic Workflow', '組織轉型', '未來職能'],
-    episodeCount: 5,
-    duration: '約 220 分鐘',
-    videoIds: [
-      'sal78ACtGTc', // Andrew Ng — What's Next for AI Agentic Workflows
-      'M2Yg1kwPpts', // 李宏毅 — 三堂課搞懂 AI Agent 的原理
-      '8FnOkxj0ZuA', // Ethan Mollick — Co-Intelligence: AI in the Classroom
-      '5nCbHsCG334', // Satya Nadella — AI's Business Revolution
-      '2jOnoTEk-xA', // Aravind Srinivas — Perplexity's Race to Build Agentic Search
-    ],
-    gated: true,
-  },
 ];
 
 export function getIssueBySlug(slug: string): CurationIssue | undefined {
