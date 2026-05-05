@@ -10,6 +10,7 @@ const t = {
     products: '產品',
     consulting: '顧問服務',
     insights: '洞察觀點',
+    curation: '學習策展',
     about: '關於我們',
     contact: '聯絡我們',
   },
@@ -19,6 +20,7 @@ const t = {
     products: 'Products',
     consulting: 'Consulting',
     insights: 'Insights',
+    curation: 'Curation',
     about: 'About',
     contact: 'Contact',
   },
@@ -30,6 +32,7 @@ const enVersionMap: Record<string, string> = {
   '/products/': '/en/products/',
   '/consulting/': '/en/consulting/',
   '/insights/': '/en/insights/',
+  '/curation/': '/curation/',
   '/about/': '/en/about/',
   '/contact/': '/en/contact/',
 };
@@ -43,6 +46,7 @@ const links = [
   { href: linkFor('/products/'), label: t.products },
   { href: linkFor('/consulting/'), label: t.consulting },
   { href: linkFor('/insights/'), label: t.insights },
+  { href: linkFor('/curation/'), label: t.curation },
   { href: linkFor('/about/'), label: t.about },
 ];
 

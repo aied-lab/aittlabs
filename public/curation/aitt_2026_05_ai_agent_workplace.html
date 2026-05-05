@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent 帶來的職場革命與創新 | AI 人才科技實驗室</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #131829;
+  --bg-tertiary: #1a2138;
+  --bg-card: #1e2742;
+  --bg-light: #f7f8fb;
+  --bg-light-alt: #ffffff;
+  --border-color: #2a3553;
+  --border-light: #e5e7eb;
+  --text-primary: #e8ecf5;
+  --text-secondary: #9aa5c0;
+  --text-muted: #6b7794;
+  --text-dark: #1a1f36;
+  --text-dark-2: #4b5563;
+  --accent-purple: #8b5cf6;
+  --accent-blue: #3b82f6;
+  --accent-pink: #ec4899;
+  --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --tag-foundation: #10b981;
+  --tag-principle: #3b82f6;
+  --tag-challenge: #f59e0b;
+  --tag-practice: #ec4899;
+  --tag-advanced: #8b5cf6;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow: hidden;
+  line-height: 1.6;
+}
+
+/* ============ 密碼鎖 ============ */
+.gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-primary);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.gate-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.12) 0%, transparent 50%);
+  pointer-events: none;
+}
+.gate-card {
+  position: relative;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 40px 36px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  text-align: center;
+}
+.gate-logo-img {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  margin: 0 auto 20px;
+  display: block;
+  object-fit: contain;
+}
+.gate-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+.gate-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.gate-input-wrap {
+  margin-bottom: 8px;
+}
+.gate-input {
+  width: 100%;
+  padding: 13px 16px;
+  background: var(--bg-tertiary);
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.15s;
+}
+.gate-input:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+.gate-input.error {
+  border-color: #ef4444;
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+.gate-error-msg {
+  color: #fca5a5;
+  font-size: 13px;
+  min-height: 18px;
+  margin-bottom: 14px;
+  text-align: left;
+  padding-left: 4px;
+}
+.gate-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--accent-gradient);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.1s, box-shadow 0.15s;
+}
+.gate-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+}
+.gate-btn:active { transform: translateY(0); }
+.gate-divider {
+  margin: 28px 0 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.gate-cta {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 2;
+}
+.gate-cta a {
+  color: var(--accent-purple);
+  text-decoration: none;
+  font-weight: 600;
+}
+.gate-cta a:hover { color: #c4b5fd; }
+.gate-footer {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+body.locked { overflow: hidden; }
+body.locked .app-container { display: none; }
+
+/* ============ Header ============ */
+.header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  height: 64px;
+  flex-shrink: 0;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 24px;
+  gap: 16px;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+}
+.brand-logo-img {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.brand-link:hover .brand-title { color: #c4b5fd; }
+.brand-title {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+  transition: color 0.15s;
+}
+.header-course-title {
+  flex: 1;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  padding: 0 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.progress-bar-wrap {
+  width: 120px;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: var(--accent-gradient);
+  width: 0%;
+  transition: width 0.4s;
+}
+.progress-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .header-course-title { font-size: 16px; padding: 0 12px; }
+}
+@media (max-width: 768px) {
+  .header-course-title { display: none; }
+  .menu-toggle { display: inline-flex; }
+  .header-inner { padding: 0 14px; }
+  .progress-bar-wrap { width: 70px; }
+}
+
+/* ============ App Layout ============ */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ============ Sidebar ============ */
+.sidebar {
+  width: 320px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.sidebar-header {
+  padding: 20px 18px 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.sidebar-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.chapter-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 12px 0;
+}
+.chapter-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  position: relative;
+  transition: background 0.15s;
+  border: 1px solid transparent;
+}
+.chapter-item:hover {
+  background: var(--bg-tertiary);
+}
+.chapter-item.active {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.18) 0%, rgba(59, 130, 246, 0.06) 100%);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+.chapter-item.active::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  background: var(--accent-gradient);
+  border-radius: 0 2px 2px 0;
+}
+.chapter-thumb {
+  width: 110px;
+  height: 62px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--bg-tertiary);
+  flex-shrink: 0;
+}
+.chapter-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.chapter-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+  align-self: flex-start;
+  text-transform: uppercase;
+}
+.tag-foundation { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+.tag-principle { background: rgba(59, 130, 246, 0.15); color: #93c5fd; }
+.tag-challenge { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
+.tag-practice { background: rgba(236, 72, 153, 0.15); color: #f9a8d4; }
+.tag-advanced { background: rgba(139, 92, 246, 0.15); color: #c4b5fd; }
+.chapter-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.chapter-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.chapter-done {
+  color: #10b981;
+  font-size: 12px;
+}
+.sidebar-footer {
+  padding: 12px 16px 18px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 8px;
+}
+.reset-btn {
+  width: 100%;
+  padding: 9px 12px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.reset-btn:hover {
+  border-color: #ef4444;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* ============ Main Content ============ */
+.main-content {
+  flex: 1;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  overflow-y: auto;
+  padding: 36px 48px 80px;
+}
+.content-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.content-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 5px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.content-number {
+  font-size: 13px;
+  color: var(--text-dark-2);
+  font-weight: 500;
+}
+.content-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.3;
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+.content-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--text-dark-2);
+}
+.content-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.content-meta strong { color: var(--text-dark); font-weight: 600; }
+
+/* YouTube 海報播放器 */
+.video-poster {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+.video-poster img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.video-poster:hover img { transform: scale(1.02); }
+.video-poster iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.play-button {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none;
+}
+.play-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 0, 0, 0.92);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  transition: transform 0.15s;
+}
+.video-poster:hover .play-icon { transform: scale(1.08); background: rgba(255, 0, 0, 1); }
+.play-icon::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 22px solid white;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 6px;
+}
+.video-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-light);
+  background: white;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.btn-action:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+  transform: translateY(-1px);
+}
+.btn-complete.done {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+/* 內容區塊(左側彩色細條) */
+.section-block {
+  position: relative;
+  padding: 4px 0 4px 22px;
+  margin-bottom: 28px;
+}
+.section-block::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 2px;
+}
+.section-intro::before { background: var(--accent-blue); }
+.section-why::before { background: var(--accent-purple); }
+.section-reflection::before { background: var(--accent-pink); }
+.section-block h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-dark);
+}
+.section-block p {
+  font-size: 15.5px;
+  color: var(--text-dark-2);
+  line-height: 1.85;
+  margin: 0;
+}
+
+/* 三題自我測驗 */
+.quiz-section {
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 28px;
+  margin: 32px 0;
+}
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.quiz-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.quiz-reset {
+  padding: 6px 12px;
+  font-size: 12px;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-dark-2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.quiz-reset:hover { background: #f9fafb; border-color: #d1d5db; }
+.quiz-subtitle {
+  font-size: 13px;
+  color: var(--text-dark-2);
+  margin-bottom: 22px;
+}
+.quiz-question {
+  margin-bottom: 24px;
+}
+.quiz-question:last-child { margin-bottom: 0; }
+.quiz-q-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.quiz-level-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: #f3f4f6;
+  color: #4b5563;
+  letter-spacing: 0.3px;
+}
+.quiz-q-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.quiz-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border-light);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14.5px;
+  color: var(--text-dark);
+  background: white;
+  transition: all 0.15s;
+  text-align: left;
+  font-family: inherit;
+  line-height: 1.6;
+}
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--accent-purple);
+  background: #faf5ff;
+}
+.quiz-option:disabled { cursor: default; }
+.quiz-option.correct {
+  border-color: #10b981;
+  background: #f0fdf4;
+  color: #065f46;
+}
+.quiz-option.wrong {
+  border-color: #ef4444;
+  background: #fef2f2;
+  color: #991b1b;
+}
+.quiz-option.dim { opacity: 0.45; }
+.quiz-letter {
+  font-weight: 700;
+  font-size: 13px;
+  width: 22px;
+  flex-shrink: 0;
+  color: var(--text-dark-2);
+  margin-top: 1px;
+}
+.quiz-option.correct .quiz-letter { color: #065f46; }
+.quiz-option.wrong .quiz-letter { color: #991b1b; }
+.quiz-feedback {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.7;
+  display: none;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct {
+  background: #ecfdf5;
+  border-left: 3px solid #10b981;
+  color: #065f46;
+}
+.quiz-feedback.wrong {
+  background: #fef2f2;
+  border-left: 3px solid #ef4444;
+  color: #7f1d1d;
+}
+.quiz-feedback strong { display: block; margin-bottom: 6px; font-weight: 700; }
+.quiz-feedback .biz {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(0,0,0,0.12);
+  font-size: 13.5px;
+}
+.quiz-feedback .biz strong { color: inherit; }
+
+/* 章節導航 */
+.nav-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-light);
+}
+.pager-btn {
+  flex: 1;
+  max-width: 280px;
+  padding: 14px 18px;
+  border: 1px solid var(--border-light);
+  background: white;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pager-btn:hover:not(:disabled) {
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+.pager-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.pager-btn.next { text-align: right; }
+.pager-direction {
+  font-size: 11px;
+  color: var(--text-dark-2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+.pager-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+/* 學習路徑邏輯總覽 */
+.learning-path {
+  margin-top: 56px;
+  padding: 28px;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+}
+.learning-path-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.path-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.path-step {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px;
+  background: var(--bg-light);
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+.path-arrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-dark-2);
+  font-size: 20px;
+  padding: 0 4px;
+}
+.path-step-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dark-2);
+  margin-bottom: 4px;
+  letter-spacing: 0.3px;
+}
+.path-step-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+.path-step-role {
+  font-size: 11px;
+  color: var(--text-dark-2);
+}
+.path-summary {
+  font-size: 14px;
+  color: var(--text-dark-2);
+  line-height: 1.75;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-light);
+}
+
+/* Footer */
+.content-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-dark-2);
+}
+.content-footer a {
+  color: var(--accent-purple);
+  text-decoration: none;
+  font-weight: 500;
+}
+.content-footer a:hover { text-decoration: underline; }
+
+/* 響應式 */
+@media (max-width: 1024px) {
+  .sidebar { width: 280px; }
+  .main-content { padding: 28px 32px 60px; }
+}
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+    width: 300px;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .main-content { padding: 22px 18px 60px; }
+  .content-title { font-size: 22px; }
+  .quiz-section { padding: 20px; }
+  .quiz-option { font-size: 14px; padding: 11px 14px; }
+  .path-flow { flex-direction: column; }
+  .path-arrow { transform: rotate(90deg); align-self: center; padding: 4px 0; }
+  .nav-pager { flex-direction: column; }
+  .pager-btn { max-width: 100%; }
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- 密碼鎖 -->
+<div class="gate-overlay" id="gateOverlay">
+  <div class="gate-card">
+    <img class="gate-logo-img" alt="AITT.Labs" />
+    <div class="gate-title">會員專屬學習策展</div>
+    <div class="gate-subtitle">
+      AI Agent 帶來的職場革命與創新<br>
+      請輸入本期會員密碼以開啟內容
+    </div>
+    <form id="gateForm" autocomplete="off">
+      <div class="gate-input-wrap">
+        <input type="password" id="gateInput" class="gate-input"
+               placeholder="輸入本期密碼" autocomplete="off"
+               spellcheck="false" autofocus>
+      </div>
+      <div class="gate-error-msg" id="gateError"></div>
+      <button type="submit" class="gate-btn">解鎖學習策展</button>
+    </form>
+    <div class="gate-divider">尚未成為會員?</div>
+    <div class="gate-cta">
+      加入 <a href="https://www.patreon.com/cw/ai_talentech_labs" target="_blank" rel="noopener">VIP 會員</a> 取得每月新一期密碼<br>
+      訂閱 <a href="https://aiedlab.substack.com" target="_blank" rel="noopener">Substack 電子報</a> 獲得最新策展通知
+    </div>
+    <div class="gate-footer">
+      AI 人才科技實驗室 ｜ <a href="https://aittlabs.org" target="_blank" rel="noopener" style="color: var(--text-muted);">aittlabs.org</a>
+    </div>
+  </div>
+</div>
+
+<!-- 學習平台 -->
+<div class="app-container">
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <button class="menu-toggle" id="menuToggle" aria-label="開啟選單">☰</button>
+        <a href="https://aittlabs.org" target="_blank" rel="noopener" class="brand-link">
+          <img class="brand-logo-img" alt="AITT.Labs" />
+          <div class="brand-title">AI 人才科技實驗室</div>
+        </a>
+      </div>
+      <div class="header-course-title">AI Agent 帶來的職場革命與創新</div>
+      <div class="progress-container">
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <span class="progress-text" id="progressText">0/5 已完成</span>
+        <span class="progress-text" id="quizProgressText" style="color: #c4b5fd;">📝 0/15</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">📚 課程章節</div>
+        <div class="sidebar-subtitle">5 門課程 ｜ 點擊切換</div>
+      </div>
+      <div class="chapter-list" id="chapterList"></div>
+      <div class="sidebar-footer">
+        <button class="reset-btn" id="resetBtn"
+                title="清除所有學習進度與測驗答題,從頭開始">🔄 重置學習進度</button>
+      </div>
+    </aside>
+
+    <main class="main-content" id="mainContent"></main>
+  </div>
+</div>
+
+<script>
+const LOGO_BASE64 = 'data:image/png;base64,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';
+const PASSWORD_HASH = 'e08a66cccd042e5fe114622f4ef630425ec84fbd3b1608d7183b040b26b97635';
+const STORAGE_KEY = 'aitt_2026_05_ai_agent_workplace';
+const CHAPTERS = [{"id": "ch1", "video_id": "sal78ACtGTc", "stage": "foundation", "stage_label": "🌱 入門", "number": "01", "title": "What's Next for AI Agentic Workflows", "creator": "Andrew Ng", "creator_role": "DeepLearning.AI / AI Fund 創辦人", "venue": "Sequoia Capital AI Ascent", "year": "2024", "duration": "14 分鐘", "language": "英文", "intro": "Andrew Ng 在 Sequoia 旗艦級 AI 大會 AI Ascent 的關鍵演講,首次系統性地提出「Agentic Workflow」這個正在改寫 AI 產業遊戲規則的概念。他用一個強烈的反差數據揭露真相:GPT-3 套上 agentic workflow 的表現,竟然超越了還沒採用此模式的 GPT-4。隨後他拆解四大設計模式——Reflection(反思)、Tool Use(工具使用)、Planning(規劃)、Multi-agent Collaboration(多代理協作)——並預言這將是 2024-2026 年最重要的 AI 進化路徑。", "why": "這是「AI Agent」這個詞從研究圈擴散到產業圈的引爆點演講。Andrew Ng 用 14 分鐘把所有後續產業話題的根都種下,任何想理解「為什麼 2025 之後突然到處都在講 Agent」的人,這是必看的「源頭文獻」級內容。", "reflection": "您所處的工作流程中,有哪些任務可能因為從「one-shot prompt」轉為「iterative agentic workflow」而被根本性改寫?", "youtube_url": "https://www.youtube.com/watch?v=sal78ACtGTc", "quiz": [{"level": "記憶", "level_emoji": "🧠", "question": "Andrew Ng 在演講中提出 AI agentic workflow 的四大設計模式,以下哪一項「不」屬於這四種?", "options": ["Fine-tuning(模型微調)", "Tool Use(工具使用)", "Reflection(反思)", "Multi-agent Collaboration(多代理協作)"], "correct": 0, "explanation": "Andrew Ng 提出的四大設計模式為:Reflection、Tool Use、Planning、Multi-agent Collaboration。Fine-tuning 是模型訓練技術,並非 agentic workflow 的設計模式。", "biz": "您在規劃 AI 應用時,應優先思考工作流程設計(這四大模式)而非急著訓練自家模型。先用 agentic workflow 把現有 LLM 的潛力榨乾,通常 ROI 比微調模型高得多。"}, {"level": "觀點", "level_emoji": "🎯", "question": "Andrew Ng 用 GPT-3 加 agentic workflow 對比 GPT-4 的數據,主要想傳達什麼核心觀點?", "options": ["GPT-3 比 GPT-4 更值得使用,因為更便宜", "Agentic workflow 只能讓舊模型勉強追上新模型", "工作流程設計帶來的提升,可能勝過底層模型升級", "應該等 GPT-5 出來再考慮 agentic workflow"], "correct": 2, "explanation": "Andrew Ng 的核心訊息是:agentic workflow 讓「如何用模型」變得比「用哪個模型」更重要。這顛覆了「只要等更強的模型就好」的被動思維。", "biz": "對您的組織而言,這意味著「等待更強模型才動手」是錯誤策略。現在就用現有模型 + agentic workflow 重新設計工作流程,反而能比競爭對手早一步建立組織能力(這個能力本身就是護城河)。"}, {"level": "應用", "level_emoji": "💡", "question": "假設您是某顧問公司的合夥人,團隊每週要產出大量「市場研究報告」。應用 Andrew Ng 提出的 agentic workflow 思維,以下哪個切入點最能立即產生 ROI?", "options": ["叫顧問改用 GPT-4 而非 GPT-3.5", "等 OpenAI 推出更強模型再說", "禁止顧問用 AI,確保品質", "設計一個多 agent 協作流程:研究員 agent + 編輯 agent + 反思 agent 互相迭代產出報告"], "correct": 3, "explanation": "Multi-agent collaboration + Reflection 模式正是 Andrew Ng 演講中強調對「結構化產出工作」最有效的組合。一個 agent 寫初稿、另一個 agent 批判、再一個 agent 改稿,品質遠勝單一 prompt。", "biz": "您可在 1-2 週內用 n8n、LangChain、或 CrewAI 等工具搭出原型,先用一個服務線(例如競品分析報告)驗證效益。重點不是「換更強的 AI」,而是「重新設計工作流程」。內部能複製這套流程的顧問,生產力會在 3 個月內顯著拉開差距。"}]}, {"id": "ch2", "video_id": "M2Yg1kwPpts", "stage": "principle", "stage_label": "🔬 技術", "number": "02", "title": "一堂課搞懂 AI Agent 的原理", "creator": "李宏毅", "creator_role": "台灣大學電機系教授", "venue": "2025 生成式 AI 時代下的機器學習", "year": "2025", "duration": "60 分鐘", "language": "中文", "intro": "台大資工最受歡迎的 AI 教授李宏毅,用一堂課完整講透 AI Agent 的內部運作原理。從「人類給予目標,AI 自己想辦法達成」這個本質定義出發,系統性拆解三大核心能力:透過經驗調整行為(從 RL 到 LLM 記憶)、使用工具(Function Calling 的真正意義)、做計劃(從 AlphaZero 到 LLM Planning)。整堂課用大量視覺化投影片,讓沒有 ML 背景的人也能理解 Agent 為什麼「不只是 ChatGPT 加外掛」。", "why": "這是華語圈罕見的「學術深度 + 教學品質」雙高的 Agent 原理課程,且完全免費。對於想跨越「我會用 ChatGPT」到「我懂 Agent 為什麼能做更多事」鴻溝的人,李宏毅的講解風格能讓技術門檻自然降低,卻不犧牲嚴謹度。", "reflection": "李宏毅指出 Agent 的核心是「目標導向」而非「指令導向」——這個差別對您要不要重新設計團隊的工作分派方式,有什麼啟示?", "youtube_url": "https://www.youtube.com/watch?v=M2Yg1kwPpts", "quiz": [{"level": "記憶", "level_emoji": "🧠", "question": "李宏毅老師對 AI Agent 的定義中,最關鍵的一句話是?", "options": ["人類給予指令,AI 一步步執行", "人類與 AI 一起完成每個步驟", "AI 自己設定目標,自己達成", "人類給予目標,AI 自己想辦法達成"], "correct": 3, "explanation": "李宏毅強調 Agent 的本質定義是「人類給予目標,AI 自己想辦法達成」,這也是 Agent 與一般 ChatGPT 對話最關鍵的差別:從「step-by-step 指令」轉為「goal-oriented 委派」。", "biz": "這個定義對您的工作分派思維有根本性影響:過去您可能習慣「列出每一步」交給工具去做,Agent 時代的核心能力反而是「清楚定義目標」+「設定邊界與成功標準」。後者反而更接近高階主管的工作方式。"}, {"level": "觀點", "level_emoji": "🎯", "question": "李宏毅在課程中強調 Agent 與「傳統自動化工具」最關鍵的差異在於?", "options": ["Agent 跑得比傳統自動化快", "Agent 能在執行過程中靈活調整計畫", "Agent 用了更新版本的程式語言", "Agent 不需要連網"], "correct": 1, "explanation": "傳統自動化(如 RPA、巨集)是「按預設腳本一條路走到底」,Agent 的革命性差異是能根據中途發生的狀況「靈活調整計畫」,這也是它能處理複雜目標的根本原因。", "biz": "對您而言,這意味著:過去無法用 RPA 自動化的「需要判斷力的工作」,在 Agent 時代有機會被自動化。例如客戶投訴處理、合約異常審查、報告品質審核——這些原本被視為「必須人工」的工作,值得重新評估。"}, {"level": "應用", "level_emoji": "💡", "question": "假設您是某金控的數位轉型主管,聽完李宏毅課程後,以下哪個應用情境最符合「Agent 而非 RPA」的本質?", "options": ["每天上午 9 點自動匯出昨日交易報表 → 寄給主管", "每月底自動把 Excel 資料貼到 PowerPoint 的固定欄位", "客戶提出貸款申請,Agent 評估文件、查徵信、依異常情況決定要補件、轉專員、或直接核准", "掃描客戶身分證,辨識文字後填入欄位"], "correct": 2, "explanation": "選項 B 是典型的「目標導向 + 動態調整」情境——目標是「完成貸款初審」,但實際路徑會因每位客戶情況不同而變化,需要 Agent 在過程中做判斷。其餘選項都是固定流程的傳統 RPA 場景。", "biz": "建議您先在內部盤點「有判斷力但流程重複」的工作(如理賠審查、客訴分流、徵信補件),這些正是 Agent 能帶來最大 ROI 的場景。傳統 RPA 已自動化的工作不需要重做,真正有價值的是「過去因需要判斷力而沒被自動化的中段流程」。"}]}, {"id": "ch3", "video_id": "8FnOkxj0ZuA", "stage": "challenge", "stage_label": "⚠️ 挑戰", "number": "03", "title": "Co-Intelligence: AI in the Classroom", "creator": "Ethan Mollick", "creator_role": "Wharton 商學院教授,《Co-Intelligence》紐時暢銷書作者", "venue": "ASU+GSV Summit 2024", "year": "2024", "duration": "35 分鐘", "language": "英文", "intro": "Wharton 教授 Ethan Mollick 在全球最大教育科技峰會 ASU+GSV 的主題演講。他不講技術原理,而是直接拋出一個讓全場 C-level 不安的洞察:「組織內最先進的 AI 使用者,通常已經在你公司內部——但他們不告訴你,因為怕被罰、或怕揭露生產力提升會威脅自己飯碗」。Mollick 用 Wharton 第一手研究數據,證明 AI 對知識工作者的衝擊不是「未來式」而是「現在進行式」,並提出 Leadership / Lab / Crowd 三層導入框架。", "why": "這是「組織衝擊」面最具啟發性的演講之一。當市場還在問「AI 會不會取代我」時,Mollick 早已轉向更尖銳的問題——「為什麼你的組織從來不知道,你們最強的 AI 人才正在地下化工作?」這對任何要做組織決策的主管,是「必須先看,才能談下一步」的內容。", "reflection": "如果您的組織內部現在就有「祕密的 AI 進階使用者」,他們不公開使用的真正原因可能是什麼?您的組織政策有沒有可能就是讓他們地下化的元兇?", "youtube_url": "https://www.youtube.com/watch?v=8FnOkxj0ZuA", "quiz": [{"level": "記憶", "level_emoji": "🧠", "question": "Ethan Mollick 在演講中提出組織導入 AI 的三層框架是?", "options": ["Leadership / Lab / Crowd", "Strategy / Tactics / Operations", "Vision / Mission / Values", "Plan / Do / Check"], "correct": 0, "explanation": "Mollick 提出的 Leadership / Lab / Crowd 框架對應三個必要條件:領導層的明確示範、實驗團隊的探索、群眾(全員)的廣泛參與。三者缺一不可。", "biz": "若您的組織導入 AI 卡關,先檢查這三層哪一層缺位。最常見的失敗模式是「光有 Lab(IT 團隊在玩)沒有 Leadership(高層不示範)」,結果整個組織停留在實驗室階段。"}, {"level": "觀點", "level_emoji": "🎯", "question": "Mollick 指出「組織內最強的 AI 使用者通常在地下使用」,他認為主因是?", "options": ["這些員工的技術門檻太高,大家學不來", "老闆禁止使用 AI", "組織政策的不明確或恐懼,讓員工怕被處罰或怕暴露生產力提升", "這些員工本來就是內向的人"], "correct": 2, "explanation": "Mollick 的核心論點是:2023 年訂下的模糊 AI 政策,加上員工擔心「揭露 AI 提升的生產力會威脅自己工作」,導致最強的使用者選擇沉默。這是組織制度造成的問題,不是個人問題。", "biz": "這對您的組織意味著:若想看見真實的 AI 使用情況,先得「移除恐懼」。明確政策、保證不因 AI 提升生產力而裁員、表揚而非懲罰早期使用者,才能讓地下化的人才浮出水面。否則組織永遠在用「想像中的 AI 採用率」做決策。"}, {"level": "應用", "level_emoji": "💡", "question": "假設您是某 5,000 人企業的 CHRO,聽完 Mollick 演講後,以下哪個首要行動最能解開「AI 地下化」困境?", "options": ["頒布新規定:任何使用 AI 必須先送 IT 部門審查", "聘請外部顧問做 AI 教育訓練", "一次採購 5,000 個 ChatGPT Enterprise 帳號發給每個人", "舉辦一場全員大會,公開承諾「分享 AI 使用方式不會被處罰,生產力提升不會導致裁員」,並徵求內部 AI 使用案例分享"], "correct": 3, "explanation": "Mollick 強調「移除恐懼 + 領導層示範」是先決條件。沒有先解開「揭露使用 = 威脅自己」的心理結,任何採購、訓練、政策都會撞牆。", "biz": "您可以參考 Mollick 提到的挪威主權基金 CEO 做法:每場會議都直接問「你今天怎麼用 AI?」用提問與表揚建立心理安全感。這比購買工具或辦訓練重要 10 倍。順序錯了會浪費所有後續預算。"}]}, {"id": "ch4", "video_id": "5nCbHsCG334", "stage": "practice", "stage_label": "🛠️ 實作", "number": "04", "title": "Satya Nadella on AI's Business Revolution", "creator": "Satya Nadella", "creator_role": "Microsoft CEO", "venue": "All-In Podcast", "year": "2026", "duration": "60 分鐘", "language": "英文", "intro": "Microsoft CEO Satya Nadella 在 All-In Podcast 的深度訪談,首次毫無保留地討論 AI Agent 對 SaaS 產業、白領工作與 Microsoft 內部的衝擊。他直白拆解 Copilot 與 Agent 的差別、為什麼說 Bill Gates 的「軟體工廠」思維已過時、Microsoft 如何重新定義「企業應用」。訪談中更揭露 Microsoft 內部目前的真實導入挑戰——「投資百億美金、但其實沒幾個人在用」——以及 Nadella 對此採取的激進文化重塑策略。", "why": "這是企業「實作面最赤裸」的一場訪談。一般演講都在描繪美好願景,但 Nadella 在這場訪談承認了 Microsoft 內部 Copilot 採用率的尷尬現實,並直接示範一位 CEO 如何在「全員導入 AI」的壓力下做組織決策。對任何要在公司導入 AI 的主管,這是看「真實導入決策」的最佳教材。", "reflection": "Nadella 用「不適應 AI 就請離開」的強硬手段重塑 Microsoft 文化——您認為在台灣/華語區的企業文化下,這套做法可行嗎?有沒有更適合的本地化路徑?", "youtube_url": "https://www.youtube.com/watch?v=5nCbHsCG334", "quiz": [{"level": "記憶", "level_emoji": "🧠", "question": "Nadella 在訪談中對「SaaS 產業未來」的核心預測是?", "options": ["SaaS 將取代所有 AI 應用", "AI Agent 將重塑甚至取代許多傳統 SaaS 產品", "SaaS 與 AI 沒有競爭關係", "SaaS 將完全消失"], "correct": 1, "explanation": "Nadella 認為當 AI Agent 能直接執行使用者意圖時,許多原本以「介面 + 資料庫」為核心的 SaaS 產品會被重新定義或被替代,這也是他說「Bill Gates 的軟體工廠思維已過時」的原因。", "biz": "對您的組織而言,若公司主力產品是 SaaS,需重新思考「介面之上的 Agent 層」如何整合或反過來被取代;若您是 SaaS 採購方,則應重新評估每年付的訂閱費是否還合理——許多功能可能即將由 Agent 直接完成。"}, {"level": "觀點", "level_emoji": "🎯", "question": "Nadella 在訪談中坦承 Microsoft Copilot 內部採用率不如預期。他認為解決的關鍵不在工具,而在?", "options": ["降低售價", "增加更多功能", "組織文化的根本性重塑——包括用人標準與工作節奏", "加強 Marketing 預算"], "correct": 2, "explanation": "Nadella 將「文化重塑」放在比「產品優化」更高的優先順序,甚至傳出他與不願擁抱 AI 的高階主管直接對話「跟上或離開」。這顯示在他眼中,組織能力遠比產品功能重要。", "biz": "這對您的組織是一個強烈訊號:採購最強的 AI 工具但組織文化沒同步轉型,結果就是「百億投資、無人使用」的尷尬。文化、人才、KPI 設計才是 AI 真正能落地的決定因素。"}, {"level": "應用", "level_emoji": "💡", "question": "假設您是台灣某傳產集團 CIO,觀察到全集團 5,000 人僅 100 人在用 AI 工具。參考 Nadella 的做法但要避開「跟上或離開」這種華語區難以接受的硬性手段,以下哪個策略最有效?", "options": ["訂出「每位主管每月分享一個 AI 使用案例」的軟性 KPI,連結年度績效與晉升評估", "直接複製 Nadella 做法,公開逼退不用 AI 的主管", "不做任何改變,讓員工自然採用", "只發信通知大家 AI 很重要"], "correct": 0, "explanation": "參考 Nadella「文化重塑」核心精神,但用「正向激勵 + 績效連結」取代「離開威脅」。讓主管必須在公開場合示範,這比任何訓練都有效,也比硬性手段更符合華語區管理文化。", "biz": "您可以將「主管 AI 採用度」納入次年度績效評估的 5-10% 權重,並設立內部「AI 使用案例庫」讓主管彼此學習。3-6 個月內,大概率能看見明顯文化改變,而且不會因強硬手段引發反彈或離職潮。重點是讓「使用 AI」成為組織內的「身分標記」而非「義務」。"}]}, {"id": "ch5", "video_id": "2jOnoTEk-xA", "stage": "advanced", "stage_label": "🚀 進階", "number": "05", "title": "Perplexity's Race to Build Agentic Search", "creator": "Aravind Srinivas", "creator_role": "Perplexity 共同創辦人 & CEO,前 OpenAI 研究員", "venue": "Y Combinator AI Startup School", "year": "2025", "duration": "50 分鐘", "language": "英文", "intro": "Perplexity 創辦人 Aravind Srinivas 在 YC 旗艦活動 AI Startup School 的演講。Perplexity 是當代少數真正讓 Agent 落地到日常工作流的產品(每月處理數十億次「研究型搜尋」)。Aravind 拆解他們如何從「對抗 Google」轉向「重新定義知識工作者的搜尋方式」,以及 agentic search 如何讓「研究」這件事從「找資料 + 自己判斷」變成「給目標,等 Agent 給結論」。他更分享為何相信「未來每個專業工作者都會配備多個 agents」是必然,而管理 agents 將成為新世代核心職能。", "why": "這是「進階階段」最佳的「未來職能轉型」教材。當 Andrew Ng 講 Agent 的「框架」、Mollick 講 Agent 的「組織衝擊」時,Aravind 直接示範「Agent 已經改寫了一個百億級產業」。對於要思考「個人職涯下一步」與「未來工作型態」的人,這場演講把抽象的「未來」具象化為「正在發生」。", "reflection": "Aravind 提出未來「管理 agents 將成為核心職能」——這個轉變對您個人職涯規劃,意味著您需要在未來 12-24 個月內獲得哪些新能力?", "youtube_url": "https://www.youtube.com/watch?v=2jOnoTEk-xA", "quiz": [{"level": "記憶", "level_emoji": "🧠", "question": "Aravind 在演講中對 Perplexity 的核心定位描述是?", "options": ["更快的 Google 搜尋引擎", "一個內容農場", "一個聊天機器人", "為知識工作者重新定義「研究」的 agentic 平台"], "correct": 3, "explanation": "Aravind 強調 Perplexity 不是要做「更好的 Google」,而是改變「研究這件事」本身的工作流程——從「找資料 + 自己判讀」變成「給目標 + Agent 給結論」。這個重新定義是 Perplexity 能突圍 Google 護城河的關鍵。", "biz": "這個觀念對您的組織導入 AI 有重要啟示:不要只用 AI「優化」既有流程(那只是舊流程加速),而要思考「重新定義工作」。例如不是「加速報告寫作」,而是「重新定義什麼叫產出洞察」——前者是 1.5 倍效益,後者可能是 10 倍。"}, {"level": "觀點", "level_emoji": "🎯", "question": "Aravind 認為未來每位專業工作者的核心能力之一將是?", "options": ["寫程式", "管理多個 AI agents", "用 Excel", "英文流利"], "correct": 1, "explanation": "Aravind 與 Reid Hoffman 等多位 AI 領袖近年都在強調同一件事:管理 agents 將成為類似「管理團隊」的新世代核心管理職能。能熟練設定目標、設計工作流、評估產出的人,生產力會與不會這套技能的人迅速拉開。", "biz": "對您的人才發展策略,這意味著「Agent Management」應被列為新的核心職能,並融入培訓體系。這個技能不只是高層需要,基層員工也會在 1-2 年內必須具備。提前佈局訓練,可在人才市場上建立差異化優勢。"}, {"level": "應用", "level_emoji": "💡", "question": "假設您是某管理顧問,聽完 Aravind 演講後決定提升個人「Agent 管理能力」。以下哪個學習路徑最務實有效?", "options": ["挑一個自己每週重複的高負擔任務(如競品研究),用 Perplexity / Claude / 自建 agent 嘗試完整委派,記錄哪些指令有效、哪些失效", "報名 PhD 學程深入研究 LLM 內部架構", "等公司提供 AI 教育訓練再學", "只看更多 AI 相關 YouTube 影片"], "correct": 0, "explanation": "Agent 管理能力如同「帶人能力」,只能在實戰中累積。挑一個重複性高、心智負擔大的任務做完整委派實驗,可在 4-8 週內快速建立直覺。被動學習無法培養此能力。", "biz": "您可以從一個具體任務開始(如每週的市場掃描、每月的競品分析、每季的客戶洞察報告),用 90 天作為一個學習週期。期末檢視:從原本花 8 小時 → 現在花多少時間?產出品質有沒有更好?這個實驗本身就會讓您獲得遠超 100 小時上課的能力。建議將過程記錄成內部分享文件,在組織內成為「Agent 管理」的種子人才。"}]}];
+
+// ===== Logo 注入 =====
+(function injectLogo() {
+  function setLogo() {
+    document.querySelectorAll('.brand-logo-img, .gate-logo-img').forEach(img => {
+      img.src = LOGO_BASE64;
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setLogo);
+  } else {
+    setLogo();
+  }
+})();
+
+// ===== 密碼鎖 =====
+async function sha256(text) {
+  const buffer = new TextEncoder().encode(text);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function unlockPage() {
+  document.body.classList.remove('locked');
+  const overlay = document.getElementById('gateOverlay');
+  if (overlay) overlay.style.display = 'none';
+  try { sessionStorage.setItem('aitt_unlocked_2026_05', '1'); } catch (e) {}
+  init();
+}
+
+(function initGate() {
+  try {
+    if (sessionStorage.getItem('aitt_unlocked_2026_05') === '1') {
+      unlockPage();
+      return;
+    }
+  } catch (e) {}
+  const form = document.getElementById('gateForm');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = document.getElementById('gateInput').value.trim();
+    if (!input) return;
+    const hash = await sha256(input);
+    if (hash === PASSWORD_HASH) {
+      unlockPage();
+    } else {
+      const errEl = document.getElementById('gateError');
+      const inputEl = document.getElementById('gateInput');
+      errEl.textContent = '密碼錯誤,請確認後再試一次';
+      inputEl.classList.add('error');
+      inputEl.value = '';
+      setTimeout(() => inputEl.classList.remove('error'), 500);
+    }
+  });
+})();
+
+// ===== State =====
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return { current: 0, completed: [], quizAnswers: {} };
+}
+
+function saveState(state) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+let state = loadState();
+if (!state.quizAnswers) state.quizAnswers = {};
+
+// ===== Render =====
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function renderSidebar() {
+  const list = document.getElementById('chapterList');
+  list.innerHTML = CHAPTERS.map((ch, idx) => {
+    const isActive = idx === state.current ? 'active' : '';
+    const isDone = state.completed.includes(idx);
+    return `
+      <div class="chapter-item ${isActive}" data-idx="${idx}">
+        <img class="chapter-thumb"
+             src="https://img.youtube.com/vi/${ch.video_id}/mqdefault.jpg"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${ch.video_id}/hqdefault.jpg';"
+             alt="${escapeHtml(ch.title)}">
+        <div class="chapter-meta">
+          <span class="chapter-tag tag-${ch.stage}">${ch.stage_label}</span>
+          <div class="chapter-title">${escapeHtml(ch.title)}</div>
+          <div class="chapter-info">
+            <span>${escapeHtml(ch.duration)}</span>
+            ${isDone ? '<span class="chapter-done">✓ 已完成</span>' : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('.chapter-item').forEach(item => {
+    item.addEventListener('click', () => {
+      state.current = parseInt(item.dataset.idx);
+      saveState(state);
+      renderAll();
+      document.getElementById('mainContent').scrollTop = 0;
+      if (window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    });
+  });
+}
+
+function renderProgress() {
+  const completedCount = state.completed.length;
+  const total = CHAPTERS.length;
+  const pct = (completedCount / total) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${completedCount}/${total} 已完成`;
+
+  // Quiz progress
+  let correctCount = 0;
+  let totalQuiz = 0;
+  CHAPTERS.forEach((ch, chIdx) => {
+    ch.quiz.forEach((q, qIdx) => {
+      totalQuiz++;
+      const key = `${chIdx}_${qIdx}`;
+      if (state.quizAnswers[key] !== undefined && state.quizAnswers[key] === q.correct) {
+        correctCount++;
+      }
+    });
+  });
+  document.getElementById('quizProgressText').textContent = `📝 ${correctCount}/${totalQuiz}`;
+}
+
+function renderQuizQuestion(chIdx, qIdx, q) {
+  const key = `${chIdx}_${qIdx}`;
+  const userAnswer = state.quizAnswers[key];
+  const answered = userAnswer !== undefined;
+  const isCorrect = answered && userAnswer === q.correct;
+  const letters = ['A', 'B', 'C', 'D'];
+
+  const optionsHtml = q.options.map((opt, i) => {
+    let cls = 'quiz-option';
+    if (answered) {
+      if (i === q.correct) cls += ' correct';
+      else if (i === userAnswer) cls += ' wrong';
+      else cls += ' dim';
+    }
+    return `<button class="${cls}" ${answered ? 'disabled' : ''} data-ch="${chIdx}" data-q="${qIdx}" data-i="${i}">
+      <span class="quiz-letter">${letters[i]}.</span>
+      <span>${escapeHtml(opt)}</span>
+    </button>`;
+  }).join('');
+
+  let feedbackHtml = '';
+  if (answered) {
+    const fbClass = isCorrect ? 'correct' : 'wrong';
+    const fbHeader = isCorrect
+      ? '✅ 答對了!'
+      : `❌ 答錯了。正確答案是 ${letters[q.correct]}:${escapeHtml(q.options[q.correct])}`;
+    feedbackHtml = `
+      <div class="quiz-feedback show ${fbClass}">
+        <strong>${fbHeader}</strong>
+        ${escapeHtml(q.explanation)}
+        <div class="biz"><strong>💼 企業含意:</strong>${escapeHtml(q.biz)}</div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="quiz-question" data-q-idx="${qIdx}">
+      <div class="quiz-q-header">
+        <span class="quiz-level-badge">${q.level_emoji} Lv.${qIdx+1} ${escapeHtml(q.level)}</span>
+      </div>
+      <div class="quiz-q-text">${escapeHtml(q.question)}</div>
+      <div class="quiz-options">${optionsHtml}</div>
+      ${feedbackHtml}
+    </div>
+  `;
+}
+
+function renderMainContent() {
+  const ch = CHAPTERS[state.current];
+  const main = document.getElementById('mainContent');
+  const isCompleted = state.completed.includes(state.current);
+  const prevIdx = state.current - 1;
+  const nextIdx = state.current + 1;
+
+  const quizHtml = ch.quiz.map((q, qIdx) => renderQuizQuestion(state.current, qIdx, q)).join('');
+
+  main.innerHTML = `
+    <div class="content-header">
+      <span class="content-tag tag-${ch.stage}">${ch.stage_label}</span>
+      <span class="content-number">第 ${ch.number} 課 / 共 05 課</span>
+    </div>
+    <h1 class="content-title">${escapeHtml(ch.title)}</h1>
+    <div class="content-meta">
+      <span>👤 <strong>${escapeHtml(ch.creator)}</strong>(${escapeHtml(ch.creator_role)})</span>
+      <span>📍 ${escapeHtml(ch.venue)}</span>
+      <span>📅 ${escapeHtml(ch.year)}</span>
+      <span>⏱️ ${escapeHtml(ch.duration)}</span>
+      <span>🌐 ${escapeHtml(ch.language)}</span>
+    </div>
+
+    <div class="video-poster" id="videoPoster">
+      <img src="https://img.youtube.com/vi/${ch.video_id}/maxresdefault.jpg"
+           onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${ch.video_id}/hqdefault.jpg';"
+           alt="${escapeHtml(ch.title)}">
+      <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+
+    <div class="video-actions">
+      <a class="btn-action" href="${ch.youtube_url}" target="_blank" rel="noopener">▶️ 在 YouTube 開啟</a>
+      <button class="btn-action btn-complete ${isCompleted ? 'done' : ''}" id="completeBtn">
+        ${isCompleted ? '✓ 已標記完成' : '✓ 標記完成'}
+      </button>
+    </div>
+
+    <div class="section-block section-intro">
+      <h3>📖 簡介</h3>
+      <p>${escapeHtml(ch.intro)}</p>
+    </div>
+
+    <div class="section-block section-why">
+      <h3>💎 為什麼推薦</h3>
+      <p>${escapeHtml(ch.why)}</p>
+    </div>
+
+    <div class="section-block section-reflection">
+      <h3>🤔 學習反思</h3>
+      <p>${escapeHtml(ch.reflection)}</p>
+    </div>
+
+    <div class="quiz-section">
+      <div class="quiz-header">
+        <div class="quiz-title">📝 三題自我測驗</div>
+        <button class="quiz-reset" id="quizResetBtn">🔄 重新作答</button>
+      </div>
+      <div class="quiz-subtitle">記憶 → 觀點 → 應用,三層遞進確認學習成效</div>
+      ${quizHtml}
+    </div>
+
+    <div class="nav-pager">
+      <button class="pager-btn" ${prevIdx < 0 ? 'disabled' : ''} data-go="${prevIdx}">
+        <span class="pager-direction">← 上一課</span>
+        <span class="pager-title">${prevIdx >= 0 ? escapeHtml(CHAPTERS[prevIdx].title) : '已是第一課'}</span>
+      </button>
+      <button class="pager-btn next" ${nextIdx >= CHAPTERS.length ? 'disabled' : ''} data-go="${nextIdx}">
+        <span class="pager-direction">下一課 →</span>
+        <span class="pager-title">${nextIdx < CHAPTERS.length ? escapeHtml(CHAPTERS[nextIdx].title) : '已是最後一課'}</span>
+      </button>
+    </div>
+
+    <div class="learning-path">
+      <div class="learning-path-title">🧭 學習路徑邏輯總覽</div>
+      <div class="path-flow">
+        <div class="path-step"><div class="path-step-num">01</div><div class="path-step-name">Andrew Ng</div><div class="path-step-role">框架</div></div>
+        <div class="path-arrow">→</div>
+        <div class="path-step"><div class="path-step-num">02</div><div class="path-step-name">李宏毅</div><div class="path-step-role">原理</div></div>
+        <div class="path-arrow">→</div>
+        <div class="path-step"><div class="path-step-num">03</div><div class="path-step-name">Mollick</div><div class="path-step-role">組織衝擊</div></div>
+        <div class="path-arrow">→</div>
+        <div class="path-step"><div class="path-step-num">04</div><div class="path-step-name">Nadella</div><div class="path-step-role">實作決策</div></div>
+        <div class="path-arrow">→</div>
+        <div class="path-step"><div class="path-step-num">05</div><div class="path-step-name">Aravind</div><div class="path-step-role">未來職能</div></div>
+      </div>
+      <div class="path-summary">
+        本期策展刻意涵蓋三層視角:<strong>Why</strong>(為什麼這次不一樣)由 Andrew Ng 與 Aravind 提供;<strong>How</strong>(如何運作)由李宏毅與 Nadella 拆解;<strong>So What</strong>(對我與組織的衝擊)貫穿 Mollick 與全篇反思題。建議按順序學習,但若您是 C-level,可優先看 03 → 04 → 05。
+      </div>
+    </div>
+
+    <div class="content-footer">
+      Learning Curator : <a href="https://aittlabs.org" target="_blank" rel="noopener">https://aittlabs.org</a>
+    </div>
+  `;
+
+  // Bind events
+  document.getElementById('videoPoster').addEventListener('click', function() {
+    this.innerHTML = `<iframe src="https://www.youtube.com/embed/${ch.video_id}?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  });
+
+  document.getElementById('completeBtn').addEventListener('click', function() {
+    const idx = state.current;
+    if (state.completed.includes(idx)) {
+      state.completed = state.completed.filter(i => i !== idx);
+    } else {
+      state.completed.push(idx);
+    }
+    saveState(state);
+    renderAll();
+  });
+
+  document.getElementById('quizResetBtn').addEventListener('click', function() {
+    if (confirm('確定要重新作答本課所有測驗題嗎?')) {
+      ch.quiz.forEach((q, qIdx) => {
+        delete state.quizAnswers[`${state.current}_${qIdx}`];
+      });
+      saveState(state);
+      renderAll();
+    }
+  });
+
+  document.querySelectorAll('.pager-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (this.disabled) return;
+      const goIdx = parseInt(this.dataset.go);
+      if (!isNaN(goIdx) && goIdx >= 0 && goIdx < CHAPTERS.length) {
+        state.current = goIdx;
+        saveState(state);
+        renderAll();
+        document.getElementById('mainContent').scrollTop = 0;
+      }
+    });
+  });
+
+  document.querySelectorAll('.quiz-option').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (this.disabled) return;
+      const chIdx = parseInt(this.dataset.ch);
+      const qIdx = parseInt(this.dataset.q);
+      const optI = parseInt(this.dataset.i);
+      const key = `${chIdx}_${qIdx}`;
+      if (state.quizAnswers[key] !== undefined) return;
+      state.quizAnswers[key] = optI;
+      saveState(state);
+      renderAll();
+    });
+  });
+}
+
+function renderAll() {
+  renderSidebar();
+  renderMainContent();
+  renderProgress();
+}
+
+function init() {
+  if (!CHAPTERS || CHAPTERS.length === 0) return;
+  if (state.current >= CHAPTERS.length) state.current = 0;
+  renderAll();
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  }
+
+  // Reset
+  document.getElementById('resetBtn').addEventListener('click', function() {
+    if (confirm('確定要重置所有學習進度嗎?\n\n這會清除:\n• 章節完成記錄\n• 所有測驗答題\n• 章節停留位置\n\n重置後將回到第 1 章從頭開始。')) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      location.reload();
+    }
+  });
+}
+
+// 若已經解鎖,直接初始化
+try {
+  if (sessionStorage.getItem('aitt_unlocked_2026_05') === '1') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  }
+} catch (e) {}
+</script>
+</body>
+</html>

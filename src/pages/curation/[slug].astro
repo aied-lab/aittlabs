@@ -1,0 +1,251 @@
+---
+import Base from '../../layouts/Base.astro';
+import { curationIssues, getIssueBySlug } from '../../data/curation';
+
+export function getStaticPaths() {
+  return curationIssues.map((issue) => ({
+    params: { slug: issue.slug },
+    props: { issue },
+  }));
+}
+
+const { issue } = Astro.props;
+if (!issue) throw new Error('Curation issue not found');
+
+// 也允許從 slug 直接抓（容錯）
+const data = issue ?? getIssueBySlug(Astro.params.slug as string);
+const iframeSrc = `/curation/${data.file}`;
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('zh-TW', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<Base title={data.title} description={data.summary}>
+  <section class="curation-detail-hero">
+    <div class="container">
+      <a href="/curation/" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M13 8H3m0 0l4-4M3 8l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        返回學習策展
+      </a>
+      <div class="detail-meta">
+        <span class="period-tag">{data.period}</span>
+        <span class="detail-date">{formatDate(data.date)}</span>
+        {data.gated && <span class="gated-tag">會員解鎖</span>}
+      </div>
+      <h1>{data.title}</h1>
+      {data.subtitle && <p class="detail-subtitle">{data.subtitle}</p>}
+      <p class="detail-summary">{data.summary}</p>
+      {data.topics?.length > 0 && (
+        <div class="topic-tags">
+          {data.topics.map((t) => <span class="topic-tag">#{t}</span>)}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="curation-frame-section">
+    <div class="frame-toolbar container">
+      <div class="frame-stats">
+        {data.episodeCount !== undefined && <span>{data.episodeCount} 部影片</span>}
+        {data.duration && <span>· {data.duration}</span>}
+      </div>
+      <div class="frame-actions">
+        <button id="fullscreenBtn" class="btn-frame" type="button" aria-label="全螢幕觀看">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          全螢幕
+        </button>
+        <a href={iframeSrc} target="_blank" rel="noopener" class="btn-frame" aria-label="於新分頁開啟">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          新分頁開啟
+        </a>
+      </div>
+    </div>
+
+    <div class="frame-wrap container" id="frameWrap">
+      <iframe
+        id="curationFrame"
+        src={iframeSrc}
+        title={data.title}
+        loading="lazy"
+        allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .curation-detail-hero {
+    padding: 7.5rem 0 2.5rem;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.18) 0%, transparent 55%),
+      radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 55%);
+    border-bottom: 1px solid var(--border);
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--accent-light); }
+
+  .detail-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .period-tag {
+    background: rgba(139, 92, 246, 0.15);
+    color: #c4b5fd;
+    padding: 0.25rem 0.7rem;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .detail-date {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+  .gated-tag {
+    background: rgba(252, 211, 77, 0.12);
+    color: var(--gold-light, #fcd34d);
+    border: 1px solid rgba(252, 211, 77, 0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0 0 0.65rem;
+  }
+  .detail-subtitle {
+    color: var(--accent-light);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0 0 0.85rem;
+    letter-spacing: 0.01em;
+  }
+  .detail-summary {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.85;
+    max-width: 880px;
+    margin: 0 0 1.25rem;
+  }
+  .topic-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .topic-tag {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+  }
+
+  .curation-frame-section {
+    padding: 1.5rem 0 4rem;
+  }
+  .frame-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+  .frame-stats {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+  .frame-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .btn-frame {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 0.45rem 0.9rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-frame:hover {
+    border-color: var(--accent);
+    color: var(--accent-light);
+  }
+
+  .frame-wrap {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px);
+    min-height: 720px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #0a0e1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+  }
+  .frame-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #0a0e1a;
+  }
+
+  @media (max-width: 768px) {
+    .curation-detail-hero { padding-top: 6rem; }
+    .frame-wrap {
+      min-height: 560px;
+      height: calc(100vh - 60px);
+      border-radius: 0;
+      margin: 0 -1rem;
+      width: auto;
+      border-left: 0;
+      border-right: 0;
+    }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('fullscreenBtn');
+  const wrap = document.getElementById('frameWrap');
+  btn?.addEventListener('click', () => {
+    if (!wrap) return;
+    if (!document.fullscreenElement) {
+      wrap.requestFullscreen?.();
+    } else {
+      document.exitFullscreen?.();
+    }
+  });
+</script>
