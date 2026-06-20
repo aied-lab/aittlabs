@@ -1,5 +1,12 @@
 [
   {
+    "title": "[AI實驗] 端午節快樂！貓貓狗狗搞笑影片",
+    "link": "https://aiedlab.substack.com/p/ai-d89",
+    "date": "2026-06-19 02:20:05",
+    "summary": "大家好！ 最近好幾組 #AI陪跑教練 專案，各種題目都有，其中一個陪跑項目是以 AI 製作企業 HR 宣導影片。",
+    "image": "https://substackcdn.com/image/youtube/w_728,c_limit/bWhB9L-Fpt0"
+  },
+  {
     "title": "SpaceX 股票上市 IPO 驚天動地！把 AI 資料中心搬上太空,是天才還是瘋狂?",
     "link": "https://aiedlab.substack.com/p/spacex-ipo-ai",
     "date": "2026-06-14 15:20:15",
@@ -61,12 +68,5 @@
     "date": "2026-04-19 07:24:45",
     "summary": "Peter Steinberger 的 OpenClaw，與 AI 代理人改寫世界的那一刻",
     "image": "https://substackcdn.com/image/fetch/%24s_!Cwfb!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa617588a-1212-4360-ba15-5d14d6e1152b_1894x494.png"
-  },
-  {
-    "title": "RAG 已死？我開發了一個 100% 落地板＋可自我進化的企業級知識管理系統！",
-    "link": "https://aiedlab.substack.com/p/rag-100",
-    "date": "2026-04-10 00:57:04",
-    "summary": "Karpathy 一週爆紅 1400⭐ 的知識庫概念，我花 3 天讓它落地成會自己長大的活系統",
-    "image": "https://substackcdn.com/image/fetch/%24s_!8PLn!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe925660f-bdd7-4021-b4c5-e97cf4c8d6b4_3420x1958.png"
   }
 ]
