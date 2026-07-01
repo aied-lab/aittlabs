@@ -3,6 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # 機器人用 GITHUB_TOKEN 推的 Substack 快取 commit 不會觸發 push 事件，
+  # 因此改用 workflow_run：等「Update Substack Cache」跑完就自動接著部署。
+  workflow_run:
+    workflows: ["Update Substack Cache"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
