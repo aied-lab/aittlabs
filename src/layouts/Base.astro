@@ -1,6 +1,7 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import ChatWidget from '../components/ChatWidget.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -112,5 +113,6 @@ const orgSchema = {
     <slot />
   </main>
   <Footer />
+  <ChatWidget lang={lang} />
 </body>
 </html>
