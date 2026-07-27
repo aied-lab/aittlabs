@@ -1,0 +1,153 @@
+---
+interface Author {
+  name: string;
+  name_en?: string;
+  orcid?: string;
+  affiliation?: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  subtitle?: string;
+  title_en?: string;
+  subtitle_en?: string;
+  version: string;
+  published: Date;
+  authors: Author[];
+  doi?: string | null;
+  slug: string;
+}
+
+const { id, title, subtitle, title_en, subtitle_en, version, published, authors, doi, slug } = Astro.props;
+
+const SITE_URL = 'https://aittlabs.org';
+const url = `${SITE_URL}/research/${slug}/`;
+const year = published.getFullYear();
+
+const zhAuthors = authors.map(a => a.name).join('、');
+const zhTitle = subtitle ? `${title}：${subtitle}` : title;
+const apaCitation = `${zhAuthors}（${year}）。《${zhTitle}》。AI TalenTech Labs 研究報告 ${id}，v${version}。${doi ? `https://doi.org/${doi}` : url}`;
+
+const enAuthors = authors.map(a => a.name_en || a.name).join(' and ');
+const enTitle = subtitle_en ? `${title_en}: ${subtitle_en}` : title_en || zhTitle;
+const bibtexKey = `${(authors[0]?.name_en || authors[0]?.name || 'aitt').split(',')[0].toLowerCase().replace(/[^a-z]/g, '')}${year}${slug.split('-')[0]}`;
+const bibtex = `@techreport{${bibtexKey},
+  author      = {${enAuthors}},
+  title       = {${enTitle}},
+  institution = {AI TalenTech Labs},
+  number      = {${id}},
+  version     = {${version}},
+  year        = {${year}},${doi ? `\n  doi         = {${doi}},` : ''}
+  url         = {${url}}
+}`;
+---
+
+<section class="citation-block">
+  <h2>建議引用格式</h2>
+
+  <div class="citation-item">
+    <div class="citation-head">
+      <span class="citation-label">APA</span>
+      <button class="copy-btn" data-copy={apaCitation}>複製</button>
+    </div>
+    <p class="citation-text">{apaCitation}</p>
+  </div>
+
+  <div class="citation-item">
+    <div class="citation-head">
+      <span class="citation-label">BibTeX</span>
+      <button class="copy-btn" data-copy={bibtex}>複製</button>
+    </div>
+    <pre class="citation-code"><code>{bibtex}</code></pre>
+  </div>
+</section>
+
+<style>
+  .citation-block {
+    padding: 0;
+    margin-top: 3.5rem;
+  }
+  .citation-block h2 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .citation-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .citation-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+  }
+  .citation-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .copy-btn {
+    padding: 0.25rem 0.85rem;
+    border-radius: 50px;
+    border: 1px solid var(--border-hover);
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .copy-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent-light);
+  }
+  .copy-btn.copied {
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+  .citation-text {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    word-break: break-all;
+  }
+  .citation-code {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+    overflow-x: auto;
+    margin: 0;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '已複製';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '複製';
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch {
+        // Clipboard unavailable (e.g. non-secure context); leave the text selectable.
+      }
+    });
+  });
+</script>
