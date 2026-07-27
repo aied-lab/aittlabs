@@ -1,0 +1,184 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const papers = (await getCollection('research')).sort(
+  (a, b) => b.data.published.getTime() - a.data.published.getTime()
+);
+
+const typeLabels: Record<string, string> = {
+  'working-paper': 'Working Paper',
+  method: 'Method',
+};
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<Base title="研究" description="AI TalenTech Labs 研究報告與方法論 — AI 人才發展策略、能力鑑定體系與系統動力學研究。">
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label animate-on-scroll">Research</span>
+      <h1 class="animate-on-scroll">研究</h1>
+      <p class="animate-on-scroll">研究報告與方法論 — AI 人才發展策略、能力鑑定體系與產業洞察</p>
+    </div>
+  </section>
+
+  <section class="research-section">
+    <div class="container">
+      <div class="papers-list">
+        {papers.map(paper => (
+          <a href={`/research/${paper.id}/`} class="card paper-card animate-on-scroll">
+            <div class="paper-meta">
+              <span class="paper-id">{paper.data.id}</span>
+              <span class="tag tag-product">{typeLabels[paper.data.type] ?? paper.data.type}</span>
+              <span class:list={['tag', paper.data.status === 'draft' ? 'tag-draft' : 'tag-published']}>
+                v{paper.data.version}{paper.data.status === 'draft' ? '（草稿）' : ''}
+              </span>
+              <span class="paper-date">{formatDate(paper.data.published)}</span>
+            </div>
+            <h3>{paper.data.title}</h3>
+            {paper.data.subtitle && <p class="paper-subtitle">{paper.data.subtitle}</p>}
+            {paper.data.title_en && <p class="paper-title-en">{paper.data.title_en}</p>}
+            {paper.data.keywords_zh.length > 0 && (
+              <div class="paper-keywords">
+                {paper.data.keywords_zh.map(kw => <span class="keyword">{kw}</span>)}
+              </div>
+            )}
+            <span class="read-more">
+              閱讀全文
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      {papers.length === 0 && (
+        <div class="empty-state">
+          <p>研究報告即將發布，敬請期待。</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .research-section {
+    padding-top: 0;
+  }
+
+  .papers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .paper-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .paper-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .paper-id {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .tag-draft {
+    background: rgba(245, 158, 11, 0.12);
+    color: var(--gold);
+  }
+  .tag-published {
+    background: rgba(20, 184, 166, 0.12);
+    color: var(--teal);
+  }
+
+  .paper-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .paper-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .paper-subtitle {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .paper-title-en {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  .paper-keywords {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+  }
+  .keyword {
+    padding: 0.2rem 0.7rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border-hover);
+  }
+
+  .read-more {
+    color: var(--accent-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: gap 0.3s;
+    margin-top: 0.25rem;
+  }
+  .paper-card:hover .read-more {
+    gap: 0.6rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--text-muted);
+  }
+</style>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        const delay = Array.from(el.parentElement?.children ?? [])
+          .filter(c => c.classList.contains('animate-on-scroll'))
+          .indexOf(el) * 100;
+        setTimeout(() => el.classList.add('visible'), Math.min(delay, 500));
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>

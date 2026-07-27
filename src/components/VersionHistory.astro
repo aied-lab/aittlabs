@@ -1,0 +1,121 @@
+---
+interface Entry {
+  version: string;
+  date: string;
+  note: string;
+}
+
+interface Props {
+  entries: Entry[];
+  current: string;
+}
+
+const { entries, current } = Astro.props;
+---
+
+{entries.length > 0 && (
+  <section class="version-history">
+    <h2>版本紀錄</h2>
+    <ol class="version-list">
+      {entries.map(entry => (
+        <li class:list={['version-item', { current: entry.version === `v${current}` }]}>
+          <div class="version-marker" aria-hidden="true"></div>
+          <div class="version-content">
+            <div class="version-head">
+              <span class="version-tag">{entry.version}</span>
+              <span class="version-date">{entry.date}</span>
+              {entry.version === `v${current}` && <span class="current-badge">目前版本</span>}
+            </div>
+            <p class="version-note">{entry.note}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+<style>
+  .version-history {
+    padding: 0;
+    margin-top: 3.5rem;
+  }
+  .version-history h2 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .version-list {
+    list-style: none;
+    position: relative;
+  }
+  .version-list::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border-hover);
+  }
+  .version-item {
+    position: relative;
+    display: flex;
+    gap: 1.25rem;
+    padding-bottom: 1.5rem;
+  }
+  .version-item:last-child {
+    padding-bottom: 0;
+  }
+  .version-marker {
+    flex-shrink: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    border: 1px solid var(--border-hover);
+    margin-top: 7px;
+    z-index: 1;
+  }
+  .version-item.current .version-marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+  }
+  .version-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .version-tag {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .version-item.current .version-tag {
+    color: var(--accent-light);
+  }
+  .version-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .current-badge {
+    display: inline-block;
+    padding: 0.1rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: rgba(59, 130, 246, 0.12);
+    color: var(--accent-light);
+  }
+  .version-note {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin-top: 0.25rem;
+  }
+</style>
