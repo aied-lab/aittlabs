@@ -40,12 +40,12 @@ const { entries, current } = Astro.props;
     margin-top: 3.5rem;
   }
   .version-history h2 {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink, #10233A);
     margin-bottom: 1.5rem;
     padding-top: 2.5rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--rule, #E4E9EF);
   }
   .version-list {
     list-style: none;
@@ -58,7 +58,7 @@ const { entries, current } = Astro.props;
     top: 8px;
     bottom: 8px;
     width: 1px;
-    background: var(--border-hover);
+    background: var(--rule, #E4E9EF);
   }
   .version-item {
     position: relative;
@@ -74,15 +74,15 @@ const { entries, current } = Astro.props;
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background: var(--surface-3);
-    border: 1px solid var(--border-hover);
+    background: #fff;
+    border: 1px solid var(--soft, #3C4E66);
     margin-top: 7px;
     z-index: 1;
   }
   .version-item.current .version-marker {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-glow);
+    background: var(--acc, #0F6E6E);
+    border-color: var(--acc, #0F6E6E);
+    box-shadow: 0 0 0 4px rgba(15, 110, 110, 0.15);
   }
   .version-head {
     display: flex;
@@ -94,26 +94,27 @@ const { entries, current } = Astro.props;
     font-family: var(--font-mono);
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--text);
+    color: var(--ink, #10233A);
   }
   .version-item.current .version-tag {
-    color: var(--accent-light);
+    color: var(--acc, #0F6E6E);
+    font-weight: 700;
   }
   .version-date {
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: #9AA6B4;
   }
   .current-badge {
     display: inline-block;
     padding: 0.1rem 0.6rem;
-    border-radius: 50px;
+    border-radius: 2px;
     font-size: 0.7rem;
     font-weight: 600;
-    background: rgba(59, 130, 246, 0.12);
-    color: var(--accent-light);
+    background: var(--acc, #0F6E6E);
+    color: #fff;
   }
   .version-note {
-    color: var(--text-dim);
+    color: var(--soft, #3C4E66);
     font-size: 0.88rem;
     line-height: 1.7;
     margin-top: 0.25rem;

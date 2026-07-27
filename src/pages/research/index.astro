@@ -10,123 +10,164 @@ const typeLabels: Record<string, string> = {
   'working-paper': 'Working Paper',
   method: 'Method',
 };
-
-function formatDate(date: Date) {
-  return date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
-}
 ---
 
 <Base title="研究" description="AI TalenTech Labs 研究報告與方法論 — AI 人才發展策略、能力鑑定體系與系統動力學研究。">
-  <section class="page-hero">
-    <div class="container">
-      <span class="section-label animate-on-scroll">Research</span>
-      <h1 class="animate-on-scroll">研究</h1>
-      <p class="animate-on-scroll">研究報告與方法論 — AI 人才發展策略、能力鑑定體系與產業洞察</p>
-    </div>
-  </section>
-
-  <section class="research-section">
-    <div class="container">
-      <div class="papers-list">
-        {papers.map(paper => (
-          <a href={`/research/${paper.id}/`} class="card paper-card animate-on-scroll">
-            <div class="paper-meta">
-              <span class="paper-id">{paper.data.id}</span>
-              <span class="tag tag-product">{typeLabels[paper.data.type] ?? paper.data.type}</span>
-              <span class:list={['tag', paper.data.status === 'draft' ? 'tag-draft' : 'tag-published']}>
-                v{paper.data.version}{paper.data.status === 'draft' ? '（草稿）' : ''}
-              </span>
-              <span class="paper-date">{formatDate(paper.data.published)}</span>
-            </div>
-            <h3>{paper.data.title}</h3>
-            {paper.data.subtitle && <p class="paper-subtitle">{paper.data.subtitle}</p>}
-            {paper.data.title_en && <p class="paper-title-en">{paper.data.title_en}</p>}
-            {paper.data.keywords_zh.length > 0 && (
-              <div class="paper-keywords">
-                {paper.data.keywords_zh.map(kw => <span class="keyword">{kw}</span>)}
-              </div>
-            )}
-            <span class="read-more">
-              閱讀全文
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-        ))}
+  <div class="paper-index">
+    <section class="index-hero">
+      <div class="container">
+        <span class="index-label">Research</span>
+        <h1>研究</h1>
+        <p>研究報告與方法論 — AI 人才發展策略、能力鑑定體系與產業洞察</p>
       </div>
+    </section>
 
-      {papers.length === 0 && (
-        <div class="empty-state">
-          <p>研究報告即將發布，敬請期待。</p>
+    <section class="index-list-section">
+      <div class="container">
+        <div class="papers-list">
+          {papers.map(paper => (
+            <a href={`/research/${paper.id}/`} class="paper-card">
+              <div class="pills">
+                <span class="pill">{paper.data.id}</span>
+                <span class="pill g">{typeLabels[paper.data.type] ?? paper.data.type}</span>
+                {paper.data.status === 'draft'
+                  ? <span class="pill d">DRAFT v{paper.data.version}</span>
+                  : <span class="pill">v{paper.data.version}</span>}
+                <span class="paper-date">{paper.data.published.toISOString().slice(0, 10)}</span>
+              </div>
+              <h3>{paper.data.title}</h3>
+              {paper.data.subtitle && <p class="paper-subtitle">{paper.data.subtitle}</p>}
+              {paper.data.title_en && <p class="paper-title-en">{paper.data.title_en}</p>}
+              {paper.data.keywords_zh.length > 0 && (
+                <div class="paper-keywords">
+                  {paper.data.keywords_zh.map(kw => <span class="keyword">{kw}</span>)}
+                </div>
+              )}
+              <span class="read-more">閱讀全文 →</span>
+            </a>
+          ))}
         </div>
-      )}
-    </div>
-  </section>
+
+        {papers.length === 0 && (
+          <div class="empty-state">
+            <p>研究報告即將發布，敬請期待。</p>
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
 </Base>
 
 <style>
-  .research-section {
-    padding-top: 0;
+  /* ===== Paper palette (matches PDF / preview-v0.8) ===== */
+  .paper-index {
+    --ink: #10233A;
+    --soft: #3C4E66;
+    --acc: #0F6E6E;
+    --acc2: #C2703A;
+    --rule: #E4E9EF;
+    --pbg: #F7F9FB;
+    background: #ffffff;
+    color: var(--ink);
+  }
+
+  .index-hero {
+    padding: 8rem 0 3rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .index-hero .container,
+  .index-list-section .container {
+    max-width: 808px;
+  }
+  .index-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--acc);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .index-hero h1 {
+    font-size: clamp(28px, 3.5vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0.5rem 0 0.75rem;
+    color: var(--ink);
+  }
+  .index-hero p {
+    color: var(--soft);
+    font-size: 1.05rem;
+  }
+
+  .index-list-section {
+    padding: 3rem 0 6rem;
   }
 
   .papers-list {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
   }
 
   .paper-card {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.6rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.75rem 2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .paper-card:hover {
+    border-color: var(--acc);
+    box-shadow: 0 4px 20px rgba(16, 35, 58, 0.06);
   }
 
-  .paper-meta {
+  .pills {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    gap: 7px;
     flex-wrap: wrap;
+    align-items: center;
   }
-
-  .paper-id {
+  .pill {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--accent);
-    letter-spacing: 0.05em;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    background: var(--acc);
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 2px;
   }
-
-  .tag-draft {
-    background: rgba(245, 158, 11, 0.12);
-    color: var(--gold);
+  .pill.g {
+    background: var(--pbg);
+    color: var(--soft);
+    border: 1px solid var(--rule);
   }
-  .tag-published {
-    background: rgba(20, 184, 166, 0.12);
-    color: var(--teal);
+  .pill.d {
+    background: var(--acc2);
+    color: #fff;
   }
-
   .paper-date {
-    font-size: 0.8rem;
-    color: var(--text-muted);
+    font-size: 12.5px;
+    color: #9AA6B4;
+    margin-left: 4px;
   }
 
   .paper-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.4;
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.45;
+    color: var(--ink);
+    margin-top: 0.25rem;
   }
-
   .paper-subtitle {
-    color: var(--text-dim);
+    color: var(--soft);
     font-size: 0.95rem;
-    line-height: 1.7;
+    line-height: 1.8;
   }
-
   .paper-title-en {
-    color: var(--text-muted);
+    color: #9AA6B4;
     font-size: 0.85rem;
     font-style: italic;
   }
@@ -138,47 +179,33 @@ function formatDate(date: Date) {
     margin-top: 0.25rem;
   }
   .keyword {
-    padding: 0.2rem 0.7rem;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    border: 1px solid var(--border-hover);
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-size: 12px;
+    color: var(--soft);
+    background: var(--pbg);
+    border: 1px solid var(--rule);
   }
 
   .read-more {
-    color: var(--accent-light);
-    font-size: 0.85rem;
+    color: var(--acc);
+    font-size: 0.88rem;
     font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    transition: gap 0.3s;
-    margin-top: 0.25rem;
-  }
-  .paper-card:hover .read-more {
-    gap: 0.6rem;
+    margin-top: 0.35rem;
   }
 
   .empty-state {
     text-align: center;
     padding: 4rem 0;
-    color: var(--text-muted);
+    color: var(--soft);
+  }
+
+  @media (max-width: 768px) {
+    .index-hero {
+      padding: 6.5rem 0 2.5rem;
+    }
+    .paper-card {
+      padding: 1.4rem 1.4rem;
+    }
   }
 </style>
-
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const el = entry.target as HTMLElement;
-        const delay = Array.from(el.parentElement?.children ?? [])
-          .filter(c => c.classList.contains('animate-on-scroll'))
-          .indexOf(el) * 100;
-        setTimeout(() => el.classList.add('visible'), Math.min(delay, 500));
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
-</script>
