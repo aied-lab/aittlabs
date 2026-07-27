@@ -15,3 +15,13 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# local materials and research sources (keep out of public repo)
+AITT-Research/
+學習策展/
+指導委員/
+顧問講師群/
+install-ga4-aittlabs.md
+
+# astro generated
+.astro/
