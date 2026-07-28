@@ -106,8 +106,32 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
         </div>
       </div>
     </div>
+
+    <div class="substack-toast" id="substackToast" role="status" hidden>
+      <button class="toast-close" id="toastClose" aria-label="關閉">×</button>
+      <p class="toast-title">報告已開始下載</p>
+      <p class="toast-text">訂閱 Substack，新版發布與後續研究第一時間通知。</p>
+      <a href="https://substack.com/@johnliontw" target="_blank" rel="noopener noreferrer" class="toast-btn">訂閱 Substack →</a>
+    </div>
   </article>
 </Base>
+
+<script>
+  const toast = document.getElementById('substackToast');
+  let hideTimer: ReturnType<typeof setTimeout>;
+  document.querySelectorAll('a[href$=".pdf"]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (!toast) return;
+      toast.hidden = false;
+      requestAnimationFrame(() => toast.classList.add('show'));
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => toast.classList.remove('show'), 15000);
+    });
+  });
+  document.getElementById('toastClose')?.addEventListener('click', () => {
+    toast?.classList.remove('show');
+  });
+</script>
 
 <style>
   /* ===== Paper palette (matches PDF / preview-v0.8) ===== */
@@ -381,12 +405,81 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
     color: var(--acc);
   }
 
+  /* ===== Substack toast ===== */
+  .substack-toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 90;
+    max-width: 320px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--acc2);
+    border-radius: 4px;
+    padding: 16px 18px;
+    box-shadow: 0 8px 30px rgba(16, 35, 58, 0.14);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s, transform 0.35s;
+    pointer-events: none;
+  }
+  .substack-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .toast-close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    border: none;
+    background: none;
+    color: #9AA6B4;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 2px;
+    line-height: 1;
+  }
+  .toast-close:hover {
+    color: var(--ink);
+  }
+  .toast-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .toast-text {
+    font-size: 13px;
+    color: var(--soft);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .toast-btn {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: #FF6719;
+    padding: 7px 14px;
+    border-radius: 3px;
+  }
+  .toast-btn:hover {
+    opacity: 0.85;
+  }
+
   @media (max-width: 768px) {
     .paper-header {
       padding: 6rem 0 1.75rem;
     }
     .prose {
       font-size: 16px;
+    }
+    .substack-toast {
+      right: 12px;
+      left: 12px;
+      bottom: 12px;
+      max-width: none;
     }
   }
 </style>
