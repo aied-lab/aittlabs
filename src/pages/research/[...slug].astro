@@ -107,30 +107,66 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
       </div>
     </div>
 
-    <div class="substack-toast" id="substackToast" role="status" hidden>
-      <button class="toast-close" id="toastClose" aria-label="關閉">×</button>
-      <p class="toast-title">報告已開始下載</p>
-      <p class="toast-text">訂閱 Substack，新版發布與後續研究第一時間通知。</p>
-      <a href="https://substack.com/@johnliontw" target="_blank" rel="noopener noreferrer" class="toast-btn">訂閱 Substack →</a>
+    <div class="subscribe-overlay" id="subscribeOverlay" hidden>
+      <div class="subscribe-modal" role="dialog" aria-modal="true" aria-labelledby="subscribeTitle">
+        <button class="modal-close" id="modalClose" aria-label="關閉">×</button>
+        <p class="modal-label">Newsletter</p>
+        <h2 id="subscribeTitle">訂閱 Substack 電子報</h2>
+        <p class="modal-text">留下 Email 訂閱《AI 人才科技實驗室》電子報，送出後 PDF 將自動開始下載；新版發布與後續研究第一時間通知。</p>
+        <form id="subscribeForm">
+          <input type="email" id="subscribeEmail" placeholder="your@email.com" required autocomplete="email" />
+          <button type="submit" class="modal-btn">訂閱並下載 PDF</button>
+        </form>
+        <p class="modal-note">透過 Substack 寄送，可隨時退訂，Email 不移作他用。</p>
+      </div>
     </div>
   </article>
 </Base>
 
 <script>
-  const toast = document.getElementById('substackToast');
-  let hideTimer: ReturnType<typeof setTimeout>;
-  document.querySelectorAll('a[href$=".pdf"]').forEach(link => {
-    link.addEventListener('click', () => {
-      if (!toast) return;
-      toast.hidden = false;
-      requestAnimationFrame(() => toast.classList.add('show'));
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => toast.classList.remove('show'), 15000);
+  const overlay = document.getElementById('subscribeOverlay') as HTMLElement;
+  const form = document.getElementById('subscribeForm') as HTMLFormElement;
+  const emailInput = document.getElementById('subscribeEmail') as HTMLInputElement;
+  let pdfUrl = '';
+
+  function openModal(url: string) {
+    pdfUrl = url;
+    overlay.hidden = false;
+    requestAnimationFrame(() => overlay.classList.add('show'));
+    emailInput.focus();
+  }
+  function closeModal() {
+    overlay.classList.remove('show');
+    setTimeout(() => { overlay.hidden = true; }, 250);
+  }
+
+  document.querySelectorAll<HTMLAnchorElement>('a[href$=".pdf"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      openModal(link.href);
     });
   });
-  document.getElementById('toastClose')?.addEventListener('click', () => {
-    toast?.classList.remove('show');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    if (!email) return;
+    (window as any).gtag?.('event', 'newsletter_subscribe_intent', { report: location.pathname });
+    window.open(`https://aiedlab.substack.com/subscribe?email=${encodeURIComponent(email)}`, '_blank', 'noopener');
+    if (pdfUrl) {
+      const a = document.createElement('a');
+      a.href = pdfUrl;
+      a.download = '';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+    closeModal();
   });
+
+  document.getElementById('modalClose')?.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.hidden) closeModal(); });
 </script>
 
 <style>
@@ -405,67 +441,111 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
     color: var(--acc);
   }
 
-  /* ===== Substack toast ===== */
-  .substack-toast {
+  /* ===== Subscribe modal ===== */
+  .subscribe-overlay {
     position: fixed;
-    right: 20px;
-    bottom: 104px; /* clear of the chat launcher */
-    z-index: 90;
-    max-width: 320px;
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--acc2);
-    border-radius: 4px;
-    padding: 16px 18px;
-    box-shadow: 0 8px 30px rgba(16, 35, 58, 0.14);
+    inset: 0;
+    z-index: 10000;
+    background: rgba(16, 35, 58, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
     opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.35s, transform 0.35s;
-    pointer-events: none;
+    transition: opacity 0.25s;
   }
-  .substack-toast.show {
+  .subscribe-overlay.show {
     opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
   }
-  .toast-close {
+  .subscribe-modal {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 4px;
+    border-top: 3px solid #FF6719;
+    padding: 28px 28px 22px;
+    box-shadow: 0 24px 64px rgba(16, 35, 58, 0.3);
+    transform: translateY(10px);
+    transition: transform 0.25s;
+  }
+  .subscribe-overlay.show .subscribe-modal {
+    transform: translateY(0);
+  }
+  .modal-close {
     position: absolute;
-    top: 6px;
-    right: 10px;
+    top: 10px;
+    right: 14px;
     border: none;
     background: none;
     color: #9AA6B4;
-    font-size: 18px;
+    font-size: 22px;
     cursor: pointer;
-    padding: 2px;
     line-height: 1;
+    padding: 2px;
   }
-  .toast-close:hover {
+  .modal-close:hover {
     color: var(--ink);
   }
-  .toast-title {
-    font-size: 14px;
+  .modal-label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #FF6719;
     font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .subscribe-modal h2 {
+    font-size: 20px;
+    font-weight: 800;
     color: var(--ink);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
-  .toast-text {
-    font-size: 13px;
+  .modal-text {
+    font-size: 14px;
     color: var(--soft);
-    line-height: 1.7;
-    margin-bottom: 10px;
+    line-height: 1.8;
+    margin-bottom: 16px;
   }
-  .toast-btn {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
+  .subscribe-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .subscribe-modal input {
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    padding: 11px 14px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .subscribe-modal input:focus {
+    border-color: #FF6719;
+  }
+  .modal-btn {
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 700;
     color: #fff;
     background: #FF6719;
-    padding: 7px 14px;
+    border: none;
     border-radius: 3px;
+    padding: 12px;
+    cursor: pointer;
+    transition: opacity 0.2s;
   }
-  .toast-btn:hover {
-    opacity: 0.85;
+  .modal-btn:hover {
+    opacity: 0.88;
+  }
+  .modal-note {
+    font-size: 12px;
+    color: #9AA6B4;
+    margin-top: 12px;
+    line-height: 1.6;
   }
 
   @media (max-width: 768px) {
@@ -474,12 +554,6 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
     }
     .prose {
       font-size: 16px;
-    }
-    .substack-toast {
-      right: 12px;
-      left: 12px;
-      bottom: 84px;
-      max-width: none;
     }
   }
 </style>
