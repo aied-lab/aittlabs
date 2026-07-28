@@ -112,11 +112,16 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
         <button class="modal-close" id="modalClose" aria-label="關閉">×</button>
         <p class="modal-label">Newsletter</p>
         <h2 id="subscribeTitle">訂閱 Substack 電子報</h2>
-        <p class="modal-text">留下 Email 訂閱《AI 人才科技實驗室》電子報，送出後 PDF 將自動開始下載；新版發布與後續研究第一時間通知。</p>
-        <form id="subscribeForm">
-          <input type="email" id="subscribeEmail" placeholder="your@email.com" required autocomplete="email" />
-          <button type="submit" class="modal-btn">訂閱並下載 PDF</button>
-        </form>
+        <p class="modal-text">訂閱《AI 人才科技實驗室》電子報，新版發布與後續研究第一時間通知。</p>
+        <iframe
+          src="https://aiedlab.substack.com/embed"
+          class="substack-embed"
+          title="訂閱 Substack 電子報"
+          loading="lazy"
+          frameborder="0"
+          scrolling="no"
+        ></iframe>
+        <button type="button" class="modal-btn" id="modalDownload">完成訂閱，下載 PDF →</button>
         <p class="modal-note">透過 Substack 寄送，可隨時退訂，Email 不移作他用。</p>
       </div>
     </div>
@@ -125,15 +130,12 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
 
 <script>
   const overlay = document.getElementById('subscribeOverlay') as HTMLElement;
-  const form = document.getElementById('subscribeForm') as HTMLFormElement;
-  const emailInput = document.getElementById('subscribeEmail') as HTMLInputElement;
   let pdfUrl = '';
 
   function openModal(url: string) {
     pdfUrl = url;
     overlay.hidden = false;
     requestAnimationFrame(() => overlay.classList.add('show'));
-    emailInput.focus();
   }
   function closeModal() {
     overlay.classList.remove('show');
@@ -147,12 +149,8 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
     });
   });
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const email = emailInput.value.trim();
-    if (!email) return;
-    (window as any).gtag?.('event', 'newsletter_subscribe_intent', { report: location.pathname });
-    window.open(`https://aiedlab.substack.com/subscribe?email=${encodeURIComponent(email)}`, '_blank', 'noopener');
+  document.getElementById('modalDownload')?.addEventListener('click', () => {
+    (window as any).gtag?.('event', 'research_pdf_download', { report: location.pathname });
     if (pdfUrl) {
       const a = document.createElement('a');
       a.href = pdfUrl;
@@ -511,25 +509,17 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
     line-height: 1.8;
     margin-bottom: 16px;
   }
-  .subscribe-modal form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .subscribe-modal input {
-    font-family: inherit;
-    font-size: 15px;
-    color: var(--ink);
-    padding: 11px 14px;
+  .substack-embed {
+    display: block;
+    width: 100%;
+    height: 150px;
     border: 1px solid var(--rule);
     border-radius: 3px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .subscribe-modal input:focus {
-    border-color: #FF6719;
+    background: #fff;
+    margin-bottom: 10px;
   }
   .modal-btn {
+    width: 100%;
     font-family: inherit;
     font-size: 14.5px;
     font-weight: 700;
