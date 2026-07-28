@@ -409,7 +409,7 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
   .substack-toast {
     position: fixed;
     right: 20px;
-    bottom: 20px;
+    bottom: 104px; /* clear of the chat launcher */
     z-index: 90;
     max-width: 320px;
     background: #fff;
@@ -478,7 +478,7 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
     .substack-toast {
       right: 12px;
       left: 12px;
-      bottom: 12px;
+      bottom: 84px;
       max-width: none;
     }
   }

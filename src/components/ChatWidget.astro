@@ -68,6 +68,13 @@ const t = {
     flex-direction: column;
     align-items: flex-end;
     gap: 0.9rem;
+    /* the collapsed panel still occupies this box; let clicks pass through
+       so the container never blocks content underneath */
+    pointer-events: none;
+  }
+
+  .chat-widget .chat-launcher {
+    pointer-events: auto;
   }
 
   .chat-launcher {
