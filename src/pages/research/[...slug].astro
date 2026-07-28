@@ -442,6 +442,9 @@ const methodText = data.methods.map(m => methodLabels[m] ?? m).join(' · ');
   }
 
   /* ===== Subscribe modal ===== */
+  .subscribe-overlay[hidden] {
+    display: none;
+  }
   .subscribe-overlay {
     position: fixed;
     inset: 0;
