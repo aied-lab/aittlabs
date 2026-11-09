@@ -68,6 +68,20 @@ const products = [
     </div>
   </section>
 
+  <section class="flagship">
+    <div class="container">
+      <a href="/products/g-rapx/" class="flagship-card">
+        <div class="flagship-text">
+          <span class="tag tag-consulting">Flagship · 旗艦產品</span>
+          <h2>G-RapX 主權 AI 天地通</h2>
+          <p>政府機關專用 AI Agent 平台，直連國網中心國家算力。知識庫、Workflow、Skill Hub、MCP 與 OpenAI 相容 API，研習學員涵蓋 66 個中央與地方機關。</p>
+          <span class="flagship-more">了解 G-RapX →</span>
+        </div>
+        <img src="/images/g-rapx/ui-main.webp" alt="G-RapX 平台操作畫面" loading="lazy" />
+      </a>
+    </div>
+  </section>
+
   <section class="products-detail">
     <div class="container">
       {products.map((product, i) => (
@@ -96,6 +110,39 @@ const products = [
 </Base>
 
 <style>
+  .flagship { padding: 0 0 2rem; }
+  .flagship-card {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 2.5rem;
+    align-items: center;
+    padding: 2.25rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    background: linear-gradient(135deg, var(--surface-2), var(--surface));
+    transition: all var(--transition);
+  }
+  .flagship-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  .flagship-text { display: flex; flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+  .flagship-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+  }
+  .flagship-text p { color: var(--text-dim); line-height: 1.8; }
+  .flagship-more { color: var(--gold-light); font-weight: 600; }
+  .flagship-card img {
+    width: 100%;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-hover);
+  }
+  @media (max-width: 768px) {
+    .flagship-card { grid-template-columns: 1fr; padding: 1.5rem; }
+  }
   .products-detail {
     padding-bottom: 4rem;
   }

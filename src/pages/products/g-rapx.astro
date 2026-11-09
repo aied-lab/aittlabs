@@ -1,0 +1,838 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const IMG = '/images/g-rapx';
+
+const stats = [
+  { value: '66', label: '研習學員涵蓋中央與地方機關' },
+  { value: 'TAIWAN AI RAP', label: '直連國網中心國家算力' },
+  { value: 'OpenAI 相容', label: '既有系統改兩個設定即可介接' },
+  { value: '雲端 / 地端', label: '國網託管或機關地端部署' },
+];
+
+const painPoints = [
+  { title: '不知道從哪個流程開始', desc: '個人試用很多，卻找不到值得投入、可被驗證的業務場景。' },
+  { title: '個人會用，組織沒有流程', desc: '提示詞散落在個人電腦，無法沉澱成機關共享的能力。' },
+  { title: '展示很多，上線很少', desc: '資料不能外流、算力與模型難取得，PoC 停在簡報裡。' },
+];
+
+const capabilities = [
+  {
+    icon: '⚡',
+    title: '直連國家算力',
+    desc: '透過 HTTPS 介接國網中心 TAIWAN AI RAP，取得 GPU 算力與大型語言模型，機關不必自建機房。',
+  },
+  {
+    icon: '🧭',
+    title: '多模型自動路由',
+    desc: '對話、多模態、Embedding、Rerank、語音轉文字、語音合成等模型自動分類與適配，國網模型上下架不影響機關程式。',
+  },
+  {
+    icon: '📚',
+    title: '知識庫與引用來源',
+    desc: '上傳公文、掃描檔、錄音即可建立專案知識庫；以 bge-m3 向量檢索搭配 BGE-Reranker 精排，回答一律標註出處。',
+  },
+  {
+    icon: '🔁',
+    title: 'Workflow 工作流與排程',
+    desc: '步驟、條件分支、逐項處理、人工簽核、批次與排程執行，內建公文回覆、會議紀錄等範例。',
+  },
+  {
+    icon: '🧩',
+    title: 'Skill Hub 技能庫',
+    desc: '技能以開放的 SKILL.md 格式撰寫，提示詞與檢核清單可重用、可匯出，移植到機關自己的系統。',
+  },
+  {
+    icon: '🔌',
+    title: 'API、MCP 與地端模型',
+    desc: 'OpenAI 相容 API、API Playground、MCP 外掛；亦可搭配地端 LLM 與 Agent，資料留在機關內網。',
+  },
+];
+
+const scenarios = [
+  {
+    no: '01',
+    title: '從歷史公文找相近案例，撰擬新稿',
+    desc: '歷史公文建立向量索引，承辦人以白話描述需求，系統找出最相近的案例並產生附引用的新稿，人工核准才能定稿。',
+    img: 'scenario-drafting',
+  },
+  {
+    no: '02',
+    title: '來文摘要到回覆函稿',
+    desc: '來文自動摘要、研擬回覆要點，套用機關公文範本直接產出 DOCX，可從公文系統畫面一鍵呼叫。',
+    img: 'scenario-reply',
+  },
+  {
+    no: '03',
+    title: '會議錄音到紀錄與決議追蹤',
+    desc: '長錄音自動切段轉逐字稿，整理成正式會議紀錄，並抽出決議事項、負責人與期限，輸出 Excel 追蹤表。',
+    img: 'scenario-meeting',
+  },
+  {
+    no: '04',
+    title: '陳情分流、法規問答、簽呈檢核',
+    desc: '判斷陳情類別與緊急程度並擬辦；先檢索法規與作業指引再回答；逐項檢查簽呈格式與用語，輸出修正建議。',
+    img: 'scenario-petition',
+  },
+];
+
+const cases = [
+  '審案 Agent Skill 工作流',
+  '人事大數據自然語言查詢與視覺化（NL-to-SQL）',
+  '專業裝備資料查詢與比對系統',
+  '公文系統透過 API 直連國網算力',
+];
+
+const aaaSteps = [
+  { title: 'AI 成熟度診斷', desc: '盤點流程、資料與人員現況' },
+  { title: '導入診斷與建議報告', desc: '選定值得驗證的工作流程' },
+  { title: '一個工作流程的 AI Agent', desc: '在 G-RapX 上做出可運作的 Agent' },
+  { title: '一個共同發展的 Skill', desc: '沉澱為機關可重用的技能' },
+  { title: '測試、SOP 與 Roadmap', desc: '衡量成效，規劃下一階段擴散' },
+];
+
+const codeSample = `from openai import OpenAI
+client = OpenAI(
+    base_url="https://<G-RapX 主機>/v1",
+    api_key="grx-...",
+)
+client.chat.completions.create(
+    model="...",
+    messages=[{"role": "user", "content": "..."}],
+)`;
+
+const agencies = ['行政院人事行政總處', '數位發展部', '司法院', '教育部', '衛生福利部', '臺北市政府'];
+---
+
+<Base
+  title="G-RapX 主權 AI 天地通"
+  description="G-RapX 是政府機關專用的 AI Agent 平台，直連國網中心 TAIWAN AI RAP 算力，提供知識庫、Workflow、Skill Hub、MCP 與 OpenAI 相容 API。"
+  ogImage="/images/g-rapx/hero.webp"
+>
+  <!-- Hero -->
+  <section class="gx-hero">
+    <div class="container gx-hero-grid">
+      <div class="gx-hero-text fade-up">
+        <span class="section-label">Flagship Product</span>
+        <h1>G-RapX<br /><span class="highlight">主權 AI 天地通</span></h1>
+        <p class="gx-lead">
+          政府機關專用的 AI Agent 平台。直連國家高速網路與計算中心的國家算力，
+          讓機關在資料不外流的前提下，把 AI 用進公文、會議、陳情與審案等日常業務。
+        </p>
+        <div class="gx-cta">
+          <a href="#contact" class="btn btn-primary">預約產品說明 →</a>
+          <a href="/docs/g-rapx-intro.pdf" class="btn btn-outline" target="_blank" rel="noopener">下載產品簡介 PDF</a>
+        </div>
+        <a class="gx-app-link" href="https://app.g-rapx.com" target="_blank" rel="noopener">已有帳號？前往 app.g-rapx.com ↗</a>
+      </div>
+      <button class="gx-shot fade-up" data-zoom={`${IMG}/ui-main.webp`} aria-label="放大檢視 G-RapX 操作畫面">
+        <img src={`${IMG}/ui-main.webp`} alt="G-RapX 平台操作畫面：對話、知識庫、工作流與 Skill 技能庫" width="1600" height="900" />
+      </button>
+    </div>
+
+    <div class="container">
+      <div class="gx-stats">
+        {stats.map((s) => (
+          <div class="gx-stat">
+            <strong>{s.value}</strong>
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section class="gx-section">
+    <div class="container">
+      <span class="section-label">Why G-RapX</span>
+      <h2 class="section-title">政府不缺 AI 工具，缺的是<span class="highlight">導入最後一哩</span></h2>
+      <div class="gx-pains">
+        {painPoints.map((p) => (
+          <div class="gx-pain">
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="gx-answer">
+        G-RapX 把<strong>國網算力、主權模型、Agent 平台與機關自主發展的 Workflow / Skill</strong>串成一條完整路徑，從算力到能力形成閉環。
+      </p>
+      <button class="gx-figure" data-zoom={`${IMG}/roadmap.webp`} aria-label="放大檢視：從算力到能力的政府主權 AI 落地架構">
+        <img src={`${IMG}/roadmap.webp`} alt="從算力到能力：國網中心算力、主權 AI 地端 LLM、G-RapX Agent 平台、機關自主發展 Workflow 與 Skill" loading="lazy" width="1600" height="900" />
+      </button>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="gx-section gx-alt">
+    <div class="container">
+      <span class="section-label">Capabilities</span>
+      <h2 class="section-title">核心能力</h2>
+      <div class="gx-caps">
+        {capabilities.map((c) => (
+          <div class="card gx-cap">
+            <span class="gx-cap-icon" aria-hidden="true">{c.icon}</span>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="gx-arch">
+        <div class="gx-arch-text">
+          <h3>架構清楚，資安好審</h3>
+          <ul class="gx-list">
+            <li>G-RapX 部署於機關端，前端、後端、資料層都在主機內，內網不連外也能載入介面</li>
+            <li>對外只有一條連線：後端以 HTTPS 443 連到國網 RAP API</li>
+            <li>帳號、對話、用量與稽核存於機關主機；檔案以 SHA-256 內容定址保存</li>
+            <li>金鑰與額度控管，備份就是複製資料目錄</li>
+          </ul>
+        </div>
+        <div class="gx-thumbs">
+          <button class="gx-thumb" data-zoom={`${IMG}/architecture.webp`}>
+            <img src={`${IMG}/architecture.webp`} alt="G-RapX 系統全景圖：政府機關、G-RapX 與國網中心的分工" loading="lazy" />
+            <span>系統全景圖</span>
+          </button>
+          <button class="gx-thumb" data-zoom={`${IMG}/ai-layer.webp`}>
+            <img src={`${IMG}/ai-layer.webp`} alt="AI 能力層：模型路由、檔案解析、RAG 檢索、模型適配" loading="lazy" />
+            <span>AI 能力層</span>
+          </button>
+          <button class="gx-thumb" data-zoom={`${IMG}/features.webp`}>
+            <img src={`${IMG}/features.webp`} alt="應用層：對話與知識庫、Workflow、範本與技能、內部問答機器人" loading="lazy" />
+            <span>應用層功能</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scenarios -->
+  <section class="gx-section">
+    <div class="container">
+      <span class="section-label">Use Cases</span>
+      <h2 class="section-title">機關同仁每天用得到的情境</h2>
+      <p class="section-desc">點選圖片可放大檢視完整流程。</p>
+      <div class="gx-scenarios">
+        {scenarios.map((s) => (
+          <article class="gx-scenario">
+            <button class="gx-scenario-img" data-zoom={`${IMG}/${s.img}.webp`} aria-label={`放大檢視：${s.title}`}>
+              <img src={`${IMG}/${s.img}.webp`} alt={s.title} loading="lazy" width="1600" height="900" />
+            </button>
+            <div class="gx-scenario-body">
+              <span class="gx-no">{s.no}</span>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="gx-cases">
+        <h3>機關實作案例</h3>
+        <ul>
+          {cases.map((c) => <li>{c}</li>)}
+        </ul>
+        <div class="gx-case-shots">
+          <button class="gx-thumb" data-zoom={`${IMG}/ui-workflow.webp`}>
+            <img src={`${IMG}/ui-workflow.webp`} alt="機關使用 G-RapX 設計審案 Agent Skill 工作流" loading="lazy" />
+            <span>審案 Agent 工作流</span>
+          </button>
+          <button class="gx-thumb" data-zoom={`${IMG}/api-docsystem.webp`}>
+            <img src={`${IMG}/api-docsystem.webp`} alt="公文系統呼叫 G-RapX API 直連國網中心 AI 算力" loading="lazy" />
+            <span>公文系統 API 介接</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integration -->
+  <section class="gx-section gx-alt">
+    <div class="container gx-int">
+      <div>
+        <span class="section-label">Integration</span>
+        <h2 class="section-title">三步接入既有系統</h2>
+        <p class="gx-int-desc">
+          G-RapX 提供 OpenAI 相容 API。已接過 OpenAI 或 Azure OpenAI 的廠商，只要改<strong>網址</strong>與<strong>金鑰</strong>兩個設定值。
+        </p>
+        <ol class="gx-steps">
+          <li><strong>取得 grx- 金鑰</strong>：向機關的 G-RapX 管理員申請，妥善保存於系統的機密設定</li>
+          <li><strong>設定 base_url</strong>：指向機關的 G-RapX 主機 <code>/v1</code></li>
+          <li><strong>用現有方式呼叫</strong>：OpenAI SDK 直接可用；沒有 SDK 的語言用一般 HTTP POST</li>
+        </ol>
+        <pre class="gx-code"><code set:text={codeSample} /></pre>
+        <p class="gx-note">內建 API Playground：貼上金鑰即可試接，自動產生 curl、Python、JavaScript、C#、Java、PHP 範例程式碼。</p>
+      </div>
+      <div class="gx-int-shots">
+        <button class="gx-figure" data-zoom={`${IMG}/integration.webp`} aria-label="放大檢視：三步接入">
+          <img src={`${IMG}/integration.webp`} alt="三步接入：取得 grx- 金鑰、設定 base_url、用現有方式呼叫" loading="lazy" width="1600" height="900" />
+        </button>
+        <button class="gx-figure" data-zoom={`${IMG}/playground.webp`} aria-label="放大檢視：API Playground">
+          <img src={`${IMG}/playground.webp`} alt="API Playground：試接台就是活文件" loading="lazy" width="1600" height="900" />
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- AAA -->
+  <section class="gx-section">
+    <div class="container">
+      <span class="section-label">AI Agent Accelerator</span>
+      <h2 class="section-title">八週陪跑，完成第一個<span class="highlight">可上線的 AI Agent</span></h2>
+      <p class="section-desc">
+        AAA（AI Agent Accelerator）是導入方法，G-RapX 是落實方法的平台。交付的不只是一個 Agent，而是一套機關可持續發展的方法。
+      </p>
+      <ol class="gx-aaa">
+        {aaaSteps.map((s, i) => (
+          <li>
+            <span class="gx-aaa-no">{i + 1}</span>
+            <strong>{s.title}</strong>
+            <span>{s.desc}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Trust + CTA -->
+  <section class="gx-section gx-alt">
+    <div class="container gx-trust">
+      <span class="section-label">Adoption</span>
+      <h2 class="section-title">研習學員涵蓋 <span class="highlight">66</span> 個中央與地方機關</h2>
+      <ul class="gx-agencies">
+        {agencies.map((a) => <li>{a}</li>)}
+        <li class="gx-more">等 66 個機關</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact form -->
+  <section class="gx-section" id="contact">
+    <div class="container gx-form-wrap">
+      <div class="gx-form-intro">
+        <span class="section-label">Contact</span>
+        <h2 class="section-title">與我們聯絡</h2>
+        <p>想了解 G-RapX 如何在貴機關落地？留下聯絡方式，我們會在兩個工作天內與您聯繫，安排產品說明或試用。</p>
+        <ul class="gx-list">
+          <li>產品說明與線上 Demo</li>
+          <li>帳號試用與研習課程</li>
+          <li>AAA 八週導入陪跑</li>
+          <li>既有系統 API 介接評估</li>
+        </ul>
+        <a href="/docs/g-rapx-intro.pdf" class="btn btn-outline gx-pdf" target="_blank" rel="noopener">下載產品簡介 PDF</a>
+        <p class="gx-note">也可以直接來信 <a href="mailto:service@aittlabs.org">service@aittlabs.org</a></p>
+      </div>
+
+      <div class="gx-form-card">
+        <form id="gxForm">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="hidden" name="_subject" value="【G-RapX】官網洽詢" />
+          <input type="hidden" name="source" value="G-RapX 產品頁" />
+          <div class="gx-row">
+            <label>姓名 *<input type="text" name="name" required placeholder="您的姓名" /></label>
+            <label>職稱<input type="text" name="title" placeholder="例如：科長、資訊室主任" /></label>
+          </div>
+          <div class="gx-row">
+            <label>機關 / 單位 *<input type="text" name="org" required placeholder="機關或公司名稱" /></label>
+            <label>Email *<input type="email" name="email" required placeholder="your@email.com" /></label>
+          </div>
+          <label>電話<input type="tel" name="phone" placeholder="方便聯繫的電話" /></label>
+          <fieldset>
+            <legend>有興趣的項目（可複選）</legend>
+            <div class="gx-checks">
+              <label class="gx-check"><input type="checkbox" name="interest" value="產品說明 / Demo" />產品說明 / Demo</label>
+              <label class="gx-check"><input type="checkbox" name="interest" value="帳號試用" />帳號試用</label>
+              <label class="gx-check"><input type="checkbox" name="interest" value="研習課程" />研習課程</label>
+              <label class="gx-check"><input type="checkbox" name="interest" value="AAA 八週陪跑" />AAA 八週陪跑</label>
+              <label class="gx-check"><input type="checkbox" name="interest" value="系統 API 介接" />系統 API 介接</label>
+              <label class="gx-check"><input type="checkbox" name="interest" value="地端部署" />地端部署</label>
+            </div>
+          </fieldset>
+          <label>需求說明<textarea name="message" rows="4" placeholder="想用 AI 處理的業務、預計人數或時程…"></textarea></label>
+          <button type="submit" class="btn btn-primary gx-submit" id="gxSubmit">送出洽詢</button>
+        </form>
+        <div class="gx-success" id="gxSuccess" hidden>
+          <h3>已收到您的洽詢 ✓</h3>
+          <p>我們會在兩個工作天內與您聯繫。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="gx-lightbox" id="gx-lightbox">
+    <form method="dialog"><button class="gx-close" aria-label="關閉">×</button></form>
+    <img alt="" />
+  </dialog>
+</Base>
+
+<script>
+  const dlg = document.getElementById('gx-lightbox') as HTMLDialogElement | null;
+  const img = dlg?.querySelector('img');
+  document.querySelectorAll<HTMLElement>('[data-zoom]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (!dlg || !img) return;
+      img.src = el.dataset.zoom!;
+      img.alt = el.querySelector('img')?.alt ?? '';
+      dlg.showModal();
+    });
+  });
+  dlg?.addEventListener('click', (e) => {
+    if (e.target === dlg) dlg.close();
+  });
+
+  const form = document.getElementById('gxForm') as HTMLFormElement | null;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('gxSubmit') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = '送出中...';
+    const fd = new FormData(form);
+    const data: Record<string, string> = {};
+    fd.forEach((v, k) => {
+      data[k] = data[k] ? `${data[k]}、${v}` : String(v);
+    });
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/service@aittlabs.org', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.hidden = true;
+      document.getElementById('gxSuccess')!.hidden = false;
+    } catch {
+      btn.disabled = false;
+      btn.textContent = '送出洽詢';
+      alert('送出失敗，請直接來信 service@aittlabs.org');
+    }
+  });
+</script>
+
+<style>
+  button[data-zoom] {
+    all: unset;
+    cursor: zoom-in;
+    display: block;
+  }
+  button[data-zoom]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: var(--radius);
+  }
+
+  /* Hero */
+  .gx-hero {
+    padding: 8rem 0 4rem;
+    background: radial-gradient(ellipse at 70% 20%, var(--accent-glow), transparent 60%);
+  }
+  .gx-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+  .gx-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+  .gx-lead {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    line-height: 1.85;
+    margin-bottom: 2rem;
+  }
+  .gx-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .gx-cta-center { justify-content: center; margin-top: 2.5rem; }
+  .gx-app-link {
+    display: inline-block;
+    margin-top: 1.25rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .gx-app-link:hover { color: var(--accent-light); }
+  .gx-shot img,
+  .gx-figure img,
+  .gx-thumb img,
+  .gx-scenario-img img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-hover);
+  }
+  .gx-shot img {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    transition: transform var(--transition);
+  }
+  .gx-shot:hover img { transform: translateY(-4px); }
+
+  .gx-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 4rem;
+  }
+  .gx-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .gx-stat strong {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--gold-light);
+    line-height: 1.2;
+  }
+  .gx-stat span { color: var(--text-dim); font-size: 0.88rem; }
+
+  /* Sections */
+  .gx-section { padding: 5.5rem 0; }
+  .gx-alt { background: var(--primary-light); }
+
+  .gx-pains {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .gx-pain {
+    border-left: 3px solid var(--coral);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem 1.4rem;
+  }
+  .gx-pain h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .gx-pain p { color: var(--text-dim); font-size: 0.92rem; }
+  .gx-answer {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    max-width: 820px;
+    margin-bottom: 2rem;
+  }
+  .gx-answer strong { color: var(--accent-light); }
+
+  .gx-caps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .gx-cap h3 { font-size: 1.1rem; margin: 0.75rem 0 0.5rem; }
+  .gx-cap p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.8; }
+  .gx-cap-icon { font-size: 1.6rem; }
+
+  .gx-arch {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    align-items: start;
+  }
+  .gx-arch-text h3 { font-size: 1.35rem; margin-bottom: 1rem; }
+  .gx-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .gx-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+  .gx-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    top: 0.15rem;
+    color: var(--accent-light);
+    font-size: 0.7rem;
+  }
+  .gx-thumbs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+  }
+  .gx-thumb span {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-align: center;
+  }
+  .gx-thumb:hover img,
+  .gx-figure:hover img,
+  .gx-scenario-img:hover img { border-color: var(--accent); }
+
+  /* Scenarios */
+  .gx-scenarios {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .gx-scenario {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .gx-scenario-body { padding: 1.1rem 0.5rem 0.5rem; }
+  .gx-no {
+    font-family: var(--font-mono);
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .gx-scenario h3 { font-size: 1.1rem; margin: 0.3rem 0 0.5rem; }
+  .gx-scenario p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.8; }
+
+  .gx-cases {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 1rem 2.5rem;
+    align-items: start;
+  }
+  .gx-cases h3 { font-size: 1.25rem; grid-column: 1; }
+  .gx-cases ul {
+    grid-column: 1;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .gx-cases li {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 1rem;
+    font-size: 0.93rem;
+  }
+  .gx-case-shots {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+  }
+
+  /* Integration */
+  .gx-int {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .gx-int-desc { color: var(--text-dim); margin-bottom: 1.5rem; }
+  .gx-int-desc strong { color: var(--gold-light); }
+  .gx-steps {
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+  .gx-steps strong { color: var(--text); }
+  code { font-family: var(--font-mono); font-size: 0.85em; }
+  .gx-code {
+    margin: 1.5rem 0 1rem;
+    background: var(--primary);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.25rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--accent-light);
+  }
+  .gx-note { color: var(--text-muted); font-size: 0.88rem; }
+  .gx-int-shots { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  /* AAA */
+  .gx-aaa {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    counter-reset: none;
+  }
+  .gx-aaa li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .gx-aaa-no {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent-light);
+    line-height: 1;
+  }
+  .gx-aaa strong { font-size: 1rem; }
+  .gx-aaa li > span:last-child { color: var(--text-dim); font-size: 0.86rem; }
+
+  /* Trust */
+  .gx-trust { text-align: center; }
+  .gx-agencies {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .gx-agencies li {
+    background: var(--surface);
+    border: 1px solid var(--border-hover);
+    border-radius: 50px;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  .gx-agencies .gx-more {
+    border-style: dashed;
+    color: var(--text-dim);
+  }
+
+  /* Contact form */
+  #contact { scroll-margin-top: 4rem; }
+  .gx-form-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .gx-form-wrap > * { min-width: 0; }
+  .gx-form-intro > p { color: var(--text-dim); margin-bottom: 1.5rem; }
+  .gx-pdf { margin: 1.75rem 0 1rem; }
+  .gx-note a { color: var(--accent-light); }
+  .gx-form-card {
+    background: var(--surface);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+  }
+  #gxForm { display: flex; flex-direction: column; gap: 1rem; }
+  #gxForm[hidden], .gx-success[hidden] { display: none; }
+  .gx-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  #gxForm label:not(.gx-check) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+  #gxForm input:not([type='checkbox']),
+  #gxForm textarea {
+    background: var(--primary);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.9rem;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.95rem;
+  }
+  #gxForm input:focus,
+  #gxForm textarea:focus { outline: none; border-color: var(--accent); }
+  #gxForm textarea { resize: vertical; }
+  #gxForm fieldset { border: none; padding: 0; }
+  #gxForm legend { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  .gx-checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .gx-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 0.7rem;
+    cursor: pointer;
+  }
+  .gx-check input { accent-color: var(--accent); }
+  .gx-submit { justify-content: center; margin-top: 0.5rem; }
+  .gx-submit:disabled { opacity: 0.6; cursor: wait; }
+  .gx-success { text-align: center; padding: 3rem 1rem; }
+  .gx-success h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--teal); }
+  .gx-success p { color: var(--text-dim); }
+
+  /* Lightbox */
+  .gx-lightbox {
+    max-width: min(1400px, 95vw);
+    max-height: 92vh;
+    padding: 0;
+    border: none;
+    background: transparent;
+    overflow: visible;
+  }
+  .gx-lightbox::backdrop { background: rgba(5, 9, 18, 0.88); }
+  .gx-lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: var(--radius);
+    margin: 0 auto;
+  }
+  .gx-close {
+    position: absolute;
+    top: -2.6rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .gx-hero-grid > *,
+  .gx-stats > *,
+  .gx-pains > *,
+  .gx-caps > *,
+  .gx-arch > *,
+  .gx-thumbs > *,
+  .gx-scenarios > *,
+  .gx-cases > *,
+  .gx-case-shots > *,
+  .gx-int > *,
+  .gx-aaa > * { min-width: 0; }
+
+  @media (max-width: 960px) {
+    .gx-hero-grid,
+    .gx-arch,
+    .gx-int,
+    .gx-cases { grid-template-columns: 1fr; }
+    .gx-case-shots { grid-column: 1; grid-row: auto; }
+    .gx-form-wrap { grid-template-columns: 1fr; }
+    .gx-stats { grid-template-columns: repeat(2, 1fr); }
+    .gx-caps { grid-template-columns: repeat(2, 1fr); }
+    .gx-aaa { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .gx-hero { padding: 6rem 0 3rem; }
+    .gx-section { padding: 4rem 0; }
+    .gx-pains,
+    .gx-caps,
+    .gx-scenarios { grid-template-columns: 1fr; }
+    .gx-thumbs { grid-template-columns: 1fr 1fr; }
+    .gx-stat strong { font-size: 1.2rem; }
+    .gx-row, .gx-checks { grid-template-columns: 1fr; }
+    .gx-form-card { padding: 1.25rem; }
+  }
+</style>
