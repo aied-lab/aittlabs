@@ -77,25 +77,50 @@ import Base from '../../layouts/Base.astro';
 
           <div class="founder-exp">
             <h4>Selected Experience</h4>
-            <ul>
-              <li>Executive Director, PMO — Taiwan AI Government Talent Office (TAIGTO), DGPA, Executive Yuan</li>
-              <li>Principal Investigator, AI Government Leadership Talent Program — DGPA, Executive Yuan</li>
-              <li>Lecturer, National Academy of Civil Service — Executive Yuan</li>
-              <li>Principal Investigator, Government Digital Talent Development Program — Ministry of Digital Affairs</li>
-              <li>Principal Investigator, DIGI⁺Talent Cross-Domain Digital Talent Program — Ministry of Economic Affairs</li>
-              <li>Principal Investigator, e-Commerce Talent Training Program — Department of Commerce, Ministry of Economic Affairs</li>
-              <li>Executive Director, U-Start University Entrepreneurship Program Office — Ministry of Education</li>
-              <li>Advisory Committee, Digital Learning Deepening Program — Ministry of Education</li>
-              <li>Adjunct Assistant Professor, College of Education — National Tsing Hua University</li>
-              <li>Executive Director, Innovation Incubation Center / Director of Industry-Academia R&amp;D — Chinese Culture University</li>
-              <li>Assistant Professor, Department of Information Management — Chinese Culture University</li>
-              <li>Chief Digital Learning Officer, ITRI College — Industrial Technology Research Institute (ITRI)</li>
-              <li>Director, Innovative Learning Center — Institute for Information Industry (III)</li>
-              <li>Deputy Executive Director — Digital Content Association of Taiwan</li>
-              <li>Columnist &amp; Convener of AI Advisory Group — CIO Taiwan Magazine</li>
-              <li>Consultant to Fortune 500 enterprises including Microsoft, IBM, PwC, and Huawei</li>
-              <li>Social Media Advisor to 50+ government agencies</li>
-            </ul>
+            <div class="exp-group">
+              <h5 class="exp-group-label">Government</h5>
+              <ul>
+                <li>Executive Director, PMO — Taiwan AI Government Talent Office (TAIGTO), DGPA, Executive Yuan</li>
+                <li>Principal Investigator, AI Government Leadership Talent Program — DGPA, Executive Yuan</li>
+                <li>Lecturer, National Academy of Civil Service — Executive Yuan</li>
+                <li>Principal Investigator, Government Digital Talent Development Program — Ministry of Digital Affairs</li>
+                <li>Principal Investigator, DIGI⁺Talent Cross-Domain Digital Talent Program — Ministry of Economic Affairs</li>
+                <li>Principal Investigator, e-Commerce Talent Training Program — Department of Commerce, Ministry of Economic Affairs</li>
+                <li>Judge, National Invention and Creation Award — Intellectual Property Office, Ministry of Economic Affairs</li>
+                <li>Member, Government Open Data Advisory Group — Ministry of Labor</li>
+                <li>Executive Director, U-Start University Entrepreneurship Program Office — Ministry of Education</li>
+                <li>Advisory Committee, Digital Learning Deepening Program — Ministry of Education</li>
+                <li>Social Media Advisor to 50+ government agencies</li>
+              </ul>
+            </div>
+            <div class="exp-group">
+              <h5 class="exp-group-label">Academia</h5>
+              <ul>
+                <li>Adjunct Associate Professor, DBA Program — Yuan Ze University</li>
+                <li>Adjunct Assistant Professor, College of Education — National Tsing Hua University</li>
+                <li>Adjunct Assistant Professor, Department of Digital Learning Technology — National University of Tainan</li>
+                <li>Executive Director, Innovation Incubation Center / Director of Industry-Academia R&amp;D — Chinese Culture University</li>
+                <li>Assistant Professor, Department of Information Management — Chinese Culture University</li>
+              </ul>
+            </div>
+            <div class="exp-group">
+              <h5 class="exp-group-label">Research Institutes</h5>
+              <ul>
+                <li>Chief Digital Learning Officer, ITRI College — Industrial Technology Research Institute (ITRI)</li>
+                <li>Director, Innovative Learning Center — Institute for Information Industry (III)</li>
+              </ul>
+            </div>
+            <div class="exp-group">
+              <h5 class="exp-group-label">Industry &amp; Community</h5>
+              <ul>
+                <li>Digital Transformation Committee Member — TECO Group</li>
+                <li>Digital Transformation Committee Member — Hsinchu Gas Co.</li>
+                <li>Consultant to Fortune 500 enterprises including Microsoft, IBM, PwC, and Huawei</li>
+                <li>Deputy Executive Director — Digital Content Association of Taiwan</li>
+                <li>Advisor — Information Service Industry Association of R.O.C. (CISA)</li>
+                <li>Columnist &amp; Convener of AI Advisory Group — CIO Taiwan Magazine</li>
+              </ul>
+            </div>
           </div>
 
           <div class="founder-awards">
@@ -1162,6 +1187,21 @@ import Base from '../../layouts/Base.astro';
     font-weight: 700;
     margin-bottom: 0.75rem;
     color: var(--text);
+  }
+  .exp-group + .exp-group {
+    margin-top: 1rem;
+  }
+  .exp-group-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+    margin-bottom: 0.4rem;
   }
   .founder-exp ul {
     list-style: none;
