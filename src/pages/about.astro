@@ -81,31 +81,49 @@ import Base from '../layouts/Base.astro';
 
           <div class="founder-exp">
             <h4>主要經歷</h4>
-            <ul>
-              <li>行政院人總 AI 公務人才發展辦公室 PMO 執行長</li>
-              <li>行政院人總 AI 政府領航人才計畫主持人</li>
-              <li>行政院 公務人力發展學院 講座</li>
-              <li>數發部 政府數位人才培育計畫主持人</li>
-              <li>經濟部 DIGI⁺Talent 跨域數位人才計畫主持人</li>
-              <li>經濟部 商業署 商業 e 化人才培訓計畫主持人</li>
-              <li>經濟部 智財局 國家發明創作獎 評委</li>
-              <li>勞動部 政府資料開放諮詢小組 委員</li>
-              <li>教育部 U-Start 大專校院創業計畫辦公室執行長</li>
-              <li>教育部 數位學習深耕計畫 諮詢委員</li>
-              <li>元智大學 DBA 博士班 兼任副教授</li>
-              <li>國立清華大學 教育學院 兼任助理教授</li>
-              <li>國立臺南大學 數位學習科技學系 兼任助理教授</li>
-              <li>東元集團 數位轉型委員</li>
-              <li>新竹瓦斯公司 數位轉型委員</li>
-              <li>中國文化大學 創新育成中心執行長/產學研發長</li>
-              <li>中國文化大學 資管所 助理教授</li>
-              <li>工研院 產業學院 數位訓練長</li>
-              <li>資策會 創新學習中心 主任</li>
-              <li>中華數位內容協會 副執行長</li>
-              <li>CIO 資訊長雜誌專欄作家/AI 顧問群總召集人</li>
-              <li>Microsoft, IBM, PwC, 華為...等 500 強企業顧問</li>
-              <li>50+ 政府機關社群媒體顧問</li>
-            </ul>
+            <div class="exp-group">
+              <h5 class="exp-group-label">政府部會</h5>
+              <ul>
+                <li>行政院人總 AI 公務人才發展辦公室 PMO 執行長</li>
+                <li>行政院人總 AI 政府領航人才計畫主持人</li>
+                <li>行政院 公務人力發展學院 講座</li>
+                <li>數發部 政府數位人才培育計畫主持人</li>
+                <li>經濟部 DIGI⁺Talent 跨域數位人才計畫主持人</li>
+                <li>經濟部 商業署 商業 e 化人才培訓計畫主持人</li>
+                <li>經濟部 智財局 國家發明創作獎 評委</li>
+                <li>勞動部 政府資料開放諮詢小組 委員</li>
+                <li>教育部 U-Start 大專校院創業計畫辦公室執行長</li>
+                <li>教育部 數位學習深耕計畫 諮詢委員</li>
+                <li>50+ 政府機關社群媒體顧問</li>
+              </ul>
+            </div>
+            <div class="exp-group">
+              <h5 class="exp-group-label">學術機構</h5>
+              <ul>
+                <li>元智大學 DBA 博士班 兼任副教授</li>
+                <li>國立清華大學 教育學院 兼任助理教授</li>
+                <li>國立臺南大學 數位學習科技學系 兼任助理教授</li>
+                <li>中國文化大學 創新育成中心執行長/產學研發長</li>
+                <li>中國文化大學 資管所 助理教授</li>
+              </ul>
+            </div>
+            <div class="exp-group">
+              <h5 class="exp-group-label">研究法人</h5>
+              <ul>
+                <li>工研院 產業學院 數位訓練長</li>
+                <li>資策會 創新學習中心 主任</li>
+              </ul>
+            </div>
+            <div class="exp-group">
+              <h5 class="exp-group-label">產業與社群</h5>
+              <ul>
+                <li>東元集團 數位轉型委員</li>
+                <li>新竹瓦斯公司 數位轉型委員</li>
+                <li>Microsoft, IBM, PwC, 華為...等 500 強企業顧問</li>
+                <li>中華數位內容協會 副執行長</li>
+                <li>CIO 資訊長雜誌專欄作家/AI 顧問群總召集人</li>
+              </ul>
+            </div>
           </div>
 
           <div class="founder-awards">
@@ -1455,6 +1473,21 @@ import Base from '../layouts/Base.astro';
     font-weight: 700;
     margin-bottom: 0.75rem;
     color: var(--text);
+  }
+  .exp-group + .exp-group {
+    margin-top: 1rem;
+  }
+  .exp-group-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+    margin-bottom: 0.4rem;
   }
   .founder-exp ul {
     list-style: none;
