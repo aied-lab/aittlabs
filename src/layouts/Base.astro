@@ -34,7 +34,7 @@ const defaultDescriptions = {
   en: 'AI TalenTech Labs — AI talent development strategy, enterprise AI transformation consulting, and AI simulation coach products.',
 };
 
-const { title, description = defaultDescriptions[lang], ogImage = '/images/aittlabs_banner.jpg' } = Astro.props;
+const { title, description = defaultDescriptions[lang], ogImage = '/images/og-default.jpg' } = Astro.props;
 const htmlLang = isEn ? 'en' : 'zh-Hant';
 const fullTitle = `${title} | AI TalenTech Labs`;
 

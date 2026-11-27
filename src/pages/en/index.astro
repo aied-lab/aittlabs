@@ -6,7 +6,7 @@ import Base from '../../layouts/Base.astro';
   <!-- Hero -->
   <section class="hero">
     <div class="hero-banner-section">
-      <img src="/images/aittlabs_banner.jpg" alt="AI TalenTech Labs" class="hero-banner" loading="eager" />
+      <img src="/images/hero-robot-collab-office.webp" alt="AI TalenTech Labs" class="hero-banner" width="2066" height="761" loading="eager" fetchpriority="high" />
       <div class="hero-overlay"></div>
       <div class="hero-title container">
         <h1 class="animate-on-scroll hero-slogan">
@@ -178,16 +178,30 @@ import Base from '../../layouts/Base.astro';
     height: auto;
     display: block;
   }
+  @media (max-width: 768px) {
+    .hero-banner {
+      height: 420px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(11, 17, 32, 1) 0%,
-      rgba(11, 17, 32, 0.85) 25%,
-      rgba(11, 17, 32, 0.2) 60%,
-      transparent 100%
-    );
+    background:
+      radial-gradient(
+        ellipse 50% 50% at 50% 60%,
+        rgba(11, 17, 32, 0.7) 0%,
+        rgba(11, 17, 32, 0.35) 55%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to top,
+        rgba(11, 17, 32, 1) 0%,
+        rgba(11, 17, 32, 0.85) 25%,
+        rgba(11, 17, 32, 0.2) 60%,
+        transparent 100%
+      );
   }
   .hero-title {
     position: absolute;
